@@ -21,8 +21,8 @@ module.exports = configure(function (/* ctx */) {
       // include: [],
       // exclude: [],
       // rawOptions: {},
-      warnings: true,
-      errors: true,
+      warnings: false,
+      errors: false,
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
@@ -57,7 +57,7 @@ module.exports = configure(function (/* ctx */) {
         node: "node20",
       },
 
-      vueRouterMode: "hash", // available values: 'hash', 'history'
+      vueRouterMode: "history", // available values: 'hash', 'history'
       // vueRouterBase,
       // vueDevtools,
       // vueOptionsAPI: false,
