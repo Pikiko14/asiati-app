@@ -22,8 +22,6 @@ export interface PaginationInterface {
 export enum UserRole {
   ADMIN = "admin",
   EMPLOYEE = "employee",
-  WHOLESALE = "whole_sale",
-  CLIENT = "client",
 }
 
 export interface User extends LoginInterface {

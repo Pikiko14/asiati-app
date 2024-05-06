@@ -19,7 +19,9 @@ export const useAuthStore = defineStore("authStore", () => {
 
   // methods
 
-  const doLogin = async (params: LoginInterface) => {
+  const doLogin = async (
+    params: LoginInterface
+  ): Promise<ResponseObj | void> => {
     try {
       storage.deleteItemStorage("local", "session");
       storage.deleteItemStorage("local", "user");
