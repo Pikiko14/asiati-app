@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",
+    "axios": "^1.6.8",
     "cross-env": "^7.0.3",
     "dot-env": "^0.0.1",
     "pinia": "^2.0.11",

@@ -64,6 +64,7 @@ module.exports = {
   rules: {
     semi: "off", // Desactiva la regla de los puntos y comas
     quotes: "off", // Desactiva la regla de comillas
+    indent: "off", // Desactiva la regla de indentación
     "comma-dangle": "off", // Desactiva la regla de trailing comma
     "space-before-function-paren": "off",
     // allow async-await
