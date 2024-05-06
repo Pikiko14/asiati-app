@@ -30,7 +30,7 @@ export default defineComponent({
         const response = await authStore.doLogin(params)
         if (response && response.success === true) {
           router.push({
-            name: 'home',
+            name: 'dashboard',
           })
         }
       } catch (error) {
