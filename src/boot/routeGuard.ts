@@ -24,6 +24,7 @@ export default boot(async ({ router, app }) => {
       return true;
     }
     if (to.matched.some((record) => record.meta.auth) && !userData.value._id) {
+      console.log(to);
       notification(
         "negative",
         i18n.locale === "es"
