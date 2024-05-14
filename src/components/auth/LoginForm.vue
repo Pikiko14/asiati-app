@@ -24,13 +24,24 @@
         </q-input>
       </div>
       <div class="col-12 text-right">
-        <span class="text-primary text-weight-medium font-12 cursor-pointer">Olvide mi contraseña</span>
+        <span @click="recoveryPassword = true" class="text-primary text-weight-medium font-12 cursor-pointer">Olvide mi
+          contraseña</span>
       </div>
       <div class="col-12 q-mt-xl">
         <q-btn rounded size="12pt" label="Iniciar sesión" no-caps unelevated color="primary" class="full-width"
           type="submit"></q-btn>
       </div>
     </q-form>
+
+    <!-- Recovery password -->
+    <q-dialog v-model="recoveryPassword">
+      <q-card class="round-10 recovery-card q-pa-lg">
+        <q-card-section>
+          <RecoveryFormVue @close-modal="recoveryPassword = false" />
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+    <!--End recovery password-->
   </section>
 </template>
 <!-- eslint-disable @typescript-eslint/no-unused-vars -->
@@ -38,12 +49,16 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { LoginInterface } from 'src/models/models';
+import RecoveryFormVue from './RecoveryForm.vue';
 
 export default defineComponent({
   name: 'LoginFormView',
   emits: ['do-login'],
   props: {
     loading: Boolean
+  },
+  components: {
+    RecoveryFormVue
   },
   setup(props, { emit }) {
     // references
@@ -52,6 +67,7 @@ export default defineComponent({
       username: null,
       password: null
     })
+    const recoveryPassword = ref<boolean>(false)
 
     // methods
     const onSubmit = () => {
@@ -62,6 +78,7 @@ export default defineComponent({
       onSubmit,
       loginData,
       showPassword,
+      recoveryPassword,
     }
   }
 })

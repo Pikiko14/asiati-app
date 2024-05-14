@@ -74,7 +74,7 @@ export const useAuthStore = defineStore("authStore", () => {
   const initRecoveryPassword = async (params: any) => {
     try {
       const response = (await handlerRequest.doPostRequest(
-        `${path}/recovery/password`,
+        `${path}/recovery`,
         params,
         false,
         false

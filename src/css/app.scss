@@ -37,7 +37,13 @@ label {
     color: #000000;
 }
 
+.round-10 {
+    border-radius: 10px !important;
+}
 
+.recovery-card {
+    width: 600px;
+}
 
 // media queries
 @media (max-width: 900px) {
