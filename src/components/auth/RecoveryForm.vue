@@ -28,6 +28,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { useAuthStore } from 'src/stores/auth'
+import { notification } from 'src/boot/notification'
 
 export default defineComponent({
   name: 'RecoveryForm',
@@ -46,8 +47,13 @@ export default defineComponent({
 
     const onSubmit = async () => {
       try {
-        const response = await authStore.initRecoveryPassword(email.value)
-        console.log(response)
+        const response = await authStore.initRecoveryPassword({
+          email: email.value
+        })
+        if (response?.success) {
+          notification('positice', response?.message as string, 'primary')
+          closeModal()
+        }
       } catch (error) {
 
       } finally {
