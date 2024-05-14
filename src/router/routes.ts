@@ -7,41 +7,31 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: "",
-        component: () => import("pages/IndexPage.vue"),
+        component: () => import("src/pages/IndexPage.vue"),
       },
       {
         path: "/login",
-        component: () => import("pages/IndexPage.vue"),
-        meta: {
-          auth: false,
-        },
+        component: () => import("src/pages/IndexPage.vue"),
         name: "login",
       },
       {
         path: "/recovery",
-        component: () => import("pages/IndexPage.vue"),
-        meta: {
-          auth: false,
-        },
+        component: () => import("src/pages/IndexPage.vue"),
         name: "recovery",
-      },
-      {
-        path: "/dashboard",
-        component: () => import("src/layouts/Layout.vue"),
-        children: [
-          {
-            path: "/home",
-            component: () => import("pages/dashboard/HomePage.vue"),
-            meta: {
-              auth: true,
-            },
-            name: "dasboard",
-          },
-        ],
       },
     ],
   },
-
+  {
+    path: "/dashboard",
+    component: () => import("src/layouts/Layout.vue"),
+    children: [
+      {
+        path: "/",
+        component: () => import("src/pages/dashboard/HomePage.vue"),
+        name: "dasboard",
+      },
+    ],
+  },
   // Always leave this as last one,
   // but you can also remove it
   {
