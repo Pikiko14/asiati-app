@@ -18,6 +18,14 @@ const routes: RouteRecordRaw[] = [
         name: "login",
       },
       {
+        path: "/recovery",
+        component: () => import("pages/IndexPage.vue"),
+        meta: {
+          auth: false,
+        },
+        name: "recovery",
+      },
+      {
         path: "/dashboard",
         component: () => import("src/layouts/Layout.vue"),
         children: [

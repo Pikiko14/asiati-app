@@ -37,7 +37,7 @@
     <q-dialog v-model="recoveryPassword">
       <q-card class="round-10 recovery-card q-pa-lg">
         <q-card-section>
-          <RecoveryFormVue @close-modal="recoveryPassword = false" />
+          <RecoveryFormVue :token="token" @close-modal="recoveryPassword = false" />
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -47,9 +47,10 @@
 <!-- eslint-disable @typescript-eslint/no-unused-vars -->
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onBeforeMount, ref } from 'vue'
 import { LoginInterface } from 'src/models/models';
 import RecoveryFormVue from './RecoveryForm.vue';
+import { useRoute, useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'LoginFormView',
@@ -62,6 +63,9 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     // references
+    const route = useRoute()
+    const router = useRouter()
+    const token = ref<string>('')
     const showPassword = ref<boolean>(false)
     const loginData = ref<LoginInterface>({
       username: null,
@@ -74,7 +78,19 @@ export default defineComponent({
       emit('do-login', loginData.value)
     }
 
+    // hook
+    onBeforeMount(() => {
+      if (route.path === '/recovery') {
+        if (!route.query.token) router.push({ name: 'login' })
+        if (route.query.token) {
+          recoveryPassword.value = true
+          token.value = route.query.token as string
+        }
+      }
+    })
+
     return {
+      token,
       onSubmit,
       loginData,
       showPassword,

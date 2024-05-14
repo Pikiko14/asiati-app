@@ -43,3 +43,9 @@ export interface LoginReturn {
   token: string;
   user: User;
 }
+
+export interface RecoveryPasswordInterface {
+  token?: string;
+  password: string;
+  confirmation_password: string;
+}

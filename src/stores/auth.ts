@@ -96,7 +96,7 @@ export const useAuthStore = defineStore("authStore", () => {
   const doChangePassword = async (params: any) => {
     try {
       const response = (await handlerRequest.doPostRequest(
-        `${path}/change/password`,
+        `${path}/change-password`,
         params,
         false,
         false

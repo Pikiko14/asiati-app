@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-drawer v-if="$route.path !== '/' && $route.path !== '/login'" :width="100" v-model="leftDrawerOpen"
-      show-if-above>
+    <q-drawer v-if="$route.path !== '/' && $route.path !== '/login' && $route.path !== '/recovery'" :width="100"
+      v-model="leftDrawerOpen" show-if-above>
       <q-list>
         <q-item-label header>
           Essential Links
