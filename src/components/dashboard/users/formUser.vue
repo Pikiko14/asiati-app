@@ -9,7 +9,7 @@
     <div class="col-12 col-md-6" :class="{ 'q-pl-sm': $q.screen.gt.sm }">
       <label for="" class="text-weight-semi-bold">Tipo de usuario</label>
       <q-select dense v-model="user.role" label="Seleccione un tipo de usuario" :options="typeUsers" outlined rounded
-        :rules="[val => !!val || 'Este campo es requerido', val => val.length < 60 || '60 caracteres maximos']">
+        :rules="[val => !!val || 'Este campo es requerido']">
       </q-select>
     </div>
     <div class="col-12 col-md-6" :class="{ 'q-pr-sm': $q.screen.gt.sm }">

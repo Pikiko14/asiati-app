@@ -55,8 +55,8 @@ export const useUsersStore = defineStore("usersStore", () => {
         true
       )) as ResponseObj;
       if (response.success) {
-        const index = users.value.findIndex((user: User) => user.id === id);
-        if (index > -1) {
+        const index = users.value.findIndex((user: User) => user._id === id);
+        if (index !== -1) {
           users.value.splice(index, 1);
         }
         users.value = response.data;
