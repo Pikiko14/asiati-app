@@ -4,21 +4,21 @@
       <q-img width="60px" src="/images/logoWhite.svg"></q-img>
     </q-item-label>
 
-    <q-item to="/dashboard">
+    <q-item to="/dashboard" v-if="$hasPermission('list-meta-metric')">
       <q-item-section>
         <q-item-label class="text-center">
           <q-icon flat size="18pt" dense rounded name="img:/images/dashboard.svg"></q-icon>
         </q-item-label>
       </q-item-section>
     </q-item>
-    <q-item to="/companies" class="q-mt-sm">
+    <q-item to="/business" class="q-mt-sm" v-if="$hasPermission('list-business')">
       <q-item-section>
         <q-item-label class="text-center">
           <q-icon flat size="18pt" dense rounded name="img:/images/company.svg"></q-icon>
         </q-item-label>
       </q-item-section>
     </q-item>
-    <q-item to="/users" class="q-mt-sm">
+    <q-item to="/users" class="q-mt-sm" v-if="$hasPermission('list-users')">
       <q-item-section>
         <q-item-label class="text-center">
           <q-icon flat size="18pt" dense rounded name="img:/images/users.svg"></q-icon>

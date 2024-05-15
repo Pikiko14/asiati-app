@@ -13,8 +13,6 @@ const roles = userData.value && userData.value._id ? userData.value.scopes : [];
 
 // more info on params: https://v2.quasar.dev/quasar-cli/boot-files
 export default boot(async ({ router, app }) => {
-  const i18n = app.config.globalProperties.$i18n;
-
   router.beforeEach((to, from, next) => {
     if (
       (to && to.fullPath === "/login" && userData.value._id) ||
@@ -27,9 +25,7 @@ export default boot(async ({ router, app }) => {
       console.log(to);
       notification(
         "negative",
-        i18n.locale === "es"
-          ? "Necesitas estar logueado para acceder a esta sección"
-          : "You need to be logged in to access this section",
+        "Necesitas estar logueado para acceder a esta sección",
         "red-9"
       );
       store.doLogout();
@@ -53,9 +49,7 @@ export default boot(async ({ router, app }) => {
           if (!hasPermission) {
             notification(
               "negative",
-              i18n.locale === "es"
-                ? "No tienes permiso para poder ver esta sección de la app"
-                : "You do not have permission to view this section of the app",
+              "No tienes permiso para poder ver esta sección de la app",
               "red-9"
             );
             next(false);
