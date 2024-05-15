@@ -5,7 +5,7 @@
     <!--end header section-->
 
     <!--table section-->
-    {{ users }}
+    <TableAsiati :rows="rows" :columns="users" @delete-user="deleteUser" />
     <!--end table section-->
 
     <!--Modal section-->
@@ -21,23 +21,69 @@
 </template>
 
 <script lang="ts">
-import formUser from './formUser.vue';
-import { computed, defineComponent, onBeforeMount, ref } from 'vue'
-import modalCard from '../partials/modalCard.vue';
-import HeaderComponent from '../partials/headers.vue';
-import { useUsersStore } from 'src/stores/users';
 import { useRoute } from 'vue-router';
+import formUser from './formUser.vue';
+import { ResponseObj, User } from 'src/models/models';
+import { useUsersStore } from 'src/stores/users';
+import modalCard from '../partials/modalCard.vue';
+import TableAsiati from '../partials/tableAsiati.vue';
+import HeaderComponent from '../partials/headers.vue';
+import { computed, defineComponent, onBeforeMount, ref } from 'vue'
+import { notification } from 'src/boot/notification';
 
 export default defineComponent({
   name: 'UserMainComponent',
   components: {
     formUser,
     modalCard,
-    HeaderComponent
+    HeaderComponent,
+    TableAsiati
   },
   setup() {
     // refs
     const route = useRoute()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const rows = ref<any[]>([
+      {
+        name: 'name',
+        align: 'left',
+        required: true,
+        sortable: false,
+        label: 'Nombre',
+        field: (row: User) => `${row.name} ${row.last_name}`,
+      },
+      {
+        name: 'userType',
+        align: 'left',
+        required: true,
+        sortable: false,
+        field: (row: User) => `${row.role}`,
+        label: 'Tipo usuario',
+      },
+      {
+        name: 'email',
+        align: 'left',
+        required: true,
+        sortable: false,
+        field: (row: User) => `${row.email || '-'}`,
+        label: 'Correo',
+      },
+      {
+        name: 'phone',
+        align: 'left',
+        required: true,
+        sortable: false,
+        label: 'Teléfono',
+        field: (row: User) => `${row.phone || '-'}`,
+      },
+      {
+        name: 'option',
+        align: 'center',
+        required: true,
+        sortable: false,
+        label: '',
+      },
+    ])
     const usersStore = useUsersStore()
     const openModalUser = ref<boolean>(false)
 
@@ -63,6 +109,17 @@ export default defineComponent({
       }
     }
 
+    const deleteUser = async (id: string) => {
+      try {
+        const response = await usersStore.doDeleteUser(id) as ResponseObj
+        if (response.success) {
+          notification('positive', 'Usuario eliminado', 'primary')
+        }
+      } catch (error) {
+
+      }
+    }
+
     // life cycle
     onBeforeMount(() => {
       listUsers()
@@ -70,8 +127,10 @@ export default defineComponent({
 
     // return
     return {
+      rows,
       users,
       openModal,
+      deleteUser,
       openModalUser
     }
   }

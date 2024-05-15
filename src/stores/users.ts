@@ -48,10 +48,29 @@ export const useUsersStore = defineStore("usersStore", () => {
     } catch (error) {}
   };
 
+  const doDeleteUser = async (id: string) => {
+    try {
+      const response = (await handlerRequest.doDeleteRequest(
+        `${path}/${id}`,
+        true
+      )) as ResponseObj;
+      if (response.success) {
+        const index = users.value.findIndex((user: User) => user.id === id);
+        if (index > -1) {
+          users.value.splice(index, 1);
+        }
+        users.value = response.data;
+        return response;
+      }
+      // validamos  el usuario
+    } catch (error) {}
+  };
+
   // return statement
   return {
     users,
     doSaveUser,
     doListUsers,
+    doDeleteUser,
   };
 });

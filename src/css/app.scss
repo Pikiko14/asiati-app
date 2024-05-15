@@ -65,6 +65,48 @@ label {
     font-size: 12pt;
 }
 
+
+.q-table thead {
+    background-color: #F2FCFF !important;
+    color: #004B5E;
+    height: 51px;
+}
+
+.q-table th {
+    font-size: 12pt !important;
+    font-weight: 500;
+}
+
+.q-table tbody {
+    background-color: #fafafa;
+}
+
+.q-table tbody td {
+    font-size: 11pt;
+}
+
+.q-table__bottom {
+    background-color: #fafafa;
+}
+
+.admin-chip {
+    background-color: #004B5E !important;
+    color: #F6E71A !important;
+    font-weight: 500;
+    width: 100px;
+}
+
+.ceo-chip {
+    background-color: #F6E71A !important;
+    color: #004B5E !important;
+    font-weight: 500;
+    width: 100px;
+}
+
+.q-dialog-plugin {
+    border-radius: 10px !important;
+}
+
 // media queries
 @media (max-width: 900px) {
     .mobile-overflow {
