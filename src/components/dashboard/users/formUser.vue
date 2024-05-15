@@ -8,9 +8,9 @@
     </div>
     <div class="col-12 col-md-6" :class="{ 'q-pl-sm': $q.screen.gt.sm }">
       <label for="" class="text-weight-semi-bold">Tipo de usuario</label>
-      <q-input dense v-model="user.name" placeholder="Ingresa tu correo electrónico" outlined rounded
+      <q-select dense v-model="user.role" label="Seleccione un tipo de usuario" :options="typeUsers" outlined rounded
         :rules="[val => !!val || 'Este campo es requerido', val => val.length < 60 || '60 caracteres maximos']">
-      </q-input>
+      </q-select>
     </div>
     <div class="col-12 col-md-6" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
       <label for="" class="text-weight-semi-bold">Correo</label>
@@ -21,7 +21,7 @@
     <div class="col-12 col-md-6" :class="{ 'q-pl-sm': $q.screen.gt.sm }">
       <label for="" class="text-weight-semi-bold">Teléfono</label>
       <q-input dense v-model="user.phone" placeholder="Ingrese un numero telefónico" outlined rounded
-        :rules="[val => !!val || 'Este campo es requerido', val => val.length < 15 || '15 caracteres maximos']">
+        :rules="[val => /^\d{1,3}\d{1,14}$/.test(val) || 'Ingresa un número valido', val => !!val || 'Este campo es requerido', val => val.length < 15 || '15 caracteres maximos']">
       </q-input>
     </div>
     <div class="col-12 col-md-6" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
@@ -44,17 +44,24 @@
         </template>
       </q-input>
     </div>
+    <div class="col-12">
+      <label for="" class="text-weight-semi-bold">Permisos</label>
+      <q-option-group inline v-model="user.scopes" :options="scopes" color="primary" type="checkbox" />
+    </div>
     <div class="col-12 col-md-6 q-mt-xl" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
       <q-btn v-close-popup label="Cancelar" color="info" no-caps rounded outline class="full-width"></q-btn>
     </div>
     <div class="col-12 col-md-6  q-mt-xl" :class="{ 'q-pl-sm': $q.screen.gt.sm }">
-      <q-btn type="submit" unelevated label="Crear usuario" color="primary" no-caps rounded class="full-width"></q-btn>
+      <q-btn :loading="loading" type="submit" unelevated label="Crear usuario" color="primary" no-caps rounded
+        class="full-width"></q-btn>
     </div>
   </q-form>
 </template>
 
 <script lang="ts">
-import { User, UserRole } from 'src/models/models'
+import { notification } from 'src/boot/notification'
+import { ResponseObj, User, UserRole } from 'src/models/models'
+import { useUsersStore } from 'src/stores/users'
 import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
@@ -62,29 +69,95 @@ export default defineComponent({
   emits: ['close-modal'],
   setup(props, { emit }) {
     // ref
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const typeUsers: any[] = [
+      {
+        label: 'Administrador',
+        value: UserRole.ADMIN
+      },
+      {
+        label: 'Ceo',
+        value: UserRole.CEO
+      }
+    ];
+    const usersStore = useUsersStore()
+    const loading = ref<boolean>(false)
     const showPassword = ref<boolean>(false)
     const user = ref<User>({
       username: '',
       password: '',
       email: '',
       role: UserRole.CEO,
-      scopes: [],
+      scopes: [
+        'create-users',
+        'list-users',
+        'edit-users',
+        'delete-users',
+        'create-business',
+        'list-business',
+        'edit-business',
+        'delete-business',
+        'list-meta-metric'
+      ],
       is_active: true,
       name: '',
       last_name: '',
       confirmation_password: '',
       phone: ''
     })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const scopes: any[] = [
+      { label: 'Crear usuarios', value: 'create-users' },
+      { label: 'Listar usuarios', value: 'list-users' },
+      { label: 'Editar usuarios', value: 'edit-users' },
+      { label: 'Eliminar usuarios', value: 'delete-users' },
+      { label: 'Crear empresas', value: 'create-business' },
+      { label: 'Listar empresas', value: 'list-business' },
+      { label: 'Editar empresas', value: 'edit-business' },
+      { label: 'Eliminar empresas', value: 'delete-business' },
+      { label: 'Listar metricas', value: 'list-meta-metric' }
+    ];
 
     // methods
-    const doSaveUser = () => {
-      console.log(user.value)
-      emit('close-modal')
+    const doSaveUser = async () => {
+      loading.value = true
+      user.value.username = user.value.email.split('@')[0]
+      user.value.last_name = user.value?.name?.includes(' ') ? user.value?.name.split(' ')[1] : user.value.email.split('@')[0]
+      try {
+        const response = await usersStore.doSaveUser(user.value) as ResponseObj
+        if (response.success) {
+          notification('positive', response.message as string, 'primary')
+          emit('close-modal')
+          clearUser()
+        }
+      } catch (error) {
+
+      } finally {
+        loading.value = false
+      }
+    }
+
+    const clearUser = () => {
+      user.value = {
+        username: '',
+        password: '',
+        email: '',
+        role: UserRole.CEO,
+        scopes: [],
+        is_active: true,
+        name: '',
+        last_name: '',
+        confirmation_password: '',
+        phone: ''
+      }
     }
 
     // return
     return {
       user,
+      scopes,
+      loading,
+      typeUsers,
       doSaveUser,
       showPassword
     }

@@ -7,7 +7,7 @@ export interface LoginInterface {
 export interface ResponseObj {
   success?: boolean;
   error?: boolean;
-  message?: string | null;
+  message?: string | null | any;
   data?: any;
   hide?: boolean;
   status?: string;

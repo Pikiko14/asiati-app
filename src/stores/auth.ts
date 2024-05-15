@@ -2,8 +2,8 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import { Request } from "src/api/api";
-import { ResponseObj, User, LoginInterface } from "src/models/models";
 import { Storage } from "src/utils/storage";
+import { ResponseObj, User, LoginInterface } from "src/models/models";
 
 const path = "auth";
 const handlerRequest = new Request({
