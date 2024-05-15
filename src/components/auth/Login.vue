@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import LoginForm from './LoginForm.vue';
+import LoginForm from './loginForm.vue';
 import { LoginInterface } from 'src/models/models';
 import { useAuthStore } from 'src/stores/auth';
 import { useRouter } from 'vue-router';

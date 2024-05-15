@@ -49,7 +49,7 @@
 <script lang="ts">
 import { defineComponent, onBeforeMount, ref } from 'vue'
 import { LoginInterface } from 'src/models/models';
-import RecoveryFormVue from './RecoveryForm.vue';
+import RecoveryFormVue from './recoveryForm.vue';
 import { useRoute, useRouter } from 'vue-router';
 
 export default defineComponent({

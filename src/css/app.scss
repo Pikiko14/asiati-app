@@ -56,6 +56,15 @@ label {
     bottom: 20px
 }
 
+.modal-card {
+    max-width: 620px !important;
+}
+
+label {
+    color: #000000;
+    font-size: 12pt;
+}
+
 // media queries
 @media (max-width: 900px) {
     .mobile-overflow {
@@ -64,5 +73,9 @@ label {
 
     .background {
         background-image: none;
+    }
+
+    .modal-card {
+        width: 100%;
     }
 }

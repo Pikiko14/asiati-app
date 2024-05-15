@@ -21,7 +21,7 @@ export interface PaginationInterface {
 
 export enum UserRole {
   ADMIN = "admin",
-  EMPLOYEE = "employee",
+  CEO = "ceo",
 }
 
 export interface User extends LoginInterface {
@@ -37,6 +37,8 @@ export interface User extends LoginInterface {
   token?: string | undefined;
   last_name: string | undefined;
   confirmation_token?: string | null;
+  confirmation_password?: string | null;
+  phone?: string | null;
 }
 
 export interface LoginReturn {

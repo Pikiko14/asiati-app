@@ -1,20 +1,17 @@
 <template>
-  <q-page class="login-page">
-    <Login />
+  <q-page padding>
+    <user-main />
   </q-page>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Login from 'src/components/auth/login.vue';
+import UserMain from 'src/components/dashboard/users/main.vue';
 
 export default defineComponent({
-  name: 'IndexPage',
+  name: 'UsersPage',
   components: {
-    Login
-  },
-  setup() {
-    return {}
+    UserMain
   }
 })
 </script>
