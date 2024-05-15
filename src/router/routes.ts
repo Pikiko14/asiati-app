@@ -19,16 +19,10 @@ const routes: RouteRecordRaw[] = [
         component: () => import("src/pages/IndexPage.vue"),
         name: "recovery",
       },
-    ],
-  },
-  {
-    path: "/dashboard",
-    component: () => import("src/layouts/Layout.vue"),
-    children: [
       {
-        path: "/",
+        path: "/dashboard",
         component: () => import("src/pages/dashboard/HomePage.vue"),
-        name: "dasboard",
+        name: "dashboard",
       },
     ],
   },

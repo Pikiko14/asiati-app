@@ -1,12 +1,8 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-drawer v-if="$route.path !== '/' && $route.path !== '/login' && $route.path !== '/recovery'" :width="100"
-      v-model="leftDrawerOpen" show-if-above>
-      <q-list>
-        <q-item-label header>
-          Essential Links
-        </q-item-label>
-      </q-list>
+      v-model="leftDrawerOpen" show-if-above class="q-pa-md">
+      <menu-component />
     </q-drawer>
 
     <q-page-container>
@@ -17,11 +13,12 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import MenuComponent from 'src/components/partials/menu.vue';
 
 export default defineComponent({
   name: 'MainLayout',
-
   components: {
+    MenuComponent
   },
 
   setup() {

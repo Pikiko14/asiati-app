@@ -40,8 +40,8 @@ export const useAuthStore = defineStore("authStore", () => {
         // set data now
         token.value = data.token;
         user.value = data.user;
+        return response;
       }
-      return response;
       // validamos  el usuario
     } catch (error) {}
   };

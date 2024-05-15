@@ -1,5 +1,5 @@
 <template>
-  <q-page padding class="bg-red">
+  <q-page padding>
     asd
   </q-page>
 </template>

@@ -28,7 +28,7 @@ export default defineComponent({
     const doLogin = async (params: LoginInterface) => {
       try {
         const response = await authStore.doLogin(params)
-        if (response) {
+        if (response && response.success) {
           router.push({
             name: 'dashboard',
           })

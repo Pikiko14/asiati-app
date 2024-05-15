@@ -45,6 +45,17 @@ label {
     width: 600px;
 }
 
+.custom-aside {
+    height: calc(100vh - 35px);
+    border-radius: 50px;
+    width: 80px;
+    position: relative;
+}
+
+.custom-aside .absolute-bottom {
+    bottom: 20px
+}
+
 // media queries
 @media (max-width: 900px) {
     .mobile-overflow {
