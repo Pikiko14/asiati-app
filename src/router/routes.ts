@@ -37,6 +37,16 @@ const routes: RouteRecordRaw[] = [
           auth: true,
         },
       },
+      {
+        path: "/companies",
+        component: () =>
+          import("src/pages/dashboard/companies/companiesPage.vue"),
+        name: "companies",
+        meta: {
+          available: ["list-business"],
+          auth: true,
+        },
+      },
     ],
   },
   // Always leave this as last one,

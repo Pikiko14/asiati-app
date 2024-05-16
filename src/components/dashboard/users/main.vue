@@ -1,7 +1,8 @@
 <template>
   <section class="full-width">
     <!--Header section-->
-    <HeaderComponent :title="'Usuarios'" :btnLabel="'Agregar usuario'" @open-modal="openModal" />
+    <HeaderComponent :permission="'create-users'" :title="'Usuarios'" :btnLabel="'Agregar usuario'"
+      @open-modal="openModal" />
     <!--end header section-->
 
     <!--table section-->

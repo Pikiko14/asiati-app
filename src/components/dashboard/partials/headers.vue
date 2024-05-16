@@ -6,7 +6,7 @@
       </span>
     </div>
     <div class="col-12 col-md-6">
-      <section class="full-width row">
+      <section class="full-width row d-flex justify-end">
         <div class="col-12 col-md-8" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
           <q-input clearable @update:model-value="doSearch" debounce="1500" dense v-model="search"
             placeholder="Buscar..." outlined rounded
@@ -16,9 +16,9 @@
             </template>
           </q-input>
         </div>
-        <div class="col-12 col-md-4" :class="{ 'q-pl-sm': $q.screen.gt.sm }">
-          <q-btn @click="openModal" rounded size="12pt" :label="btnLabel" no-caps unelevated color="primary"
-            class="full-width"></q-btn>
+        <div class="col-12 col-md-4" :class="{ 'q-pl-sm': $q.screen.gt.sm }" v-if="$hasPermission(permission)">
+          <q-btn v-if="$hasPermission(permission)" @click="openModal" rounded size="12pt" :label="btnLabel" no-caps
+            unelevated color="primary" class="full-width"></q-btn>
         </div>
       </section>
     </div>
@@ -33,7 +33,11 @@ export default defineComponent({
   name: 'HeaderComponent',
   props: {
     title: String,
-    btnLabel: String
+    btnLabel: String,
+    permission: {
+      type: String,
+      default: () => ''
+    }
   },
   emits: [
     'open-modal',

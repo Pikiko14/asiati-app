@@ -88,6 +88,21 @@ export const useUsersStore = defineStore("usersStore", () => {
     } catch (error) {}
   };
 
+  const listForSelect = async () => {
+    try {
+      const response = (await handlerRequest.doGetRequest(
+        `${path}/for-select`,
+        "",
+        true
+      )) as ResponseObj;
+      if (response.success) {
+        users.value = response.data;
+        return response;
+      }
+      // validamos  el usuario
+    } catch (error) {}
+  };
+
   // return statement
   return {
     users,
@@ -96,5 +111,6 @@ export const useUsersStore = defineStore("usersStore", () => {
     doListUsers,
     doUpdateUser,
     doDeleteUser,
+    listForSelect,
   };
 });

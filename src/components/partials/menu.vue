@@ -11,7 +11,7 @@
         </q-item-label>
       </q-item-section>
     </q-item>
-    <q-item to="/business?page=1&perPage=12&search=" class="q-mt-sm" v-if="$hasPermission('list-business')">
+    <q-item to="/companies?page=1&perPage=12&search=" class="q-mt-sm" v-if="$hasPermission('list-business')">
       <q-item-section>
         <q-item-label class="text-center">
           <q-icon flat size="18pt" dense rounded name="img:/images/company.svg"></q-icon>
