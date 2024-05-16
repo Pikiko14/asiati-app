@@ -4,6 +4,7 @@ import { Storage } from "src/utils/storage";
 import axios, { AxiosInstance } from "axios";
 import { notification } from "./notification";
 import { useAuthStore } from "src/stores/auth";
+import { Response } from "express";
 
 declare module "@vue/runtime-core" {
   interface ComponentCustomProperties {
@@ -42,6 +43,14 @@ export default boot(async ({ app }) => {
           notification("negative", msg, "red");
         }
       } else {
+        if (
+          error.response.status === 500 &&
+          error.response.data &&
+          error.response.data.data
+        ) {
+          notification("negative", error.response.data.data, "red");
+          return true;
+        }
         error.response.data.message
           ? notification("negative", error.response.data.message, "red")
           : error.response.data.error
