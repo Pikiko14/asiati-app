@@ -1,24 +1,30 @@
 <template>
   <q-form class="row" @submit="doSaveUser">
     <div class="col-12 col-md-6" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
-      <label for="" class="text-weight-semi-bold">Nombre completo</label>
+      <label for="" class="text-weight-semi-bold">Nombres</label>
       <q-input dense v-model="user.name" placeholder="Ingrese su nombre completo" outlined rounded
         :rules="[val => !!val || 'Este campo es requerido', val => val.length < 60 || '60 caracteres maximos', val => /^[a-zA-Z\s]+$/.test(val) || 'Ingresa un nombre valido']">
       </q-input>
     </div>
     <div class="col-12 col-md-6" :class="{ 'q-pl-sm': $q.screen.gt.sm }">
+      <label for="" class="text-weight-semi-bold">Apellidos</label>
+      <q-input dense v-model="user.last_name" placeholder="Ingrese su nombre completo" outlined rounded
+        :rules="[val => !!val || 'Este campo es requerido', val => val.length < 60 || '60 caracteres maximos', val => /^[a-zA-Z\s]+$/.test(val) || 'Ingresa un nombre valido']">
+      </q-input>
+    </div>
+    <div class="col-12 col-md-6" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
       <label for="" class="text-weight-semi-bold">Tipo de usuario</label>
       <q-select dense v-model="user.role" label="Seleccione un tipo de usuario" :options="typeUsers" outlined rounded
         :rules="[val => !!val || 'Este campo es requerido']">
       </q-select>
     </div>
-    <div class="col-12 col-md-6" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
+    <div class="col-12 col-md-6" :class="{ 'q-pl-sm': $q.screen.gt.sm }">
       <label for="" class="text-weight-semi-bold">Correo</label>
       <q-input dense v-model="user.email" placeholder="Ingrese su correo electrónico" outlined rounded
         :rules="[val => !!val || 'Este campo es requerido', val => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(val) || 'Ingresa un correo electrónico valido']">
       </q-input>
     </div>
-    <div class="col-12 col-md-6" :class="{ 'q-pl-sm': $q.screen.gt.sm }">
+    <div class="col-12 col-md-12">
       <label for="" class="text-weight-semi-bold">Teléfono</label>
       <q-input dense v-model="user.phone" placeholder="Ingrese un numero telefónico" outlined rounded
         :rules="[val => /^\d{1,3}\d{1,14}$/.test(val) || 'Ingresa un número valido', val => !!val || 'Este campo es requerido', val => val.length < 15 || '15 caracteres maximos']">
@@ -130,7 +136,6 @@ export default defineComponent({
     const doSaveUser = async () => {
       loading.value = true
       user.value.username = user.value.email.split('@')[0]
-      user.value.last_name = user.value?.name?.includes(' ') ? user.value?.name.split(' ')[1] : user.value.email.split('@')[0]
       if (user.value._id) {
         await doUpdateUser()
         return true

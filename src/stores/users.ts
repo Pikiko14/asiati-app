@@ -76,8 +76,12 @@ export const useUsersStore = defineStore("usersStore", () => {
         false
       )) as ResponseObj;
       if (response.success) {
-        users.value.push(response.data);
-        totalItems.value++;
+        const index = users.value.findIndex(
+          (user: User) => user._id === params._id
+        );
+        if (index !== -1) {
+          users.value[index] = response.data;
+        }
         return response;
       }
       // validamos  el usuario
