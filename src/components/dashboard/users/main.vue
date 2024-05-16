@@ -5,7 +5,7 @@
     <!--end header section-->
 
     <!--table section-->
-    <TableAsiati :rows="rows" :columns="users" @delete-user="deleteUser" />
+    <TableAsiati v-if="render" :rows="rows" :columns="users" @delete-user="deleteUser" />
     <!--end table section-->
 
     <!--Modal section-->
@@ -28,7 +28,7 @@ import { useUsersStore } from 'src/stores/users';
 import modalCard from '../partials/modalCard.vue';
 import TableAsiati from '../partials/tableAsiati.vue';
 import HeaderComponent from '../partials/headers.vue';
-import { computed, defineComponent, onBeforeMount, ref } from 'vue'
+import { computed, defineComponent, onBeforeMount, ref, watch } from 'vue'
 import { notification } from 'src/boot/notification';
 
 export default defineComponent({
@@ -42,12 +42,12 @@ export default defineComponent({
   setup() {
     // refs
     const route = useRoute()
+    const render = ref<boolean>(true)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const rows = ref<any[]>([
       {
         name: 'name',
         align: 'left',
-        required: true,
         sortable: false,
         label: 'Nombre',
         field: (row: User) => `${row.name} ${row.last_name}`,
@@ -55,7 +55,6 @@ export default defineComponent({
       {
         name: 'userType',
         align: 'left',
-        required: true,
         sortable: false,
         field: (row: User) => `${row.role}`,
         label: 'Tipo usuario',
@@ -63,7 +62,6 @@ export default defineComponent({
       {
         name: 'email',
         align: 'left',
-        required: true,
         sortable: false,
         field: (row: User) => `${row.email || '-'}`,
         label: 'Correo',
@@ -71,7 +69,6 @@ export default defineComponent({
       {
         name: 'phone',
         align: 'left',
-        required: true,
         sortable: false,
         label: 'Teléfono',
         field: (row: User) => `${row.phone || '-'}`,
@@ -79,7 +76,6 @@ export default defineComponent({
       {
         name: 'option',
         align: 'center',
-        required: true,
         sortable: false,
         label: '',
       },
@@ -91,6 +87,8 @@ export default defineComponent({
     const users = computed(() => {
       return usersStore.users
     })
+
+    // watch
 
     // methods
     const openModal = () => {
@@ -114,6 +112,7 @@ export default defineComponent({
         const response = await usersStore.doDeleteUser(id) as ResponseObj
         if (response.success) {
           notification('positive', 'Usuario eliminado', 'primary')
+          await listUsers()
         }
       } catch (error) {
 
@@ -129,6 +128,7 @@ export default defineComponent({
     return {
       rows,
       users,
+      render,
       openModal,
       deleteUser,
       openModalUser

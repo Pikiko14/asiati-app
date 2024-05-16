@@ -1,6 +1,6 @@
 <template>
   <section class="full-width q-mt-lg">
-    <q-table class="shadow-0 round-10" :columns="rows" :rows="columns">
+    <q-table v-model:pagination="pagination" row-key="_id" class="shadow-0 round-10" :columns="rows" :rows="columns">
       <!--role td-->
       <template v-slot:body-cell-userType="props">
         <q-td>
@@ -77,6 +77,12 @@ export default defineComponent({
       ceo: 'CEO'
     })
 
+    const pagination = ref({
+      page: 1,
+      rowsPerPage: 12,
+      rowsNumber: 1,
+    });
+
     // methods
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const deleteUser = (id: string) => {
@@ -95,7 +101,8 @@ export default defineComponent({
     // return
     return {
       roles,
-      deleteUser
+      deleteUser,
+      pagination,
     }
   }
 })

@@ -3,7 +3,7 @@
     <div class="col-12 col-md-6" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
       <label for="" class="text-weight-semi-bold">Nombre completo</label>
       <q-input dense v-model="user.name" placeholder="Ingrese su nombre completo" outlined rounded
-        :rules="[val => !!val || 'Este campo es requerido', val => val.length < 60 || '60 caracteres maximos']">
+        :rules="[val => !!val || 'Este campo es requerido', val => val.length < 60 || '60 caracteres maximos', val => /^[a-zA-Z\s]+$/.test(val) || 'Ingresa un nombre valido']">
       </q-input>
     </div>
     <div class="col-12 col-md-6" :class="{ 'q-pl-sm': $q.screen.gt.sm }">
