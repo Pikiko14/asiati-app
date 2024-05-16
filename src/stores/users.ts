@@ -28,6 +28,7 @@ export const useUsersStore = defineStore("usersStore", () => {
       )) as ResponseObj;
       if (response.success) {
         users.value.push(response.data);
+        totalItems.value++;
         return response;
       }
       // validamos  el usuario
@@ -60,7 +61,27 @@ export const useUsersStore = defineStore("usersStore", () => {
         const index = users.value.findIndex((user: User) => user._id === id);
         if (index !== -1) {
           users.value.splice(index, 1);
+          totalItems.value--;
         }
+        return response;
+      }
+      // validamos  el usuario
+    } catch (error) {}
+  };
+
+  const doUpdateUser = async (
+    params: LoginInterface
+  ): Promise<ResponseObj | void> => {
+    try {
+      const response = (await handlerRequest.doPutRequest(
+        `${path}`,
+        params,
+        true,
+        false
+      )) as ResponseObj;
+      if (response.success) {
+        users.value.push(response.data);
+        totalItems.value++;
         return response;
       }
       // validamos  el usuario
@@ -73,6 +94,7 @@ export const useUsersStore = defineStore("usersStore", () => {
     doSaveUser,
     totalItems,
     doListUsers,
+    doUpdateUser,
     doDeleteUser,
   };
 });

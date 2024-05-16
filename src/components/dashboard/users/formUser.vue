@@ -28,7 +28,7 @@
       <label for="" class="text-weight-semi-bold">Contraseña</label>
       <q-input dense :type="showPassword ? 'text' : 'password'" v-model="user.password"
         placeholder="Ingrese una contraseña segura" outlined rounded
-        :rules="[val => !!val || 'Este campo es requerido', val => /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@#&!*-])[A-Za-z\d$@#&!*-]{8,}$/.test(val) || 'Ingresa una contraseña valida']">
+        :rules="user.password && user.password.length > 0 ? [val => !!val || 'Este campo es requerido', val => /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@#&!*-])[A-Za-z\d$@#&!*-]{8,}$/.test(val) || 'Ingresa una contraseña valida'] : []">
         <template v-slot:append>
           <q-btn @click="showPassword = !showPassword" flat dense rounded icon="img:images/eyegreen.svg"></q-btn>
         </template>
@@ -38,13 +38,13 @@
       <label for="" class="text-weight-semi-bold">Repetir contraseña</label>
       <q-input dense :type="showPassword ? 'text' : 'password'" v-model="user.confirmation_password"
         placeholder="Repita la contraseña previamente ingresada" outlined rounded
-        :rules="[val => val === user.password || 'No coinciden las contraseñas', val => !!val || 'Este campo es requerido', val => /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@#&!*-])[A-Za-z\d$@#&!*-]{8,}$/.test(val) || 'Ingresa una contraseña valida']">
+        :rules="user.password && user.password.length > 0 ? [val => val === user.password || 'No coinciden las contraseñas', val => !!val || 'Este campo es requerido', val => /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@#&!*-])[A-Za-z\d$@#&!*-]{8,}$/.test(val) || 'Ingresa una contraseña valida'] : []">
         <template v-slot:append>
           <q-btn @click="showPassword = !showPassword" flat dense rounded icon="img:images/eyegreen.svg"></q-btn>
         </template>
       </q-input>
     </div>
-    <div class="col-12">
+    <div class="col-12" :class="{ 'q-mt-md': !user.password }">
       <label for="" class="text-weight-semi-bold">Permisos</label>
       <q-option-group inline v-model="user.scopes" :options="scopes" color="primary" type="checkbox" />
     </div>
@@ -59,14 +59,22 @@
 </template>
 
 <script lang="ts">
-import { notification } from 'src/boot/notification'
-import { ResponseObj, User, UserRole } from 'src/models/models'
 import { useUsersStore } from 'src/stores/users'
-import { defineComponent, ref } from 'vue'
+import { notification } from 'src/boot/notification'
+import { defineComponent, onBeforeMount, ref } from 'vue'
+import { ResponseObj, User, UserRole } from 'src/models/models'
 
 export default defineComponent({
   name: 'UserFormComponent',
   emits: ['close-modal'],
+  props: {
+    userData: {
+      type: Object as () => User,
+      default: () => {
+        return {}
+      }
+    }
+  },
   setup(props, { emit }) {
     // ref
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -123,8 +131,27 @@ export default defineComponent({
       loading.value = true
       user.value.username = user.value.email.split('@')[0]
       user.value.last_name = user.value?.name?.includes(' ') ? user.value?.name.split(' ')[1] : user.value.email.split('@')[0]
+      if (user.value._id) {
+        await doUpdateUser()
+        return true
+      }
       try {
         const response = await usersStore.doSaveUser(user.value) as ResponseObj
+        if (response.success) {
+          notification('positive', response.message as string, 'primary')
+          emit('close-modal')
+          clearUser()
+        }
+      } catch (error) {
+
+      } finally {
+        loading.value = false
+      }
+    }
+
+    const doUpdateUser = async () => {
+      try {
+        const response = await usersStore.doUpdateUser(user.value) as ResponseObj
         if (response.success) {
           notification('positive', response.message as string, 'primary')
           emit('close-modal')
@@ -151,6 +178,13 @@ export default defineComponent({
         phone: ''
       }
     }
+
+    // lifecycle
+    onBeforeMount(() => {
+      if (props.userData._id) {
+        user.value = props.userData
+      }
+    })
 
     // return
     return {

@@ -24,7 +24,7 @@
             </q-tooltip>
             <q-menu class="round-10">
               <q-list dense>
-                <q-item clickable>
+                <q-item clickable @click="doEdit(props.row._id)">
                   <q-item-section>
                     <q-item-label class="text-primary text-weight-semi-bold">
                       Editar
@@ -52,12 +52,11 @@
 <script lang="ts">
 import { useQuasar } from 'quasar'
 import { useRoute, useRouter } from 'vue-router'
-import { PaginationInterface } from 'src/models/models'
 import { defineComponent, onBeforeMount, ref, watch } from 'vue'
 
 export default defineComponent({
   name: 'TableAsiati',
-  emits: ['do-delete'],
+  emits: ['do-delete', 'do-edit'],
   props: {
     rows: {
       type: Array as () => any[],
@@ -88,8 +87,7 @@ export default defineComponent({
     const router = useRouter()
 
     // watch
-    watch(() => props.totalItems, (val) => {
-      alert(val)
+    watch(() => props.totalItems, () => {
       pagination.value.rowsNumber = props.totalItems as number
     })
 
@@ -115,6 +113,10 @@ export default defineComponent({
       router.push({ query: { page, perPage, search } })
     }
 
+    const doEdit = (id: string) => {
+      emit('do-edit', id)
+    }
+
     // life cycle
     onBeforeMount(() => {
       if (route.query.page) {
@@ -131,6 +133,7 @@ export default defineComponent({
     // return
     return {
       roles,
+      doEdit,
       doDolete,
       onRequest,
       pagination,

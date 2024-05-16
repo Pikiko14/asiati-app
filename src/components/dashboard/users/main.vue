@@ -5,14 +5,15 @@
     <!--end header section-->
 
     <!--table section-->
-    <TableAsiati v-if="render" :rows="rows" :columns="users" :total-items="totalItems" @do-delete="deleteUser" />
+    <TableAsiati v-if="render" :rows="rows" :columns="users" :total-items="totalItems" @do-delete="deleteUser"
+      @do-edit="doEdit" />
     <!--end table section-->
 
     <!--Modal section-->
     <q-dialog v-model="openModalUser">
-      <modalCard :title="'Usuario nuevo'">
+      <modalCard :title="user._id ? 'Editar usuario' : 'Usuario nuevo'">
         <template v-slot:body>
-          <form-user @close-modal="openModal"></form-user>
+          <form-user :userData="user" @close-modal="openModal"></form-user>
         </template>
       </modalCard>
     </q-dialog>
@@ -23,13 +24,13 @@
 <script lang="ts">
 import { useRoute } from 'vue-router';
 import formUser from './formUser.vue';
-import { ResponseObj, User } from 'src/models/models';
 import { useUsersStore } from 'src/stores/users';
 import modalCard from '../partials/modalCard.vue';
+import { notification } from 'src/boot/notification';
 import TableAsiati from '../partials/tableAsiati.vue';
 import HeaderComponent from '../partials/headers.vue';
+import { ResponseObj, User, UserRole } from 'src/models/models';
 import { computed, defineComponent, onBeforeMount, ref } from 'vue'
-import { notification } from 'src/boot/notification';
 
 export default defineComponent({
   name: 'UserMainComponent',
@@ -43,6 +44,17 @@ export default defineComponent({
     // refs
     const route = useRoute()
     const render = ref<boolean>(true)
+    const user = ref<User>({
+      name: '',
+      last_name: '',
+      email: '',
+      phone: '',
+      role: UserRole.CEO,
+      scopes: [],
+      is_active: true,
+      username: '',
+      password: '',
+    })
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const rows = ref<any[]>([
       {
@@ -97,6 +109,17 @@ export default defineComponent({
     // methods
     const openModal = () => {
       openModalUser.value = !openModalUser.value
+      user.value = {
+        name: '',
+        last_name: '',
+        email: '',
+        phone: '',
+        role: UserRole.CEO,
+        scopes: [],
+        is_active: true,
+        username: '',
+        password: '',
+      }
     }
 
     const listUsers = async () => {
@@ -122,6 +145,15 @@ export default defineComponent({
       }
     }
 
+    const doEdit = (id: string) => {
+      const userFind = usersStore.users.find((user: User) => user._id === id)
+      if (userFind && typeof userFind === 'object') {
+        user.value = userFind
+        user.value.password = ''
+        openModalUser.value = true
+      }
+    }
+
     // life cycle
     onBeforeMount(() => {
       listUsers()
@@ -130,7 +162,9 @@ export default defineComponent({
     // return
     return {
       rows,
+      user,
       users,
+      doEdit,
       render,
       openModal,
       deleteUser,
