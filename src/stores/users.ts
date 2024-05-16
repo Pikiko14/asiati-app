@@ -16,9 +16,7 @@ export const useUsersStore = defineStore("usersStore", () => {
 
   // methods
 
-  const doSaveUser = async (
-    params: LoginInterface
-  ): Promise<ResponseObj | void> => {
+  const doSaveUser = async (params: User): Promise<ResponseObj | void> => {
     try {
       const response = (await handlerRequest.doPostRequest(
         `${path}`,
@@ -69,12 +67,10 @@ export const useUsersStore = defineStore("usersStore", () => {
     } catch (error) {}
   };
 
-  const doUpdateUser = async (
-    params: LoginInterface
-  ): Promise<ResponseObj | void> => {
+  const doUpdateUser = async (params: User): Promise<ResponseObj | void> => {
     try {
       const response = (await handlerRequest.doPutRequest(
-        `${path}`,
+        `${path}/${params._id}`,
         params,
         true,
         false
