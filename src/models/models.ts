@@ -17,6 +17,7 @@ export interface PaginationInterface {
   page: number | string;
   perPage: number | string;
   search?: string;
+  pagination?: any;
 }
 
 export enum UserRole {

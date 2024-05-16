@@ -12,6 +12,7 @@ const handlerRequest = new Request({
 export const useUsersStore = defineStore("usersStore", () => {
   // data
   const users = ref<User[]>([]);
+  const totalItems = ref<number>(0);
 
   // methods
 
@@ -41,7 +42,8 @@ export const useUsersStore = defineStore("usersStore", () => {
         true
       )) as ResponseObj;
       if (response.success) {
-        users.value = response.data;
+        users.value = response.data.users;
+        totalItems.value = response.data.totalItems;
         return response;
       }
       // validamos  el usuario
@@ -55,7 +57,10 @@ export const useUsersStore = defineStore("usersStore", () => {
         true
       )) as ResponseObj;
       if (response.success) {
-        users.value = response.data;
+        const index = users.value.findIndex((user: User) => user._id === id);
+        if (index !== -1) {
+          users.value.splice(index, 1);
+        }
         return response;
       }
       // validamos  el usuario
@@ -66,6 +71,7 @@ export const useUsersStore = defineStore("usersStore", () => {
   return {
     users,
     doSaveUser,
+    totalItems,
     doListUsers,
     doDeleteUser,
   };

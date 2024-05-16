@@ -1,6 +1,7 @@
 <template>
   <section class="full-width q-mt-lg">
-    <q-table v-model:pagination="pagination" row-key="_id" class="shadow-0 round-10" :columns="rows" :rows="columns">
+    <q-table @request="onRequest" :rows-per-page-options="[1, 5, 12, 20, 50]" v-model:pagination="pagination"
+      row-key="_id" class="shadow-0 round-10" :columns="rows" :rows="columns">
       <!--role td-->
       <template v-slot:body-cell-userType="props">
         <q-td>
@@ -30,7 +31,7 @@
                     </q-item-label>
                   </q-item-section>
                 </q-item>
-                <q-item clickable @click="deleteUser(props.row._id)">
+                <q-item clickable @click="doDolete(props.row._id)">
                   <q-item-section>
                     <q-item-label class="text-primary text-weight-semi-bold">
                       Eliminar
@@ -46,62 +47,92 @@
     </q-table>
   </section>
 </template>
+<!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
 import { useQuasar } from 'quasar'
-import { defineComponent, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { PaginationInterface } from 'src/models/models'
+import { defineComponent, onBeforeMount, ref, watch } from 'vue'
 
 export default defineComponent({
   name: 'TableAsiati',
+  emits: ['do-delete'],
   props: {
     rows: {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       type: Array as () => any[],
       required: true,
       default: () => []
     },
     columns: {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       type: Array as () => any[],
       required: true,
       default: () => []
-    }
+    },
+    totalItems: Number
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setup(props, { emit }) {
     // references
     const $q = useQuasar()
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const route = useRoute()
     const roles = ref<any>({
       admin: 'Administrador',
       ceo: 'CEO'
     })
-
     const pagination = ref({
       page: 1,
       rowsPerPage: 12,
       rowsNumber: 1,
     });
+    const router = useRouter()
+
+    // watch
+    watch(() => props.totalItems, (val) => {
+      alert(val)
+      pagination.value.rowsNumber = props.totalItems as number
+    })
 
     // methods
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const deleteUser = (id: string) => {
+    const doDolete = (id: string) => {
       $q.dialog({
-        title: 'Eliminar el usuario',
-        message: '¿Deseas eliminar el usuario seleccionado?',
+        title: 'Eliminar',
+        message: '¿Deseas eliminar este elemento?',
         cancel: true,
         persistent: true
       }).onOk(() => {
-        emit('delete-user', id)
+        emit('do-delete', id)
       }).onCancel(() => {
         // console.log('Cancel')
       })
     }
 
+    const onRequest = (e: any) => {
+      const { pagination } = e
+      const page = pagination.page || 1
+      const perPage = pagination.rowsPerPage || 12
+      const search = route.query.search || ''
+      router.push({ query: { page, perPage, search } })
+    }
+
+    // life cycle
+    onBeforeMount(() => {
+      if (route.query.page) {
+        pagination.value.page = Number(route.query.page)
+      }
+      if (route.query.perPage) {
+        pagination.value.rowsPerPage = Number(route.query.perPage)
+      }
+      if (props.totalItems) {
+        pagination.value.rowsNumber = props.totalItems
+      }
+    })
+
     // return
     return {
       roles,
-      deleteUser,
+      doDolete,
+      onRequest,
       pagination,
     }
   }

@@ -5,7 +5,7 @@
     <!--end header section-->
 
     <!--table section-->
-    <TableAsiati v-if="render" :rows="rows" :columns="users" @delete-user="deleteUser" />
+    <TableAsiati v-if="render" :rows="rows" :columns="users" :total-items="totalItems" @do-delete="deleteUser" />
     <!--end table section-->
 
     <!--Modal section-->
@@ -28,7 +28,7 @@ import { useUsersStore } from 'src/stores/users';
 import modalCard from '../partials/modalCard.vue';
 import TableAsiati from '../partials/tableAsiati.vue';
 import HeaderComponent from '../partials/headers.vue';
-import { computed, defineComponent, onBeforeMount, ref, watch } from 'vue'
+import { computed, defineComponent, onBeforeMount, ref } from 'vue'
 import { notification } from 'src/boot/notification';
 
 export default defineComponent({
@@ -88,6 +88,10 @@ export default defineComponent({
       return usersStore.users
     })
 
+    const totalItems = computed(() => {
+      return usersStore.totalItems
+    })
+
     // watch
 
     // methods
@@ -112,7 +116,6 @@ export default defineComponent({
         const response = await usersStore.doDeleteUser(id) as ResponseObj
         if (response.success) {
           notification('positive', 'Usuario eliminado', 'primary')
-          await listUsers()
         }
       } catch (error) {
 
@@ -131,6 +134,7 @@ export default defineComponent({
       render,
       openModal,
       deleteUser,
+      totalItems,
       openModalUser
     }
   }
