@@ -46,10 +46,10 @@ export default defineComponent({
     const router = useRouter()
     const search = ref<string>('')
 
-    const doSearch = () => {
+    const doSearch = (e: string) => {
       const page = 1
       const perPage = route.query.perPage || 12
-      const searchString = search.value
+      const searchString = e || ''
       router.push({ query: { page, perPage, search: searchString } })
     }
 
