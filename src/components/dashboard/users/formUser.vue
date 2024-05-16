@@ -58,8 +58,8 @@
       <q-btn v-close-popup label="Cancelar" color="info" no-caps rounded outline class="full-width"></q-btn>
     </div>
     <div class="col-12 col-md-6  q-mt-xl" :class="{ 'q-pl-sm': $q.screen.gt.sm }">
-      <q-btn :loading="loading" type="submit" unelevated label="Crear usuario" color="primary" no-caps rounded
-        class="full-width"></q-btn>
+      <q-btn :loading="loading" type="submit" unelevated :label="!user._id ? 'Crear usuario' : 'Editar usuario'"
+        color="primary" no-caps rounded class="full-width"></q-btn>
     </div>
   </q-form>
 </template>
