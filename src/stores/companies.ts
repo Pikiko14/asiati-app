@@ -70,6 +70,26 @@ export const useCompaniesStore = defineStore("companiesStore", () => {
     } catch (error) {}
   };
 
+  const doDeleteCompany = async (id: string) => {
+    try {
+      const response = (await handlerRequest.doDeleteRequest(
+        `${path}/${id}`,
+        true
+      )) as ResponseObj;
+      if (response.success) {
+        const index = companies.value.findIndex(
+          (item: Company) => item._id === id
+        );
+        if (index !== -1) {
+          companies.value.splice(index, 1);
+          totalItems.value--;
+        }
+        return response;
+      }
+      // validamos  el usuario
+    } catch (error) {}
+  };
+
   // return statement
   return {
     companies,
@@ -77,5 +97,6 @@ export const useCompaniesStore = defineStore("companiesStore", () => {
     doSaveCompany,
     doUpdateCompany,
     doListCompanies,
+    doDeleteCompany,
   };
 });

@@ -22,13 +22,14 @@
 
 <script lang="ts">
 import { useRoute } from 'vue-router';
-import { Company } from 'src/models/models';
 import CompaniesForm from './companiesForm.vue';
 import ModalCard from '../partials/modalCard.vue';
-import { computed, defineComponent, onBeforeMount, ref } from 'vue'
 import HeaderComponent from '../partials/headers.vue';
 import TableAsiati from '../partials/tableAsiati.vue';
 import { useCompaniesStore } from 'src/stores/companies';
+import { Company, ResponseObj } from 'src/models/models';
+import { computed, defineComponent, onBeforeMount, ref } from 'vue'
+import { notification } from 'src/boot/notification';
 
 export default defineComponent({
   name: 'CompaniesMainComponent',
@@ -110,8 +111,15 @@ export default defineComponent({
       }
     }
 
-    const doDelete = (id: string) => {
-      alert(123)
+    const doDelete = async (id: string) => {
+      try {
+        const response = await companiesStore.doDeleteCompany(id) as ResponseObj
+        if (response.success) {
+          notification('positive', response.message, 'primary')
+        }
+      } catch (error) {
+
+      }
     }
 
     const listCompanies = async () => {
