@@ -12,7 +12,7 @@
   <q-dialog v-model="openModalCompanies">
     <ModalCard :title="company._id ? 'Editar tienda' : 'Tienda nueva'">
       <template v-slot:body>
-        <CompaniesForm />
+        <CompaniesForm @close-modal="openModal" />
       </template>
     </ModalCard>
   </q-dialog>
@@ -21,13 +21,14 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
+import { useRoute } from 'vue-router';
 import { Company } from 'src/models/models';
 import CompaniesForm from './companiesForm.vue';
-import { useUsersStore } from 'src/stores/users';
 import ModalCard from '../partials/modalCard.vue';
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, onBeforeMount, ref } from 'vue'
 import HeaderComponent from '../partials/headers.vue';
 import TableAsiati from '../partials/tableAsiati.vue';
+import { useCompaniesStore } from 'src/stores/companies';
 
 export default defineComponent({
   name: 'CompaniesMainComponent',
@@ -39,6 +40,7 @@ export default defineComponent({
   },
   setup() {
     // refs
+    const route = useRoute()
     const rows = ref<any[]>([
       {
         name: 'name',
@@ -75,16 +77,16 @@ export default defineComponent({
       meta_app_secret: '',
       meta_app_identifier: '',
     })
-    const usersStore = useUsersStore()
+    const companiesStore = useCompaniesStore()
     const openModalCompanies = ref<boolean>(false)
 
     // computed
     const companies = computed(() => {
-      return usersStore.users
+      return companiesStore.companies
     })
 
     const totalItems = computed(() => {
-      return usersStore.totalItems
+      return companiesStore.totalItems
     })
 
     // methods
@@ -107,6 +109,23 @@ export default defineComponent({
     const doDelete = (id: string) => {
       alert(123)
     }
+
+    const listCompanies = async () => {
+      try {
+        const page = route.query.page || 1
+        const search = route.query.search || ''
+        const perPage = route.query.perPage || 12
+        const query = `?page=${page}&search=${search}&perPage=${perPage}`
+        await companiesStore.doListCompanies(query)
+      } catch (error) {
+
+      }
+    }
+
+    // life cycle
+    onBeforeMount(() => {
+      listCompanies()
+    })
 
     // return
     return {
