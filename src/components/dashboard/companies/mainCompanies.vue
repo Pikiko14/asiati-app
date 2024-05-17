@@ -12,7 +12,7 @@
   <q-dialog v-model="openModalCompanies">
     <ModalCard :title="company._id ? 'Editar tienda' : 'Tienda nueva'">
       <template v-slot:body>
-        <CompaniesForm @close-modal="openModal" />
+        <CompaniesForm @close-modal="openModal" :companyData="company" />
       </template>
     </ModalCard>
   </q-dialog>
@@ -61,7 +61,7 @@ export default defineComponent({
         align: 'left',
         sortable: false,
         label: 'Responsable',
-        field: (row: Company) => `${row.responsable}`,
+        field: (row: any) => `${row.responsable.name} ${row.responsable.last_name}`,
       },
       {
         name: 'option',
@@ -103,7 +103,11 @@ export default defineComponent({
     }
 
     const doEdit = (id: string) => {
-      alert(123)
+      const companyFind = companiesStore.companies.find((item: Company) => item._id === id)
+      if (companyFind && typeof companyFind === 'object') {
+        company.value = companyFind
+        openModalCompanies.value = true
+      }
     }
 
     const doDelete = (id: string) => {

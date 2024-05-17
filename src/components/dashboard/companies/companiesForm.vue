@@ -39,6 +39,7 @@
     </div>
   </q-form>
 </template>
+<!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
 import { useUsersStore } from 'src/stores/users'
@@ -50,6 +51,14 @@ import { computed, defineComponent, onBeforeMount, ref } from 'vue'
 export default defineComponent({
   name: 'CompaniesFormComponent',
   emits: ['close-modal'],
+  props: {
+    companyData: {
+      type: Object as () => any,
+      defautl: () => {
+        return {}
+      }
+    }
+  },
   setup(props, { emit }) {
     // references
     const company = ref<Company>({
@@ -76,6 +85,10 @@ export default defineComponent({
     // methods
     const doSaveUser = async () => {
       loading.value = true
+      if (company.value._id) {
+        await doUpdateCompany()
+        return true
+      }
       try {
         const response = await companiesStore.doSaveCompany(company.value) as ResponseObj
         if (response.success) {
@@ -108,9 +121,27 @@ export default defineComponent({
       }
     }
 
+    const doUpdateCompany = async () => {
+      try {
+        const response = await companiesStore.doUpdateCompany(company.value) as ResponseObj
+        if (response.success) {
+          notification('positive', response.message as string, 'primary')
+          emit('close-modal')
+          clearCompany()
+        }
+      } catch (error) {
+      } finally {
+        loading.value = false
+      }
+    }
+
     // lifecycle
     onBeforeMount(async () => {
       await listUsersForSelect();
+      if (props.companyData && props.companyData._id) {
+        company.value = JSON.parse(JSON.stringify(props.companyData))
+        company.value.responsable = props.companyData.responsable._id
+      }
     })
 
     // return

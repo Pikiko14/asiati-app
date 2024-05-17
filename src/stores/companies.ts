@@ -50,11 +50,32 @@ export const useCompaniesStore = defineStore("companiesStore", () => {
     } catch (error) {}
   };
 
+  const doUpdateCompany = async (params: Company) => {
+    try {
+      const response = (await handlerRequest.doPutRequest(
+        `${path}/${params._id}`,
+        params,
+        true,
+        false
+      )) as ResponseObj;
+      if (response.success) {
+        const index = companies.value.findIndex(
+          (item: Company) => item._id === params._id
+        );
+        if (index !== -1) {
+          companies.value[index] = response.data;
+        }
+        return response;
+      }
+    } catch (error) {}
+  };
+
   // return statement
   return {
     companies,
     totalItems,
     doSaveCompany,
+    doUpdateCompany,
     doListCompanies,
   };
 });

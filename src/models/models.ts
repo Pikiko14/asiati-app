@@ -60,5 +60,5 @@ export interface Company {
   url: string;
   meta_app_secret: string;
   meta_app_identifier: string;
-  responsable: string;
+  responsable: User | string;
 }
