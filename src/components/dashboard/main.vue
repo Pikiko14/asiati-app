@@ -4,6 +4,10 @@
     <HeaderComponent :title="'Dashboard Financiero'" @filter-by-date="doFilterByDate"
       @filter-by-company="doFilterByCompany" />
     <!--end header section-->
+
+    <!--Main section-->
+    <MainDashboardComponent class="q-mt-xl" />
+    <!--end Main section-->
   </section>
 </template>
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
@@ -12,11 +16,13 @@
 import { defineComponent, onBeforeMount } from 'vue'
 import HeaderComponent from './partials/headers.vue';
 import { useCompaniesStore } from 'src/stores/companies';
+import MainDashboardComponent from 'src/components/dashboard/main/main.vue';
 
 export default defineComponent({
   name: 'MainComponent',
   components: {
-    HeaderComponent
+    HeaderComponent,
+    MainDashboardComponent
   },
   setup() {
     // references

@@ -119,6 +119,109 @@ label {
     border-radius: 20px;
 }
 
+.dashboard-card {
+    width: 100%;
+    border-radius: 10px;
+    height: 122px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1); /* x, y, blur, spread, color with 10% opacity */
+    background-color: #F2FCFF;
+    padding: 12px;
+    line-height: 20px;
+}
+
+.grid-container {
+    display: grid;
+    gap: 22px; /* Espacio entre los elementos */
+}
+
+.title-card {
+    font-size: 12pt;
+    color: #004B5E;
+}
+
+.amount-card {
+    color: #0095F6;
+    font-size: 18pt;
+}
+
+.label-card {
+    font-size: 10pt;
+    color: #595959;
+    font-weight: 400;
+}
+
+.icon-card {
+    width: 32px;
+    height: 32px;
+    margin-top: 12px;
+    border-radius: 50px;
+    background-color: #C3DEE5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.is-yellow {
+    background-color: #F6E71A;
+}
+
+.is-yellow .amount-card {
+    color: #004B5E;
+}
+
+.is-yellow .label-card {
+    color: #004B5E;
+}
+
+.is-yellow .icon-card {
+    background-color: #004B5E;
+}
+
+.is-green {
+    background-color: #004B5E;
+}
+
+.is-green .amount-card {
+    color: #FFFFFF !important;
+}
+
+.is-green .title-card {
+    color: #FFFFFF !important;
+}
+
+.is-green .label-card {
+    color: #FFFFFF;
+}
+
+.is-green .icon-card {
+    background-color: #C3DEE5;
+}
+
+/* 5 items por fila en pantallas medianas y grandes */
+@media (min-width: 1024px) {
+    .grid-container {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+/* 2 items por fila en pantallas pequeñas */
+@media (min-width: 640px) and (max-width: 1023px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 1 item por fila en pantallas extra pequeñas */
+@media (max-width: 639px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+    
+
 // media queries
 @media (max-width: 900px) {
     .mobile-overflow {
