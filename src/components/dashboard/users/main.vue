@@ -156,8 +156,8 @@ export default defineComponent({
     }
 
     // life cycle
-    onBeforeMount(() => {
-      listUsers()
+    onBeforeMount(async () => {
+      await listUsers()
     })
 
     // return

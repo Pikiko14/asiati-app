@@ -90,10 +90,26 @@ export const useCompaniesStore = defineStore("companiesStore", () => {
     } catch (error) {}
   };
 
+  const listForSelect = async () => {
+    try {
+      const response = (await handlerRequest.doGetRequest(
+        `${path}/for-select`,
+        "",
+        true
+      )) as ResponseObj;
+      if (response.success) {
+        companies.value = response.data;
+        return response;
+      }
+      // validamos  el usuario
+    } catch (error) {}
+  };
+
   // return statement
   return {
     companies,
     totalItems,
+    listForSelect,
     doSaveCompany,
     doUpdateCompany,
     doListCompanies,

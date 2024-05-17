@@ -6,7 +6,7 @@
       </span>
     </div>
     <div class="col-12 col-md-6">
-      <section class="full-width row d-flex justify-end">
+      <section class="full-width row d-flex justify-end" v-if="$route.path !== '/dashboard'">
         <div class="col-12 col-md-8" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
           <q-input clearable @update:model-value="doSearch" debounce="1500" dense v-model="search"
             placeholder="Buscar..." outlined rounded
@@ -17,17 +17,47 @@
           </q-input>
         </div>
         <div class="col-12 col-md-4" :class="{ 'q-pl-sm': $q.screen.gt.sm }" v-if="$hasPermission(permission)">
-          <q-btn v-if="$hasPermission(permission)" @click="openModal" rounded size="12pt" :label="btnLabel" no-caps
-            unelevated color="primary" class="full-width"></q-btn>
+          <q-btn @click="openModal" rounded size="12pt" :label="btnLabel" no-caps unelevated color="primary"
+            class="full-width"></q-btn>
+        </div>
+      </section>
+      <section class="full-width dropdown-stores row d-flex justify-end" v-else>
+        <div class="col-12 col-md-3" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
+          <q-btn-dropdown unelevated dropdown-icon="img:/images/dropdown.svg" no-caps class="round-20 full-width"
+            color="primary" label="Mis tiendas">
+            <q-list dense>
+              <q-item clickable v-close-popup v-for="(company, idx) in companies" :key="idx"
+                @click="filterByCompany(company.value)">
+                <q-item-section>
+                  <q-item-label>
+                    {{ company.label }}
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+        </div>
+        <div class="col-12 col-md-3" :class="{ 'q-pl-sm': $q.screen.gt.sm }">
+          <q-btn icon="img:/images/calendar.svg" label="Fecha" no-caps outline color="primary"
+            class="round-20 full-width">
+            <q-popup-proxy ref="popupProxy" cover transition-show="scale" transition-hide="scale">
+              <q-date @update:model-value="doFilterByDate" range minimal v-model="dateNow">
+              </q-date>
+            </q-popup-proxy>
+          </q-btn>
         </div>
       </section>
     </div>
   </section>
 </template>
+<!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
+import { date } from 'quasar'
+import { Company } from 'src/models/models'
 import { useRoute, useRouter } from 'vue-router'
-import { defineComponent, onBeforeMount, ref } from 'vue'
+import { useCompaniesStore } from 'src/stores/companies'
+import { computed, defineComponent, onBeforeMount, ref } from 'vue'
 
 export default defineComponent({
   name: 'HeaderComponent',
@@ -40,16 +70,32 @@ export default defineComponent({
     }
   },
   emits: [
+    'do-search',
     'open-modal',
-    'do-search'
+    'filter-by-date',
+    'filter-by-company'
   ],
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setup(props, { emit }) {
     // references
+    const popupProxy = ref()
+    const dateNow = ref(date.formatDate(Date.now(), 'DD-MM-YYYY'))
     const route = useRoute()
     const router = useRouter()
     const search = ref<string>('')
+    const companiesStore = useCompaniesStore()
 
+    // computed
+    const companies = computed(() => {
+      return companiesStore.companies.map((user: Company) => {
+        return {
+          label: `${user.name}`,
+          value: user._id
+        }
+      })
+    })
+
+    // methods
     const doSearch = (e: string) => {
       const page = 1
       const perPage = route.query.perPage || 12
@@ -62,6 +108,15 @@ export default defineComponent({
       emit('open-modal')
     }
 
+    const doFilterByDate = (date: any) => {
+      emit('filter-by-date', date)
+      popupProxy.value.hide()
+    }
+
+    const filterByCompany = (id: string | undefined) => {
+      emit('filter-by-company', id)
+    }
+
     // lifecycles
     onBeforeMount(() => {
       search.value = route.query.search as string
@@ -69,9 +124,14 @@ export default defineComponent({
 
     // return
     return {
+      dateNow,
       search,
       doSearch,
-      openModal
+      openModal,
+      companies,
+      popupProxy,
+      doFilterByDate,
+      filterByCompany,
     }
   }
 })

@@ -107,6 +107,18 @@ label {
     border-radius: 10px !important;
 }
 
+.round-20 {
+    border-radius: 20px !important;
+}
+
+.dropdown-stores .q-icon {
+    font-size: 14pt !important;
+}
+
+.q-menu {
+    border-radius: 20px;
+}
+
 // media queries
 @media (max-width: 900px) {
     .mobile-overflow {

@@ -135,8 +135,8 @@ export default defineComponent({
     }
 
     // life cycle
-    onBeforeMount(() => {
-      listCompanies()
+    onBeforeMount(async () => {
+      await listCompanies()
     })
 
     // return
