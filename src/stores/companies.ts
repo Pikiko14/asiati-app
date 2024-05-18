@@ -105,12 +105,18 @@ export const useCompaniesStore = defineStore("companiesStore", () => {
     } catch (error) {}
   };
 
+  const clearCompanies = () => {
+    companies.value = [];
+    totalItems.value = 0;
+  };
+
   // return statement
   return {
     companies,
     totalItems,
     listForSelect,
     doSaveCompany,
+    clearCompanies,
     doUpdateCompany,
     doListCompanies,
     doDeleteCompany,

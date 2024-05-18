@@ -13,7 +13,7 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
-import { defineComponent, onBeforeMount } from 'vue'
+import { defineComponent, onBeforeMount, onBeforeUnmount } from 'vue'
 import HeaderComponent from './partials/headers.vue';
 import { useCompaniesStore } from 'src/stores/companies';
 import MainDashboardComponent from 'src/components/dashboard/main/main.vue';
@@ -48,6 +48,10 @@ export default defineComponent({
     // lifecycles
     onBeforeMount(async () => {
       await listCompanies()
+    })
+
+    onBeforeUnmount(() => {
+      companiesStore.clearCompanies()
     })
 
     // return
