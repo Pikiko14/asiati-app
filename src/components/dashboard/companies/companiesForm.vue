@@ -27,7 +27,7 @@
     <div class="col-12">
       <label for="" class="text-weight-semi-bold">Clave secreta meta</label>
       <q-input dense v-model="company.meta_app_secret" placeholder="Ingrese su nombre completo" outlined rounded
-        :rules="[val => !!val || 'Este campo es requerido', val => val.length < 90 || '90 caracteres maximos']">
+        :rules="[val => !!val || 'Este campo es requerido', val => val.length < 500 || '500 caracteres maximos']">
       </q-input>
     </div>
     <div class="col-12 col-md-6 q-mt-xl" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
