@@ -200,6 +200,10 @@ label {
     background-color: #C3DEE5;
 }
 
+.filterCampaign {
+    width: 420px;
+}
+
 /* 5 items por fila en pantallas medianas y grandes */
 @media (min-width: 1024px) {
     .grid-container {
@@ -226,6 +230,10 @@ label {
 @media (max-width: 900px) {
     .mobile-overflow {
         background-color: rgba(0, 0, 0, 0.144);
+    }
+
+    .filterCampaign {
+        width: 100%;
     }
 
     .background {

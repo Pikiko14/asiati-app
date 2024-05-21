@@ -62,3 +62,25 @@ export interface Company {
   meta_app_identifier: string;
   responsable: User | string;
 }
+
+export interface CampaignsInterface {
+  name: string;
+  status: string;
+  id: string;
+  account_id: string;
+}
+
+export interface FilterInterface {
+  campaign: string | number;
+  ad: string | number;
+}
+
+export interface MetricsInterface {
+  actions?: any[0];
+  clicks?: any;
+  conversion_rate_ranking?: any;
+  date_start?: any;
+  date_stop?: any;
+  impressions?: any;
+  spend?: any;
+}

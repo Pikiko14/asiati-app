@@ -5,6 +5,7 @@
         <p class="title-card text-weight-semi-bold">{{ title }}</p>
         <p class="amount-card text-weight-semi-bold">
           <span v-if="isPrice">{{ utils.formatPrice(amount) }}</span>
+          <span v-else>{{ amount }}</span>
         </p>
         <p class="label-card">{{ label }}</p>
       </div>
@@ -30,7 +31,7 @@ export default defineComponent({
     },
     amount: {
       type: Number,
-      default: 5256497
+      default: 0
     },
     label: {
       type: String,
@@ -51,7 +52,7 @@ export default defineComponent({
     isGreen: {
       type: Boolean,
       default: false
-    }
+    },
   },
   setup() {
     // references
