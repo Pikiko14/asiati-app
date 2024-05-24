@@ -7,6 +7,7 @@
 
     <!--Main section-->
     <MainDashboardComponent class="q-mt-xl" />
+    <ActionsViewComponent />
     <!--end Main section-->
 
     <!--Modal campains and ads selection-->
@@ -27,9 +28,10 @@ import Campaigns from './main/campaigns.vue';
 import ModalCard from './partials/modalCard.vue';
 import HeaderComponent from './partials/headers.vue';
 import { useCompaniesStore } from 'src/stores/companies';
+import ActionsViewComponent from './main/actionsView.vue';
 import { CampaignsInterface, ResponseObj } from 'src/models/models';
-import { defineComponent, onBeforeMount, onBeforeUnmount, ref } from 'vue';
 import MainDashboardComponent from 'src/components/dashboard/main/main.vue';
+import { computed, defineComponent, onBeforeMount, onBeforeUnmount, ref } from 'vue';
 
 export default defineComponent({
   name: 'MainComponent',
@@ -37,6 +39,7 @@ export default defineComponent({
     Campaigns,
     ModalCard,
     HeaderComponent,
+    ActionsViewComponent,
     MainDashboardComponent
   },
   setup() {
@@ -45,6 +48,11 @@ export default defineComponent({
     const openCampaignModal = ref<boolean>()
     const companiesStore = useCompaniesStore()
     const campaigns = ref<CampaignsInterface[]>([])
+
+    // computed
+    const metaMetrics = computed(() => {
+      return companiesStore.metrics
+    })
 
     // methods
     const listCompanies = async () => {
@@ -83,6 +91,7 @@ export default defineComponent({
     // return
     return {
       campaigns,
+      metaMetrics,
       doFilterByDate,
       companySelected,
       doFilterByCompany,

@@ -136,10 +136,14 @@ export const useCompaniesStore = defineStore("companiesStore", () => {
     } catch (error) {}
   };
 
-  const listMetrics = async (company: string, id: string | number) => {
+  const listMetrics = async (
+    company: string,
+    id: string | number,
+    query: string
+  ) => {
     try {
       const response = (await handlerRequest.doGetRequest(
-        `${path}/${company}/${id}/metrics`,
+        `${path}/${company}/${id}/metrics${query}`,
         "",
         true
       )) as ResponseObj;

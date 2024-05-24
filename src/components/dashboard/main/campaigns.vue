@@ -13,6 +13,16 @@
         rounded>
       </q-select>
     </div>
+    <div class="col-12 q-mt-lg">
+      <label for="" class="text-weight-semi-bold">Rango de fecha</label>
+      <q-input dense v-model="dateLabel" placeholder="Ingrese su correo electrónico" outlined rounded
+        :rules="[val => !!val || 'Este campo es requerido']">
+        <q-popup-proxy ref="popupProxy" cover transition-show="scale" transition-hide="scale">
+          <q-date @update:model-value="closeDate" style="width: 420px" range minimal v-model="filters.date">
+          </q-date>
+        </q-popup-proxy>
+      </q-input>
+    </div>
     <div class="col-12 col-md-6 q-mt-xl" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
       <q-btn v-close-popup label="Cancelar" color="info" no-caps rounded outline class="full-width"></q-btn>
     </div>
@@ -25,6 +35,7 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
+import { date } from 'quasar';
 import { computed, defineComponent, ref } from 'vue'
 import { useCompaniesStore } from 'src/stores/companies';
 import { CampaignsInterface, FilterInterface, ResponseObj } from 'src/models/models';
@@ -44,9 +55,11 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     // references
+    const popupProxy = ref();
     const filters = ref<FilterInterface>({
       campaign: '',
-      ad: ''
+      ad: '',
+      date: {}
     });
     const ads = ref<any[]>([]);
     const loading = ref<boolean>(false);
@@ -61,6 +74,10 @@ export default defineComponent({
         }
       })
     });
+
+    const dateLabel = computed(() => {
+      return `${filters.value.date.from || ''} - ${filters.value.date.to || ''}`
+    })
 
     // methods
     const filterAdsFromCampaign = async (id: string | number) => {
@@ -82,7 +99,8 @@ export default defineComponent({
       loading.value = true
       companiesStore.setMetrics({})
       try {
-        const response = await companiesStore.listMetrics(props.company, filters.value.ad || filters.value.campaign) as ResponseObj;
+        const query = `?from=${filters.value.date.from || filters.value.date}&to=${filters.value.date.to || filters.value.date}`
+        const response = await companiesStore.listMetrics(props.company, filters.value.ad || filters.value.campaign, query) as ResponseObj;
         if (response.success) {
           if (response.data.metrics && response.data.metrics.length > 0) {
             companiesStore.setMetrics(response.data.metrics.shift())
@@ -95,14 +113,21 @@ export default defineComponent({
       }
     }
 
+    const closeDate = () => {
+      popupProxy.value.hide()
+    }
+
     // return data
     return {
       ads,
       loading,
       filters,
       doFilter,
+      dateLabel,
       optionsCampaigns,
-      filterAdsFromCampaign
+      filterAdsFromCampaign,
+      closeDate,
+      popupProxy
     }
   }
 })

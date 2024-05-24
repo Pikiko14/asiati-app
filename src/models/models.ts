@@ -73,6 +73,7 @@ export interface CampaignsInterface {
 export interface FilterInterface {
   campaign: string | number;
   ad: string | number;
+  date: any;
 }
 
 export interface MetricsInterface {

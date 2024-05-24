@@ -9,13 +9,13 @@
     <div class="col-12 col-sm-6 col-md-3">
       <MainCard :title="'Meta'" :amount="metaMetrics.clicks" :isPrice="false" :label="'Click totales'" />
     </div>
-    <div class="col-12 col-sm-6 col-md-3">
+    <!--<div class="col-12 col-sm-6 col-md-3">
       <MainCard :title="'Meta'" :amount="0" :label="'Pedidos entregados'" />
     </div>
     <div class="col-12 col-sm-6 col-md-3">
       <MainCard :icon="'img:/images/yellow-calculator.svg'" :title="'Meta'" :amount="0"
         :label="'% Recaudo sobre la inversión'" :isYellow="true" />
-    </div>
+    </div>-->
   </div>
 </template>
 

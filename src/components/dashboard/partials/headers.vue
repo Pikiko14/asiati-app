@@ -23,8 +23,8 @@
       </section>
       <section class="full-width dropdown-stores row d-flex justify-end" v-else>
         <div class="col-12 col-md-3" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
-          <q-btn-dropdown unelevated dropdown-icon="img:/images/dropdown.svg" no-caps class="round-20 full-width"
-            color="primary" label="Mis tiendas">
+          <q-btn-dropdown unelevated dropdown-icon="img:/images/dropdown.svg" no-caps
+            class="round-20 full-width q-mr-none" color="primary" label="Mis tiendas">
             <q-list dense>
               <q-item clickable v-close-popup v-for="(company, idx) in companies" :key="idx"
                 @click="filterByCompany(company.value)">
@@ -36,15 +36,6 @@
               </q-item>
             </q-list>
           </q-btn-dropdown>
-        </div>
-        <div class="col-12 col-md-3" :class="{ 'q-pl-sm': $q.screen.gt.sm }">
-          <q-btn icon="img:/images/calendar.svg" label="Fecha" no-caps outline color="primary"
-            class="round-20 full-width">
-            <q-popup-proxy ref="popupProxy" cover transition-show="scale" transition-hide="scale">
-              <q-date @update:model-value="doFilterByDate" range minimal v-model="dateNow">
-              </q-date>
-            </q-popup-proxy>
-          </q-btn>
         </div>
       </section>
     </div>
@@ -79,7 +70,6 @@ export default defineComponent({
   setup(props, { emit }) {
     // references
     const popupProxy = ref()
-    const dateNow = ref(date.formatDate(Date.now(), 'DD-MM-YYYY'))
     const route = useRoute()
     const router = useRouter()
     const search = ref<string>('')
@@ -124,7 +114,6 @@ export default defineComponent({
 
     // return
     return {
-      dateNow,
       search,
       doSearch,
       openModal,
