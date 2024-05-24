@@ -18,7 +18,8 @@
       <q-input dense v-model="dateLabel" placeholder="Ingrese su correo electrónico" outlined rounded
         :rules="[val => !!val || 'Este campo es requerido']">
         <q-popup-proxy ref="popupProxy" cover transition-show="scale" transition-hide="scale">
-          <q-date @update:model-value="closeDate" style="width: 420px" range minimal v-model="filters.date">
+          <q-date mask="YYYY-MM-DD" @update:model-value="closeDate" style="width: 420px" range minimal
+            v-model="filters.date">
           </q-date>
         </q-popup-proxy>
       </q-input>
