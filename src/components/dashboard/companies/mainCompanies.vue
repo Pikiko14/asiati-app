@@ -5,7 +5,8 @@
   <!--end header section-->
 
   <!--table section-->
-  <TableAsiati :rows="rows" :columns="companies" :total-items="totalItems" @do-delete="doDelete" @do-edit="doEdit" />
+  <TableAsiati permission-edit="edit-business" permission-delete="delete-business" :rows="rows" :columns="companies"
+    :total-items="totalItems" @do-delete="doDelete" @do-edit="doEdit" />
   <!--end table section-->
 
   <!--Modal section-->
