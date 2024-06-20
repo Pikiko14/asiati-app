@@ -14,6 +14,7 @@ export const useCompaniesStore = defineStore("companiesStore", () => {
   const metrics = ref<MetricsInterface>({});
   const totalItems = ref<number>(0);
   const companies = ref<Company[]>([]);
+  const campaings = ref<Company[]>([]);
 
   // methods
   const doSaveCompany = async (
@@ -114,7 +115,6 @@ export const useCompaniesStore = defineStore("companiesStore", () => {
         true
       )) as ResponseObj;
       if (response.success) {
-        companies.value = response.data;
         return response;
       }
       // validamos  el usuario
@@ -129,7 +129,6 @@ export const useCompaniesStore = defineStore("companiesStore", () => {
         true
       )) as ResponseObj;
       if (response.success) {
-        companies.value = response.data;
         return response;
       }
       // validamos  el usuario
@@ -148,7 +147,6 @@ export const useCompaniesStore = defineStore("companiesStore", () => {
         true
       )) as ResponseObj;
       if (response.success) {
-        companies.value = response.data;
         return response;
       }
       // validamos  el usuario
@@ -168,6 +166,7 @@ export const useCompaniesStore = defineStore("companiesStore", () => {
   return {
     listAds,
     metrics,
+    campaings,
     companies,
     setMetrics,
     totalItems,
