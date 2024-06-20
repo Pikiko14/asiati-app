@@ -1,1 +1,0 @@
-import{b as t}from"./index.e3c7511f.js";import{u as s}from"./auth.61113cc5.js";import"./notification.35e98149.js";var m=t(async({app:o})=>{o.config.globalProperties.$hasPermission=a});const e=s(),a=o=>{const{scopes:r}=e.user;return!!(r!=null&&r.includes(o))};export{m as default};
