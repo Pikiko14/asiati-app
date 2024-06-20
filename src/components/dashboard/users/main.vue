@@ -6,8 +6,8 @@
     <!--end header section-->
 
     <!--table section-->
-    <TableAsiati v-if="render" :rows="rows" :columns="users" :total-items="totalItems" @do-delete="deleteUser"
-      @do-edit="doEdit" />
+    <TableAsiati v-if="render" permission-edit="edit-users" permission-delete="delete-users" :rows="rows"
+      :columns="users" :total-items="totalItems" @do-delete="deleteUser" @do-edit="doEdit" />
     <!--end table section-->
 
     <!--Modal section-->

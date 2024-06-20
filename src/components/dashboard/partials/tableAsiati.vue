@@ -24,14 +24,14 @@
             </q-tooltip>
             <q-menu class="round-10">
               <q-list dense>
-                <q-item clickable @click="doEdit(props.row._id)">
+                <q-item clickable @click="doEdit(props.row._id)" v-if="$hasPermission(permissionEdit)">
                   <q-item-section>
                     <q-item-label class="text-primary text-weight-semi-bold">
                       Editar
                     </q-item-label>
                   </q-item-section>
                 </q-item>
-                <q-item clickable @click="doDolete(props.row._id)">
+                <q-item clickable @click="doDolete(props.row._id)" v-if="$hasPermission(permissionDelete)">
                   <q-item-section>
                     <q-item-label class="text-primary text-weight-semi-bold">
                       Eliminar
@@ -68,7 +68,15 @@ export default defineComponent({
       required: true,
       default: () => []
     },
-    totalItems: Number
+    totalItems: Number,
+    permissionEdit: {
+      type: String,
+      default: () => ''
+    },
+    permissionDelete: {
+      type: String,
+      default: () => ''
+    }
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setup(props, { emit }) {
