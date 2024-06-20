@@ -21,7 +21,7 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: "/dashboard",
-        component: () => import("src/pages/dashboard/homePage.vue"),
+        component: () => import("src/pages/dashboard/HomePage.vue"),
         name: "dashboard",
         meta: {
           available: ["list-meta-metric"],
