@@ -63,7 +63,7 @@ export default defineComponent({
         align: 'left',
         sortable: false,
         label: 'Responsable',
-        field: (row: any) => `${row.responsable.name} ${row.responsable.last_name}`,
+        field: (row: any) => row.responsable ? `${row.responsable.name} ${row.responsable.last_name}` : '-',
       },
       {
         name: 'option',
