@@ -85,3 +85,35 @@ export interface MetricsInterface {
   impressions?: any;
   spend?: any;
 }
+
+export interface OrderImportInterface {
+  file: any;
+  type: string | null;
+  company: string | null;
+}
+
+export enum TypeOrder {
+  DROPI = "dropi",
+}
+
+export interface OrdersInterface {
+  id?: string;
+  _id?: string;
+  external_id: string | number;
+  date_order: string | Date;
+  phone: string | number;
+  guide_number?: number | string;
+  guide_status?: string | string;
+  province: string;
+  city: string;
+  order_notes?: string;
+  order_conveyor: string;
+  total_order: string | number;
+  order_profit?: string | number;
+  freight_price: string | number;
+  return_freight_cost?: string | number;
+  products: string;
+  quantity: number;
+  type_order: TypeOrder;
+  company_id: string;
+}

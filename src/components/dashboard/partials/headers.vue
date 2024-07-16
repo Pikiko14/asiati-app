@@ -78,10 +78,10 @@ export default defineComponent({
     // computed
     const companies = computed(() => {
       if (companiesStore.companies.length > 0) {
-        return companiesStore.companies.map((user: Company) => {
+        return companiesStore.companies.map((company: Company) => {
           return {
-            label: `${user.name}`,
-            value: user._id
+            label: `${company.name}`,
+            value: company._id
           }
         })
       }
