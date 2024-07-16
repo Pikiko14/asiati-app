@@ -111,7 +111,9 @@ export default defineComponent({
         'list-business',
         'edit-business',
         'delete-business',
-        'list-meta-metric'
+        'list-meta-metric',
+        'list-orders',
+        'import-orders'
       ],
       is_active: true,
       name: '',
