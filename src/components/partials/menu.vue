@@ -1,7 +1,7 @@
 <template>
   <q-list class="bg-primary custom-aside">
     <q-item-label header class="q-pa-sm q-pt-lg text-center">
-      <q-img width="60px" src="/images/logoWhite.svg"></q-img>
+      <q-icon size="60px" name="img:/images/logo.png"></q-icon>
     </q-item-label>
 
     <q-item to="/dashboard" v-if="$hasPermission('list-meta-metric')">
