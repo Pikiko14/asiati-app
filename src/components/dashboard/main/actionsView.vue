@@ -5,7 +5,7 @@
         <thead>
           <tr>
             <th class="text-left" v-for="(item, idx) in actions" :key="idx">
-              {{ actionsTypes[item.action_type] }}
+              {{ actionsTypes[item.action_type] ?? item.action_type }}
             </th>
           </tr>
         </thead>
