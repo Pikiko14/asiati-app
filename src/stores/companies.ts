@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import { Request } from "src/api/api";
