@@ -133,7 +133,9 @@ export default defineComponent({
       { label: 'Listar empresas', value: 'list-business' },
       { label: 'Editar empresas', value: 'edit-business' },
       { label: 'Eliminar empresas', value: 'delete-business' },
-      { label: 'Listar metricas', value: 'list-meta-metric' }
+      { label: 'Listar metricas', value: 'list-meta-metric' },
+      { label: 'Listar ordenes', value: 'list-orders' },
+      { label: 'Importar ordenes', value: 'import-orders' }
     ];
 
     // methods
