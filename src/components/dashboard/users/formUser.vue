@@ -113,6 +113,8 @@ export default defineComponent({
         'delete-business',
         'list-meta-metric',
         'list-orders',
+        'import-orders',
+        'list-orders',
         'import-orders'
       ],
       is_active: true,
