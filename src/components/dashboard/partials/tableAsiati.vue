@@ -24,6 +24,13 @@
             </q-tooltip>
             <q-menu class="round-10">
               <q-list dense>
+                <q-item clickable @click="doShow(props.row)" v-if="$hasPermission(permissionShow)">
+                  <q-item-section>
+                    <q-item-label class="text-primary text-weight-semi-bold">
+                      Ver
+                    </q-item-label>
+                  </q-item-section>
+                </q-item>
                 <q-item clickable @click="doEdit(props.row._id)" v-if="$hasPermission(permissionEdit)">
                   <q-item-section>
                     <q-item-label class="text-primary text-weight-semi-bold">
@@ -56,7 +63,11 @@ import { defineComponent, onBeforeMount, ref, watch } from 'vue'
 
 export default defineComponent({
   name: 'TableAsiati',
-  emits: ['do-delete', 'do-edit'],
+  emits: [
+    'do-delete',
+    'do-edit',
+    'do-show'
+  ],
   props: {
     rows: {
       type: Array as () => any[],
@@ -74,6 +85,10 @@ export default defineComponent({
       default: () => ''
     },
     permissionDelete: {
+      type: String,
+      default: () => ''
+    },
+    permissionShow: {
       type: String,
       default: () => ''
     }
@@ -125,6 +140,10 @@ export default defineComponent({
       emit('do-edit', id)
     }
 
+    const doShow = (id: string) => {
+      emit('do-show', id)
+    }
+
     // life cycle
     onBeforeMount(() => {
       if (route.query.page) {
@@ -142,6 +161,7 @@ export default defineComponent({
     return {
       roles,
       doEdit,
+      doShow,
       doDolete,
       onRequest,
       pagination,

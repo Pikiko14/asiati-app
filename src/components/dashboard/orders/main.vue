@@ -5,8 +5,9 @@
     <!--end header section-->
 
     <!--table section-->
-    <TableAsiati permission-edit="edit-business" permission-delete="delete-business" :rows="rows" :columns="orders"
-      :total-items="totalItems" @do-delete="doDelete" @do-edit="doEdit" />
+    <TableAsiati permission-edit="edit-orders" :permissionShow="'list-orders'" permission-delete="delete-orders"
+      :rows="rows" :columns="orders" :total-items="totalItems" @do-delete="doDelete" @do-edit="doEdit"
+      @do-show="doShow" />
     <!--end table section-->
 
     <!--Modal section-->
@@ -24,13 +25,14 @@
 
 <script lang="ts">
 import { useRoute } from 'vue-router';
+import { Utils } from 'src/utils/utils';
 import importForm from './importForm.vue';
 import modalCard from '../partials/modalCard.vue';
+import { useOrdersStore } from 'src/stores/orders';
 import { OrdersInterface } from 'src/models/models';
-import { computed, defineComponent, onBeforeMount, ref } from 'vue';
 import HeaderComponent from '../partials/headers.vue';
 import TableAsiati from '../partials/tableAsiati.vue';
-import { useOrdersStore } from 'src/stores/orders';
+import { computed, defineComponent, onBeforeMount, ref } from 'vue';
 
 export default defineComponent({
   name: 'OrdersMainComponent',
@@ -80,19 +82,26 @@ export default defineComponent({
       },
       {
         name: 'freight_value',
-        align: 'left',
+        align: 'center',
         sortable: false,
         label: 'Costo envío',
-        field: (row: OrdersInterface) => `${row.freight_price}`,
+        field: (row: OrdersInterface) => `${utils.formatPrice(row.freight_price as number)}`,
       },
       {
         name: 'total_order',
-        align: 'left',
+        align: 'center',
         sortable: false,
         label: 'Total orden',
-        field: (row: OrdersInterface) => `${row.total_order}`,
+        field: (row: OrdersInterface) => `${utils.formatPrice(row.total_order as number)}`,
+      },
+      {
+        name: 'option',
+        align: 'center',
+        sortable: false,
+        label: '',
       },
     ];
+    const utils = new Utils('orders');
     const route = useRoute();
     const store = useOrdersStore();
     const openModalImport = ref<boolean>(false);
@@ -130,6 +139,10 @@ export default defineComponent({
       }
     }
 
+    const doShow = (order: OrdersInterface) => {
+      console.log(order)
+    }
+
     // hoks
     onBeforeMount(async () => {
       await listOrders();
@@ -139,6 +152,7 @@ export default defineComponent({
     return {
       rows,
       doEdit,
+      doShow,
       orders,
       doDelete,
       openModal,

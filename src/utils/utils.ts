@@ -12,7 +12,7 @@ export class Utils {
     if (!price) {
       return "";
     }
-    const val = (price / 1).toFixed(2).replace(".", ",");
+    const val = (price / 1).toFixed(0).replace(".", ",");
     return "$" + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
 
