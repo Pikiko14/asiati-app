@@ -130,8 +130,11 @@ export default defineComponent({
     });
 
     // methods
-    const openModal = () => {
+    const openModal = async () => {
       openModalImport.value = !openModalImport.value
+      if (!openModalImport.value) {
+        await listOrders()
+      }
     }
 
     const doDelete = (id: string) => {
