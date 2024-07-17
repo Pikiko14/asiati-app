@@ -48,7 +48,11 @@ export default boot(async ({ app }) => {
           error.response.data &&
           error.response.data.data
         ) {
-          notification("negative", error.response.data.data, "red");
+          notification(
+            "negative",
+            error.response.data.message ?? error.response.data.data,
+            "red"
+          );
           return true;
         }
         error.response.data.message
