@@ -11,7 +11,7 @@
         </q-item-label>
       </q-item-section>
     </q-item>
-    <q-item to="/orders" v-if="$hasPermission('list-orders')" class="q-mt-sm">
+    <q-item to="/orders?page=1&perPage=12&search=" v-if="$hasPermission('list-orders')" class="q-mt-sm">
       <q-item-section>
         <q-item-label class="text-center">
           <q-icon flat size="22pt" dense rounded name="img:/images/orders.svg"></q-icon>
