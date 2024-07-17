@@ -19,6 +19,16 @@
       </modalCard>
     </q-dialog>
     <!--End modal section-->
+
+    <!--Modal section-->
+    <q-dialog v-model="openOrderDetail">
+      <modalCard :title="`Detalles de la orden ${order._id ? order.external_id : ''}`">
+        <template v-slot:body>
+          <detailOrder :order="order" />
+        </template>
+      </modalCard>
+    </q-dialog>
+    <!--End modal section-->
   </section>
 </template>
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
@@ -27,6 +37,7 @@
 import { useRoute } from 'vue-router';
 import { Utils } from 'src/utils/utils';
 import importForm from './importForm.vue';
+import detailOrder from './detailOrder.vue';
 import modalCard from '../partials/modalCard.vue';
 import { useOrdersStore } from 'src/stores/orders';
 import { OrdersInterface } from 'src/models/models';
@@ -37,10 +48,11 @@ import { computed, defineComponent, onBeforeMount, ref } from 'vue';
 export default defineComponent({
   name: 'OrdersMainComponent',
   components: {
-    HeaderComponent,
-    importForm,
     modalCard,
-    TableAsiati
+    importForm,
+    detailOrder,
+    TableAsiati,
+    HeaderComponent,
   },
   setup() {
     // data
@@ -101,10 +113,12 @@ export default defineComponent({
         label: '',
       },
     ];
-    const utils = new Utils('orders');
     const route = useRoute();
+    const order = ref<any>({});
     const store = useOrdersStore();
+    const utils = new Utils('orders');
     const openModalImport = ref<boolean>(false);
+    const openOrderDetail = ref<boolean>(false);
 
     // computed
     const orders = computed(() => {
@@ -139,8 +153,9 @@ export default defineComponent({
       }
     }
 
-    const doShow = (order: OrdersInterface) => {
-      console.log(order)
+    const doShow = (orderData: OrdersInterface) => {
+      order.value = orderData;
+      openOrderDetail.value = !openOrderDetail.value;
     }
 
     // hoks
@@ -151,13 +166,15 @@ export default defineComponent({
     // return
     return {
       rows,
+      order,
       doEdit,
       doShow,
       orders,
       doDelete,
       openModal,
       totalItems,
-      openModalImport
+      openModalImport,
+      openOrderDetail
     }
   }
 })

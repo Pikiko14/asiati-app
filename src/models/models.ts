@@ -96,6 +96,11 @@ export enum TypeOrder {
   DROPI = "dropi",
 }
 
+export interface CompanyInterface {
+  _id: string;
+  name: string;
+}
+
 export interface OrdersInterface {
   id?: string;
   _id?: string;
@@ -108,12 +113,12 @@ export interface OrdersInterface {
   city: string;
   order_notes?: string;
   order_conveyor: string;
-  total_order: string | number;
-  order_profit?: string | number;
-  freight_price: string | number;
-  return_freight_cost?: string | number;
+  total_order: string | number | any;
+  order_profit?: string | number | any;
+  freight_price: string | number | any;
+  return_freight_cost?: string | number | any;
   products: string;
   quantity: number;
   type_order: TypeOrder;
-  company_id: string;
+  company: CompanyInterface;
 }
