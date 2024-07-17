@@ -31,10 +31,27 @@ export const useOrdersStore = defineStore("ordersStore", () => {
     } catch (error) {}
   };
 
+  const doListOrders = async (query: string) => {
+    try {
+      const response = (await handlerRequest.doGetRequest(
+        `${path}`,
+        query,
+        true
+      )) as ResponseObj;
+      if (response.success) {
+        orders.value = response.data.companies;
+        totalItems.value = response.data.totalItems;
+        return response;
+      }
+      // validamos  el usuario
+    } catch (error) {}
+  };
+
   // return statement
   return {
     orders,
     totalItems,
+    doListOrders,
     doImportOrders,
   };
 });
