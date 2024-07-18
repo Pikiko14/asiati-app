@@ -6,7 +6,12 @@
     <!--end header section-->
 
     <!--Main section-->
-    <MainDashboardComponent class="q-mt-xl" />
+    <div class="col-12 q-mt-xl">
+      <span class="text-primary text-h5 text-weight-semi-bold">
+        Metricas de la campaña
+      </span>
+    </div>
+    <MainDashboardComponent class="q-mt-md" />
     <ActionsViewComponent />
     <!--end Main section-->
 

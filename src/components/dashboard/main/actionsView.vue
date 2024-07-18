@@ -1,40 +1,29 @@
 <template>
-  <div class="row q-mt-lg">
+  <div class="row q-mt-lg" v-if="actions && actions.length > 0">
     <div class="col-12">
       <span class="text-primary text-h5 text-weight-semi-bold">
-        Metricas de la campaña META
+        Metricas de acciones en la campaña
       </span>
     </div>
-    <div class="col-12 q-mt-md">
-      <q-markup-table class="shadow-1 round-10">
-        <thead>
-          <tr>
-            <th class="text-left" v-for="(item, idx) in actions" :key="idx">
-              {{ actionsTypes[item.action_type] ?? item.action_type }}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="text-left" v-for="(item, idx) in actions" :key="idx">
-              {{ item.value }}
-            </td>
-          </tr>
-        </tbody>
-      </q-markup-table>
+    <div class="col-12">
+      <q-table :pagination="initialPagination" flat bordered grid :rows="actions" :columns="columns" row-key="name"
+        hide-header>
+        <template v-slot:top-right>
+        </template>
+      </q-table>
     </div>
   </div>
 </template>
+<!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import { useCompaniesStore } from 'src/stores/companies';
 
 export default defineComponent({
   name: 'ActionMainComponent',
   setup() {
     // references
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const actionsTypes: any = {
       onsite_web_app_view_content: "Vista de contenido",
       landing_page_view: "Vista de página de destino",
@@ -47,10 +36,32 @@ export default defineComponent({
       omni_view_content: "Vista de contenido omni",
       "offsite_conversion.fb_pixel_view_content": "Conversión fuera de sitio con píxel de Facebook - Vista de contenido",
       post_reaction: "Reacción a publicación",
-      link_click: "Clic en enlace"
-    }
-
-    const companiesStore = useCompaniesStore()
+      link_click: "Clic en enlace",
+      "consite_conversion.total_messaging_connection": 'Conexión de mensaje'
+    };
+    const columns: any = [
+      {
+        name: 'desc',
+        required: false,
+        label: 'Acción',
+        align: 'left',
+        field: (row: any) => actionsTypes[row.name],
+        sortable: false
+      },
+      {
+        name: 'valor',
+        align: 'center',
+        field: (row: any) => `${actionsTypes[row.action_type] ? actionsTypes[row.action_type] : row.action_type.split('.').pop()}: ${row.value}`,
+        sortable: false
+      },
+    ];
+    const companiesStore = useCompaniesStore();
+    const initialPagination = ref({
+      sortBy: 'desc',
+      descending: false,
+      page: 1,
+      rowsPerPage: 8
+    });
 
     // computed
     const actions = computed(() => {
@@ -59,8 +70,10 @@ export default defineComponent({
 
     // return data
     return {
+      columns,
       actions,
-      actionsTypes
+      actionsTypes,
+      initialPagination,
     }
   }
 })
