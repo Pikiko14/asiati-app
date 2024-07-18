@@ -133,4 +133,6 @@ export interface OrderMetricInterface {
   deliveredDropiOrders: number;
   pendingConfirmationDropiOrders: number;
   cancelledAndRejectedOrders: number;
+  totalMoneyInDropi: number;
+  totalOrdersDropiDelivered: number;
 }

@@ -15,7 +15,7 @@
     <ActionsViewComponent />
     <div class="col-12 q-mt-xl">
       <span class="text-primary text-h5 text-weight-semi-bold">
-        Metricas generales
+        Metricas Dropi
       </span>
     </div>
     <OrdersResume class="q-mt-md" />
