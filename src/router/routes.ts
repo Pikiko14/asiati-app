@@ -52,6 +52,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import("src/pages/dashboard/orders/ordersPage.vue"),
         name: "orders",
         meta: {
+          available: ["list-orders"],
           auth: true,
         },
       },
