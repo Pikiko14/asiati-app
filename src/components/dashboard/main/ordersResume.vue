@@ -1,6 +1,5 @@
 <template>
   <div class="grid-container">
-    {{ ordersMetrics }}
     <div class="col-12 col-sm-6 col-md-3">
       <MainCard :icon="'img:/images/operation.svg'" :title="'Operación'" :amount="ordersMetrics.totalMoneyInDropi"
         :label="'Ventas Dropi'" />
@@ -12,6 +11,18 @@
     <div class="col-12 col-sm-6 col-md-3">
       <MainCard :icon="'img:/images/operation.svg'" :is-price="true" :title="'Operacion'"
         :amount="ordersMetrics.totalOrdersDropiDelivered" :label="'Entregado dropi'" />
+    </div>
+    <div class="col-12 col-sm-6 col-md-3">
+      <MainCard :icon="'img:/images/operation.svg'" :is-price="true" :title="'Operacion'"
+        :amount="ordersMetrics.totalFreightDelivered" :label="'Flete Entregado'" />
+    </div>
+    <div class="col-12 col-sm-6 col-md-3">
+      <MainCard :icon="'img:/images/operation.svg'" :is-price="true" :title="'Operacion'"
+        :amount="ordersMetrics.totalFreight" :label="'Flete esperado'" />
+    </div>
+    <div class="col-12 col-sm-6 col-md-3">
+      <MainCard :icon="'img:/images/operation.svg'" :is-price="true" :title="'Operacion'"
+        :amount="ordersMetrics.returnedFreightDropi" :label="'Flete devolución'" />
     </div>
     <div class="col-12 col-sm-6 col-md-3">
       <MainCard :icon="'img:/images/tracking.svg'" :is-price="false" :title="'Tracking'"
