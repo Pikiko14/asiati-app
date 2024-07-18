@@ -122,3 +122,15 @@ export interface OrdersInterface {
   type_order: TypeOrder;
   company: CompanyInterface;
 }
+
+export interface OrderMetricInterface {
+  cancelledDropi: number;
+  rejectedDropi: number;
+  collectionDropi: number;
+  totalDropiOrders: number;
+  pendingDropiOrders: number;
+  returnedDropiOrders: number;
+  deliveredDropiOrders: number;
+  pendingConfirmationDropiOrders: number;
+  cancelledAndRejectedOrders: number;
+}

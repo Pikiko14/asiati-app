@@ -105,6 +105,7 @@ export default defineComponent({
         if (response.success) {
           if (response.data.metrics && response.data.metrics.length > 0) {
             companiesStore.setMetrics(response.data.metrics.shift())
+            companiesStore.setMetricsOrders(response.data.orderMetric)
           }
           emit('close-modal')
         }

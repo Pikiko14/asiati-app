@@ -13,6 +13,12 @@
     </div>
     <MainDashboardComponent class="q-mt-md" />
     <ActionsViewComponent />
+    <div class="col-12 q-mt-xl">
+      <span class="text-primary text-h5 text-weight-semi-bold">
+        Metricas generales
+      </span>
+    </div>
+    <OrdersResume class="q-mt-md" />
     <!--end Main section-->
 
     <!--Modal campains and ads selection-->
@@ -31,6 +37,7 @@
 <script lang="ts">
 import Campaigns from './main/campaigns.vue';
 import ModalCard from './partials/modalCard.vue';
+import OrdersResume from './main/ordersResume.vue';
 import HeaderComponent from './partials/headers.vue';
 import { useCompaniesStore } from 'src/stores/companies';
 import ActionsViewComponent from './main/actionsView.vue';
@@ -43,6 +50,7 @@ export default defineComponent({
   components: {
     Campaigns,
     ModalCard,
+    OrdersResume,
     HeaderComponent,
     ActionsViewComponent,
     MainDashboardComponent

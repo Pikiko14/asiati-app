@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue';
 import MainCard from '../partials/mainCard.vue';
 import { useCompaniesStore } from 'src/stores/companies';
 

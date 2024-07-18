@@ -1,7 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import { Request } from "src/api/api";
-import { ResponseObj, Company, MetricsInterface } from "src/models/models";
+import {
+  Company,
+  ResponseObj,
+  MetricsInterface,
+  OrderMetricInterface,
+} from "src/models/models";
 
 const path = "companies";
 const handlerRequest = new Request({
@@ -13,7 +19,18 @@ export const useCompaniesStore = defineStore("companiesStore", () => {
   const metrics = ref<MetricsInterface>({});
   const totalItems = ref<number>(0);
   const companies = ref<Company[]>([]);
-  const campaings = ref<Company[]>([]);
+  const campaings = ref<any[]>([]);
+  const metricsOrders = ref<OrderMetricInterface>({
+    cancelledAndRejectedOrders: 0,
+    cancelledDropi: 0,
+    collectionDropi: 0,
+    deliveredDropiOrders: 0,
+    pendingConfirmationDropiOrders: 0,
+    pendingDropiOrders: 0,
+    rejectedDropi: 0,
+    returnedDropiOrders: 0,
+    totalDropiOrders: 0,
+  });
 
   // methods
   const doSaveCompany = async (
@@ -161,6 +178,10 @@ export const useCompaniesStore = defineStore("companiesStore", () => {
     metrics.value = data;
   };
 
+  const setMetricsOrders = (data: OrderMetricInterface) => {
+    metricsOrders.value = data;
+  };
+
   // return statement
   return {
     listAds,
@@ -171,11 +192,13 @@ export const useCompaniesStore = defineStore("companiesStore", () => {
     totalItems,
     listMetrics,
     listCampaings,
+    metricsOrders,
     listForSelect,
     doSaveCompany,
     clearCompanies,
     doUpdateCompany,
     doListCompanies,
     doDeleteCompany,
+    setMetricsOrders,
   };
 });
