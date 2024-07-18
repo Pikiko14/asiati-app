@@ -4,7 +4,7 @@
       <div class="col-10 q-pt-md">
         <p class="title-card text-weight-semi-bold">{{ title }}</p>
         <p class="amount-card text-weight-semi-bold">
-          <span v-if="isPrice">{{ utils.formatPrice(amount) }}</span>
+          <span v-if="isPrice">{{ amount > 0 ? utils.formatPrice(amount) : '$0' }}</span>
           <span v-else>{{ amount }}</span>
         </p>
         <p class="label-card">{{ label }}</p>
