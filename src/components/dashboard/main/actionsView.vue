@@ -1,6 +1,11 @@
 <template>
   <div class="row q-mt-lg">
     <div class="col-12">
+      <span class="text-primary text-h5 text-weight-semi-bold">
+        Metricas de la campaña META
+      </span>
+    </div>
+    <div class="col-12 q-mt-md">
       <q-markup-table class="shadow-1 round-10">
         <thead>
           <tr>
