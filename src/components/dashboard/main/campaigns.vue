@@ -60,7 +60,7 @@ export default defineComponent({
     const filters = ref<FilterInterface>({
       campaign: '',
       ad: '',
-      date: {}
+      date: ''
     });
     const ads = ref<any[]>([]);
     const loading = ref<boolean>(false);
@@ -77,7 +77,7 @@ export default defineComponent({
     });
 
     const dateLabel = computed(() => {
-      return `${filters.value.date.from || ''} - ${filters.value.date.to || ''}`
+      return `${filters.value.date?.from || filters.value.date} - ${filters.value.date?.to || filters.value.date}`
     })
 
     // methods
