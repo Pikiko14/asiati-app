@@ -93,6 +93,13 @@ export default defineComponent({
         field: (row: OrdersInterface) => `${row.guide_status}`,
       },
       {
+        name: 'guide_status',
+        align: 'left',
+        sortable: false,
+        label: 'Estado guía',
+        field: (row: OrdersInterface) => `${row.products}`,
+      },
+      {
         name: 'freight_value',
         align: 'center',
         sortable: false,
