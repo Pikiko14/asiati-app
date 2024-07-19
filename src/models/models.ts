@@ -137,4 +137,6 @@ export interface OrderMetricInterface {
   totalOrdersDropiDelivered: number;
   totalFreightDelivered: number;
   totalFreight: number;
+  totalHealthWellbeing: number;
+  returnedFreightDropi: number;
 }
