@@ -14,7 +14,7 @@
     <q-dialog v-model="openModalProducts" @before-hide="clearData">
       <ModalCard :title="product._id ? 'Editar product' : 'Producto nuevo'">
         <template v-slot:body>
-          <FormProduct @close-modal="openModal" />
+          <FormProduct @close-modal="openModal" :productData="product" />
         </template>
       </ModalCard>
     </q-dialog>
@@ -25,6 +25,7 @@
 <script lang="ts">
 import FormProduct from './form.vue'
 import { useRoute } from 'vue-router'
+import { Utils } from 'src/utils/utils'
 import ModalCard from '../partials/modalCard.vue'
 import { notification } from 'src/boot/notification'
 import HeaderComponent from '../partials/headers.vue'
@@ -46,6 +47,7 @@ export default defineComponent({
     const route = useRoute()
     const store = useProductsStore()
     const render = ref<boolean>(true)
+    const utils = new Utils('products')
     const product = ref<ProductsInterface>({
       name: '',
       value: 0,
@@ -65,7 +67,7 @@ export default defineComponent({
         name: 'value',
         align: 'right',
         sortable: false,
-        field: (row: ProductsInterface) => `${row.value}`,
+        field: (row: ProductsInterface) => `${utils.formatPrice(row.value)}`,
         label: 'Valor (COP)',
       },
       {

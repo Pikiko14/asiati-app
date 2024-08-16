@@ -64,7 +64,12 @@ export const useProductsStore = defineStore("productsStore", () => {
     }
   };
 
-  const doDeleteProduct = async (id: string) => {
+  /**
+   * Delete products
+   * @param { string } id
+   * @returns { Promise<ResponseObj | void> }
+   */
+  const doDeleteProduct = async (id: string): Promise<ResponseObj | void> => {
     try {
       const response = (await handlerRequest.doDeleteRequest(
         `${path}/${id}`,
@@ -84,6 +89,26 @@ export const useProductsStore = defineStore("productsStore", () => {
     } catch (error) {}
   };
 
+  const doUpdateProducts = async (params: ProductsInterface) => {
+    try {
+      const response = (await handlerRequest.doPutRequest(
+        `${path}/${params._id}`,
+        params,
+        true,
+        false
+      )) as ResponseObj;
+      if (response.success) {
+        const index = products.value.findIndex(
+          (item: ProductsInterface) => item._id === params._id
+        );
+        if (index !== -1) {
+          products.value[index] = response.data;
+        }
+        return response;
+      }
+    } catch (error) {}
+  };
+
   // return statement
   return {
     products,
@@ -91,5 +116,6 @@ export const useProductsStore = defineStore("productsStore", () => {
     doSaveProduct,
     doListProducts,
     doDeleteProduct,
+    doUpdateProducts,
   };
 });

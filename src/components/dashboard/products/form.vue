@@ -34,19 +34,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import { ProductsInterface, ResponseObj } from 'src/models/models'
 import { useProductsStore } from 'src/stores/products'
 import { notification } from 'src/boot/notification';
+import { defineComponent, onBeforeMount, ref } from 'vue'
+import { ProductsInterface, ResponseObj } from 'src/models/models'
 
 export default defineComponent({
   name: 'FormProductComponent',
   emits: [
     'close-modal'
   ],
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  props: {
+    productData: {
+      type: Object as () => ProductsInterface,
+      default: () => {
+        return {
+        }
+      }
+    }
+  },
   setup(props, { emit }) {
     // data
+    const { productData } = props
     const store = useProductsStore();
     const loading = ref<boolean>(false)
     const product = ref<ProductsInterface>({
@@ -57,7 +66,13 @@ export default defineComponent({
 
     // methods
     const doSaveProduct = async () => {
+      if (product.value._id) {
+        await doUpdateProduct()
+        return false
+      }
+
       try {
+        loading.value = true
         const response = await store.doSaveProduct(product.value) as ResponseObj;
         if (response.success) {
           notification("positive", response.message, "primary");
@@ -68,6 +83,27 @@ export default defineComponent({
         loading.value = false
       }
     }
+
+    const doUpdateProduct = async () => {
+      try {
+        loading.value = true
+        const response = await store.doUpdateProducts(product.value) as ResponseObj;
+        if (response.success) {
+          notification("positive", response.message, "primary");
+          emit('close-modal')
+        }
+      } catch (error) {
+      } finally {
+        loading.value = false
+      }
+    }
+
+    // hook
+    onBeforeMount(() => {
+      if (productData._id) {
+        product.value = JSON.parse(JSON.stringify(productData))
+      }
+    })
 
     return {
       product,
