@@ -135,7 +135,11 @@ export default defineComponent({
       { label: 'Eliminar empresas', value: 'delete-business' },
       { label: 'Listar metricas', value: 'list-meta-metric' },
       { label: 'Listar ordenes', value: 'list-orders' },
-      { label: 'Importar ordenes', value: 'import-orders' }
+      { label: 'Importar ordenes', value: 'import-orders' },
+      { label: 'Crear productos', value: 'create-products' },
+      { label: 'Listar productos', value: 'list-products' },
+      { label: 'Editar productos', value: 'edit-products' },
+      { label: 'Eliminar productos', value: 'delete-products' }
     ];
 
     // methods
