@@ -30,6 +30,12 @@ export const useCompaniesStore = defineStore("companiesStore", () => {
     rejectedDropi: 0,
     returnedDropiOrders: 0,
     totalDropiOrders: 0,
+    totalFreight: 0,
+    returnedFreightDropi: 0,
+    totalFreightDelivered: 0,
+    totalHealthWellbeing: 0,
+    totalMoneyInDropi: 0,
+    totalOrdersDropiDelivered: 0,
   });
 
   // methods
