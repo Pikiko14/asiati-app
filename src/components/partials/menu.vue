@@ -25,6 +25,13 @@
         </q-item-label>
       </q-item-section>
     </q-item>
+    <q-item to="/products?page=1&perPage=12&search=" class="q-mt-sm" v-if="$hasPermission('create-products')">
+      <q-item-section>
+        <q-item-label class="text-center">
+          <q-icon flat size="20pt" dense rounded name="inventory" color="white"></q-icon>
+        </q-item-label>
+      </q-item-section>
+    </q-item>
     <q-item to="/users?page=1&perPage=12&search=" class="q-mt-sm" v-if="$hasPermission('list-users')">
       <q-item-section>
         <q-item-label class="text-center">

@@ -1,246 +1,256 @@
 // app global css in SCSS form
-.login-form{
-    width: 100%;
-    height: 100vh;
+.login-form {
+  width: 100%;
+  height: 100vh;
 }
 
 .background {
-    background-image: url('/images/bg.svg');
-    background-repeat: no-repeat;
-    background-position: right center;
-    background-size: contain;
+  background-image: url("/images/bg.svg");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: contain;
 }
 
 .text-weight-semi-bold {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .d-flex {
-    display: flex;
+  display: flex;
 }
 
 .text-weight-medium {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .q-field--outlined .q-field__control::after {
-    border: 2px solid #E5E5E5;
+  border: 2px solid #e5e5e5;
 }
 
 .font-12 {
-    font-size: 12pt;
+  font-size: 12pt;
 }
 
 label {
-    font-size: 12pt;
-    font-weight: 600;
-    color: #000000;
+  font-size: 12pt;
+  font-weight: 600;
+  color: #000000;
 }
 
 .round-10 {
-    border-radius: 10px !important;
+  border-radius: 10px !important;
 }
 
 .recovery-card {
-    width: 600px;
+  width: 600px;
 }
 
 .custom-aside {
-    height: calc(100vh - 35px);
-    border-radius: 50px;
-    width: 80px;
-    position: relative;
+  height: calc(100vh - 35px);
+  border-radius: 50px;
+  width: 80px;
+  position: relative;
 }
 
 .custom-aside .absolute-bottom {
-    bottom: 20px
+  bottom: 20px;
 }
 
 .modal-card {
-    max-width: 620px !important;
+  max-width: 620px !important;
 }
 
 label {
-    color: #000000;
-    font-size: 12pt;
+  color: #000000;
+  font-size: 12pt;
 }
 
-
 .q-table thead {
-    background-color: #F2FCFF !important;
-    color: #004B5E;
-    height: 51px;
+  background-color: #f2fcff !important;
+  color: #004b5e;
+  height: 51px;
 }
 
 .q-table th {
-    font-size: 12pt !important;
-    font-weight: 500;
+  font-size: 12pt !important;
+  font-weight: 500;
 }
 
 .q-table tbody {
-    background-color: #fafafa;
+  background-color: #fafafa;
 }
 
 .q-table tbody td {
-    font-size: 11pt;
+  font-size: 11pt;
 }
 
 .q-table__bottom {
-    background-color: #fafafa;
+  background-color: #fafafa;
 }
 
 .admin-chip {
-    background-color: #004B5E !important;
-    color: #F6E71A !important;
-    font-weight: 500;
-    width: 100px;
+  background-color: #004b5e !important;
+  color: #f6e71a !important;
+  font-weight: 500;
+  width: 100px;
 }
 
 .ceo-chip {
-    background-color: #F6E71A !important;
-    color: #004B5E !important;
-    font-weight: 500;
-    width: 100px;
+  background-color: #f6e71a !important;
+  color: #004b5e !important;
+  font-weight: 500;
+  width: 100px;
 }
 
 .q-dialog-plugin {
-    border-radius: 10px !important;
+  border-radius: 10px !important;
 }
 
 .round-20 {
-    border-radius: 20px !important;
+  border-radius: 20px !important;
 }
 
 .dropdown-stores .q-icon {
-    font-size: 14pt !important;
+  font-size: 14pt !important;
 }
 
 .q-menu {
-    border-radius: 20px;
+  border-radius: 20px;
 }
 
 .dashboard-card {
-    width: 100%;
-    border-radius: 10px;
-    height: 122px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1); /* x, y, blur, spread, color with 10% opacity */
-    background-color: #F2FCFF;
-    padding: 12px;
-    line-height: 20px;
+  width: 100%;
+  border-radius: 10px;
+  height: 122px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1); /* x, y, blur, spread, color with 10% opacity */
+  background-color: #f2fcff;
+  padding: 12px;
+  line-height: 20px;
 }
 
 .grid-container {
-    display: grid;
-    gap: 22px; /* Espacio entre los elementos */
+  display: grid;
+  gap: 22px; /* Espacio entre los elementos */
 }
 
 .title-card {
-    font-size: 12pt;
-    color: #004B5E;
+  font-size: 12pt;
+  color: #004b5e;
 }
 
 .amount-card {
-    color: #0095F6;
-    font-size: 18pt;
+  color: #0095f6;
+  font-size: 18pt;
 }
 
 .label-card {
-    font-size: 10pt;
-    color: #595959;
-    font-weight: 400;
+  font-size: 10pt;
+  color: #595959;
+  font-weight: 400;
 }
 
 .icon-card {
-    width: 32px;
-    height: 32px;
-    margin-top: 12px;
-    border-radius: 50px;
-    background-color: #C3DEE5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-top: 12px;
+  border-radius: 50px;
+  background-color: #c3dee5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .is-yellow {
-    background-color: #F6E71A;
+  background-color: #f6e71a;
 }
 
 .is-yellow .amount-card {
-    color: #004B5E;
+  color: #004b5e;
 }
 
 .is-yellow .label-card {
-    color: #004B5E;
+  color: #004b5e;
 }
 
 .is-yellow .icon-card {
-    background-color: #004B5E;
+  background-color: #004b5e;
 }
 
 .is-green {
-    background-color: #004B5E;
+  background-color: #004b5e;
 }
 
 .is-green .amount-card {
-    color: #FFFFFF !important;
+  color: #ffffff !important;
 }
 
 .is-green .title-card {
-    color: #FFFFFF !important;
+  color: #ffffff !important;
 }
 
 .is-green .label-card {
-    color: #FFFFFF;
+  color: #ffffff;
 }
 
 .is-green .icon-card {
-    background-color: #C3DEE5;
+  background-color: #c3dee5;
 }
 
 .filterCampaign {
-    width: 420px;
+  width: 420px;
+}
+
+.product-form {
+  width: 360px;
 }
 
 /* 5 items por fila en pantallas medianas y grandes */
 @media (min-width: 1024px) {
-    .grid-container {
-        grid-template-columns: repeat(5, 1fr);
-    }
+  .grid-container {
+    grid-template-columns: repeat(5, 1fr);
+  }
 }
 
 /* 2 items por fila en pantallas pequeñas */
 @media (min-width: 640px) and (max-width: 1023px) {
-    .grid-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .product-form {
+    width: 100%;
+  }
 }
 
 /* 1 item por fila en pantallas extra pequeñas */
 @media (max-width: 639px) {
-    .grid-container {
-        grid-template-columns: 1fr;
-    }
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
 }
-    
 
 // media queries
 @media (max-width: 900px) {
-    .mobile-overflow {
-        background-color: rgba(0, 0, 0, 0.144);
-    }
+  .product-form {
+    width: 100%;
+  }
 
-    .filterCampaign {
-        width: 100%;
-    }
+  .mobile-overflow {
+    background-color: rgba(0, 0, 0, 0.144);
+  }
 
-    .background {
-        background-image: none;
-    }
+  .filterCampaign {
+    width: 100%;
+  }
 
-    .modal-card {
-        width: 100%;
-    }
+  .background {
+    background-image: none;
+  }
+
+  .modal-card {
+    width: 100%;
+  }
 }
