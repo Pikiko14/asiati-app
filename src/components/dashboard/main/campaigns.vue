@@ -36,8 +36,7 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
-import { date } from 'quasar';
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue';
 import { useCompaniesStore } from 'src/stores/companies';
 import { CampaignsInterface, FilterInterface, ResponseObj } from 'src/models/models';
 
@@ -77,7 +76,7 @@ export default defineComponent({
     });
 
     const dateLabel = computed(() => {
-      return `${filters.value.date?.from || filters.value.date} - ${filters.value.date?.to || filters.value.date}`
+      return `${filters.value.date?.from || filters.value.date} - ${filters.value.date?.to || filters.value.date}`;
     })
 
     // methods
@@ -100,21 +99,21 @@ export default defineComponent({
       loading.value = true
       companiesStore.setMetrics({})
       try {
-        const query = `?from=${filters.value.date.from || filters.value.date}&to=${filters.value.date.to || filters.value.date}`
+        const query = `?from=${filters.value.date.from || filters.value.date}&to=${filters.value.date.to || filters.value.date}`;
         const response = await companiesStore.listMetrics(props.company, filters.value.ad || filters.value.campaign, query) as ResponseObj;
         if (response.success) {
           if (response.data.metrics && response.data.metrics.length > 0) {
-            companiesStore.setMetrics(response.data.metrics.shift())
+            companiesStore.setMetrics(response.data.metrics.shift());
           }
-          console.log(response.data)
           if (response.data.orderMetric) {
-            companiesStore.setMetricsOrders(response.data.orderMetric)
+            companiesStore.setMetricsOrders(response.data.orderMetric);
           }
-          emit('close-modal')
+          companiesStore.setDateFilterMetrics(filters.value.date);
+          emit('close-modal');
         }
       } catch (error) {
       } finally {
-        loading.value = false
+        loading.value = false;
       }
     }
 

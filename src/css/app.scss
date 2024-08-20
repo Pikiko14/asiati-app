@@ -57,7 +57,7 @@ label {
 }
 
 .modal-card {
-  max-width: 620px !important;
+  max-width: 820px !important;
 }
 
 label {
@@ -205,6 +205,16 @@ label {
 
 .product-form {
   width: 360px;
+}
+
+.btn-yellows {
+  background-color: #f6e71a;
+  color: $primary;
+  font-weight: 600;
+}
+
+.kpis-card {
+  width: 1200px !important;
 }
 
 /* 5 items por fila en pantallas medianas y grandes */

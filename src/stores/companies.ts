@@ -16,6 +16,7 @@ const handlerRequest = new Request({
 
 export const useCompaniesStore = defineStore("companiesStore", () => {
   // data
+  const dateFilterMetrics = ref<any>({});
   const metrics = ref<MetricsInterface>({});
   const totalItems = ref<number>(0);
   const companies = ref<Company[]>([]);
@@ -188,6 +189,10 @@ export const useCompaniesStore = defineStore("companiesStore", () => {
     metricsOrders.value = data;
   };
 
+  const setDateFilterMetrics = (date: any) => {
+    dateFilterMetrics.value = date;
+  };
+
   // return statement
   return {
     listAds,
@@ -206,5 +211,7 @@ export const useCompaniesStore = defineStore("companiesStore", () => {
     doListCompanies,
     doDeleteCompany,
     setMetricsOrders,
+    dateFilterMetrics,
+    setDateFilterMetrics,
   };
 });

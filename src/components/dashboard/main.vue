@@ -2,7 +2,7 @@
   <section class="full-width">
     <!--Header section-->
     <HeaderComponent :title="'Dashboard Financiero'" @filter-by-date="doFilterByDate"
-      @filter-by-company="doFilterByCompany" />
+      @filter-by-company="doFilterByCompany" @open-kpi="openKpi" />
     <!--end header section-->
 
     <!--Main section-->
@@ -30,11 +30,22 @@
       </ModalCard>
     </q-dialog>
     <!--End modal campains and ads selection-->
+
+    <!--Modal KPIS-->
+    <q-dialog v-model="openModalKpis">
+      <ModalCard class="kpis-card" :title="'KPIS'">
+        <template v-slot:body>
+          <KpisComponent />
+        </template>
+      </ModalCard>
+    </q-dialog>
+    <!--End modal campains and ads selection-->
   </section>
 </template>
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
+import KpisComponent from './main/kpis.vue';
 import Campaigns from './main/campaigns.vue';
 import ModalCard from './partials/modalCard.vue';
 import OrdersResume from './main/ordersResume.vue';
@@ -51,6 +62,7 @@ export default defineComponent({
     Campaigns,
     ModalCard,
     OrdersResume,
+    KpisComponent,
     HeaderComponent,
     ActionsViewComponent,
     MainDashboardComponent
@@ -59,6 +71,7 @@ export default defineComponent({
     // references
     const companySelected = ref<string>()
     const openCampaignModal = ref<boolean>()
+    const openModalKpis = ref<boolean>(false)
     const companiesStore = useCompaniesStore()
     const campaigns = ref<CampaignsInterface[]>([])
 
@@ -92,6 +105,10 @@ export default defineComponent({
       }
     }
 
+    const openKpi = () => {
+      openModalKpis.value = !openModalKpis.value
+    }
+
     // lifecycles
     onBeforeMount(async () => {
       await listCompanies()
@@ -103,8 +120,10 @@ export default defineComponent({
 
     // return
     return {
+      openKpi,
       campaigns,
       metaMetrics,
+      openModalKpis,
       doFilterByDate,
       companySelected,
       doFilterByCompany,

@@ -22,6 +22,9 @@
         </div>
       </section>
       <section class="full-width dropdown-stores row d-flex justify-end" v-else>
+        <div class="col-12 col-md-3" :class="{ 'q-pr-md': $q.screen.gt.sm }">
+          <q-btn @click="openKpi" class="full-width btn-yellows" label="Ver KPIS" rounded unelevated no-caps></q-btn>
+        </div>
         <div class="col-12 col-md-3" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
           <q-btn-dropdown unelevated dropdown-icon="img:/images/dropdown.svg" no-caps
             class="round-20 full-width q-mr-none" color="primary" label="Mis tiendas">
@@ -44,7 +47,6 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 
 <script lang="ts">
-import { date } from 'quasar'
 import { Company } from 'src/models/models'
 import { useRoute, useRouter } from 'vue-router'
 import { useCompaniesStore } from 'src/stores/companies'
@@ -64,7 +66,8 @@ export default defineComponent({
     'do-search',
     'open-modal',
     'filter-by-date',
-    'filter-by-company'
+    'filter-by-company',
+    'open-kpi'
   ],
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setup(props, { emit }) {
@@ -88,6 +91,11 @@ export default defineComponent({
       return []
     })
 
+    // computed
+    const ordersMetrics = computed(() => {
+      return companiesStore.metricsOrders;
+    });
+
     // methods
     const doSearch = (e: string) => {
       const page = 1
@@ -110,6 +118,10 @@ export default defineComponent({
       emit('filter-by-company', id)
     }
 
+    const openKpi = () => {
+      emit('open-kpi')
+    }
+
     // lifecycles
     onBeforeMount(() => {
       search.value = route.query.search as string
@@ -118,10 +130,12 @@ export default defineComponent({
     // return
     return {
       search,
+      openKpi,
       doSearch,
       openModal,
       companies,
       popupProxy,
+      ordersMetrics,
       doFilterByDate,
       filterByCompany,
     }
