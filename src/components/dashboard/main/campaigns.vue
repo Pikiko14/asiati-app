@@ -106,7 +106,8 @@ export default defineComponent({
           if (response.data.metrics && response.data.metrics.length > 0) {
             companiesStore.setMetrics(response.data.metrics.shift())
           }
-          if (response.data.orderMetric && response.data.orderMetric.length > 0) {
+          console.log(response.data)
+          if (response.data.orderMetric) {
             companiesStore.setMetricsOrders(response.data.orderMetric)
           }
           emit('close-modal')
