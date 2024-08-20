@@ -166,12 +166,14 @@ export enum WalletTypeMovement {
 export interface WalletInterface {
   id?: string;
   _id?: string;
-  id_movement: string;
-  date: Date;
-  type: WalletTypeMovement;
-  amount: number;
+  id_movement?: string;
+  external_id?: string;
+  date?: string;
+  type?: WalletTypeMovement;
+  amount?: number;
   preview_amount?: number;
   guide_number?: string;
   description?: string;
   type_order?: TypeOrder;
+  order_id?: string;
 }

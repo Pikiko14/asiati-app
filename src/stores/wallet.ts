@@ -39,7 +39,7 @@ export const useWalletsStore = defineStore("walletsStore", () => {
         true
       )) as ResponseObj;
       if (response.success) {
-        wallets.value = response.data.companies;
+        wallets.value = response.data.wallets;
         totalItems.value = response.data.totalItems;
         return response;
       }
