@@ -25,10 +25,17 @@
         </q-item-label>
       </q-item-section>
     </q-item>
-    <q-item to="/products?page=1&perPage=12&search=" class="q-mt-sm" v-if="$hasPermission('create-products')">
+    <q-item to="/products?page=1&perPage=12&search=" class="q-mt-sm" v-if="$hasPermission('list-products')">
       <q-item-section>
         <q-item-label class="text-center">
           <q-icon flat size="20pt" dense rounded name="inventory" color="white"></q-icon>
+        </q-item-label>
+      </q-item-section>
+    </q-item>
+    <q-item to="/wallets?page=1&perPage=12&search=" class="q-mt-sm" v-if="$hasPermission('list-wallet')">
+      <q-item-section>
+        <q-item-label class="text-center">
+          <q-icon flat size="22pt" dense rounded name="wallet" color="white"></q-icon>
         </q-item-label>
       </q-item-section>
     </q-item>

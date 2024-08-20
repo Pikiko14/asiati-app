@@ -139,7 +139,11 @@ export default defineComponent({
       { label: 'Crear productos', value: 'create-products' },
       { label: 'Listar productos', value: 'list-products' },
       { label: 'Editar productos', value: 'edit-products' },
-      { label: 'Eliminar productos', value: 'delete-products' }
+      { label: 'Eliminar productos', value: 'delete-products' },
+      { label: 'Crear wallet', value: 'create-wallet' },
+      { label: 'Listar wallet', value: 'list-wallet' },
+      { label: 'Editar wallet', value: 'edit-wallet' },
+      { label: 'Eliminar wallet', value: 'delete-wallet' }
     ];
 
     // methods
