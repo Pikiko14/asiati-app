@@ -65,6 +65,15 @@ const routes: RouteRecordRaw[] = [
           auth: true,
         },
       },
+      {
+        path: "/wallets",
+        component: () => import("src/pages/dashboard/wallet/main.vue"),
+        name: "wallet",
+        meta: {
+          available: ["list-wallet"],
+          auth: true,
+        },
+      },
     ],
   },
   // Always leave this as last one,
