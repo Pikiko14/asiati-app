@@ -64,6 +64,13 @@ export default defineComponent({
         field: (row: WalletInterface) => `${row.external_id}`,
       },
       {
+        name: 'company',
+        align: 'left',
+        sortable: false,
+        label: 'Tienda',
+        field: (row: WalletInterface) => `${row.company?.name}`,
+      },
+      {
         name: 'date',
         align: 'left',
         sortable: false,

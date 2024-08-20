@@ -65,6 +65,13 @@ export default defineComponent({
         field: (row: OrdersInterface) => `${row.external_id}`,
       },
       {
+        name: 'company',
+        align: 'left',
+        sortable: false,
+        label: 'Tienda',
+        field: (row: OrdersInterface) => `${row.company?.name}`,
+      },
+      {
         name: 'date',
         align: 'left',
         sortable: false,

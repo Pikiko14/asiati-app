@@ -176,4 +176,5 @@ export interface WalletInterface {
   description?: string;
   type_order?: TypeOrder;
   order_id?: string;
+  company?: CompanyInterface;
 }
