@@ -33,8 +33,8 @@ import { Utils } from 'src/utils/utils';
 import { useWalletsStore } from 'src/stores/wallet';
 import { notification } from 'src/boot/notification';
 import { useCompaniesStore } from 'src/stores/companies';
-import { Company, ResponseObj, WalletImportInterface } from 'src/models/models';
 import { computed, defineComponent, onBeforeMount, ref } from 'vue';
+import { Company, ResponseObj, TypeOrder, WalletImportInterface } from 'src/models/models';
 
 export default defineComponent({
   name: 'WalletFormImportComponent',
@@ -43,7 +43,8 @@ export default defineComponent({
     const utils = new Utils('wallet');
     const wallet = ref<WalletImportInterface>({
       file: null,
-      company: null
+      company: null,
+      type: TypeOrder.DROPI
     })
     const loading = ref<boolean>(false);
     const walletsStore = useWalletsStore();

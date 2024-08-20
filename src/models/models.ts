@@ -93,7 +93,7 @@ export interface OrderImportInterface {
 }
 
 export enum TypeOrder {
-  DROPI = "dropi",
+  DROPI = "Dropi",
 }
 
 export interface CompanyInterface {
@@ -155,6 +155,7 @@ export interface ProductsInterface {
 export interface WalletImportInterface {
   file: any;
   company: string | null;
+  type?: TypeOrder;
 }
 
 export enum WalletTypeMovement {

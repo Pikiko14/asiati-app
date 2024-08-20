@@ -9,7 +9,7 @@
     <q-dialog v-model="openModalImport">
       <ModalCard :title="'Importar cartera'">
         <template v-slot:body>
-          <FormImport />
+          <FormImport @close-modal="openModal" />
         </template>
       </ModalCard>
     </q-dialog>
