@@ -76,7 +76,7 @@ export default defineComponent({
         align: 'left',
         sortable: false,
         label: 'Fecha',
-        field: (row: OrdersInterface) => `${row.date_order}`,
+        field: (row: OrdersInterface) => `${row.date_order?.substring(0, 10)}`,
       },
       {
         name: 'phone',

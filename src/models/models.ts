@@ -105,7 +105,7 @@ export interface OrdersInterface {
   id?: string;
   _id?: string;
   external_id: string | number;
-  date_order: string | Date;
+  date_order: string;
   phone: string | number;
   guide_number?: number | string;
   guide_status?: string | string;
