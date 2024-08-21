@@ -38,7 +38,7 @@
                   <div class="col-12 col-md-6">
                     <span class="text-bold">TOTAL RECAUDO ($)</span><br>
                     <span>
-                      {{ utils.formatPrice(ordersMetrics.collectionDropi) }}
+                      {{ utils.formatPrice(totalCollection) }}
                     </span>
                   </div>
                   <div class="col-12 col-md-6 q-pl-md">
@@ -490,7 +490,7 @@ export default defineComponent({
     });
 
     const collectionOverInversion = computed(() => {
-      const total = (ordersMetrics.value.collectionDropi / metaMetrics.value.spend);
+      const total = (ordersMetrics.value.collectionDropi / metaMetrics.value.spend) * 100;
       return total > 0 ? parseFloat(total.toFixed(2)) : 0;
     });
 
@@ -500,12 +500,12 @@ export default defineComponent({
     });
 
     const clickToRate = computed(() => {
-      const total = ((clickOnLink.value / metaMetrics.value.impressions) * 100);
+      const total = ((metaMetrics.value.spend / metaMetrics.value.impressions));
       return total > 0 ? parseFloat(total.toFixed(2)) : 0;
     });
 
     const cvrTax = computed(() => {
-      const total = ((ordersMetrics.value.totalDropiOrders / destinyPageView.value) * 100);
+      const total = ((ordersMetrics.value.totalDropiOrders / destinyPageView.value));
       return total > 0 ? parseFloat(total.toFixed(2)) : 0;
     });
 
@@ -536,8 +536,12 @@ export default defineComponent({
     });
 
     const collectionOverInvertion = computed(() => {
-      console.log(totalIncoming.value)
       const total = (totalIncoming.value / metaMetrics.value.spend) * 100;
+      return total > 0 ? parseFloat(total.toFixed(2)) : 0;
+    });
+
+    const totalCollection = computed(() => {
+      const total = ordersMetrics.value.collectionDropi;
       return total > 0 ? parseFloat(total.toFixed(2)) : 0;
     });
 
@@ -562,6 +566,7 @@ export default defineComponent({
       postEngagement,
       destinyPageView,
       porcentDelivered,
+      totalCollection,
       collectionOverInvertion,
       collectionOverInversion,
     }
