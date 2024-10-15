@@ -54,7 +54,8 @@ export default defineComponent({
     })
     const companiesStore = useCompaniesStore();
     const typeOrder = [
-      'Dropi'
+      'Dropi',
+      'Shopify',
     ];
 
     // computeds
