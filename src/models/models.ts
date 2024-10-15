@@ -111,6 +111,7 @@ export interface OrdersInterface {
   guide_status?: string | string;
   province: string;
   city: string;
+  quantity_order?: number | string;
   order_notes?: string;
   order_conveyor: string;
   total_order: string | number | any;
