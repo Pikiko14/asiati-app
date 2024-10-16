@@ -5,7 +5,7 @@
       <q-tab name="operation" label="Operación" />
       <q-tab name="tracking" label="Tracking" />
       <q-tab name="marketing" label="Marketing" />
-      <q-tab name="flow_money" label="Flujo de caja" />
+      <q-tab name="flow_money" label="Flujo de caja esperado" />
       <q-tab name="utility_delivered_order" label="Utilidad entregados" />
       <q-tab name="utility_wanted" label="Utilidad esperada" />
     </q-tabs>
@@ -51,9 +51,27 @@
               </td>
             </tr>
             <tr>
-              <td>
-                <span class="text-bold">% FC (RECAUDO SOBRE INVERSIÓN)</span><br>
-                {{ collectionOverInversion }}%
+              <td style="width">
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <span class="text-bold">% FC (RECAUDO SOBRE INVERSIÓN)</span><br>
+                    {{ collectionOverInversion }}%
+                  </div>
+                  <div class="col-12 col-md-6 q-pl-md">
+                    <span class="text-bold">Tasa devoluicion Historica</span><br>
+                    {{ taxDevolution }}%
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="width">
+                <div class="row">
+                  <div class="col-12 col-md-6 q-p-md">
+                    <span class="text-bold">Tasa cancelación historica</span><br>
+                    {{ taxCancelled }}%
+                  </div>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -69,15 +87,41 @@
               <td style="width">
                 <div class="row">
                   <div class="col-12 col-md-6">
+                    <span class="text-bold">VENTAS SHOPIFY($)</span><br>
+                    <span>
+                      {{ utils.formatPrice(ordersMetrics.shopify.totalShopify) }}
+                    </span>
+                  </div>
+                  <div class="col-12 col-md-6 q-pl-md">
+                    <span class="text-bold">PEDIDOS SHOPIFY</span><br>
+                    <span>
+                      {{ ordersMetrics.shopify.totalOrderShopify }}
+                    </span>
+                  </div>
+                  <div class="col-12 col-md-6 q-mt-sm">
                     <span class="text-bold">VENTAS ($)</span><br>
                     <span>
                       {{ utils.formatPrice(ordersMetrics.totalMoneyInDropi) }}
                     </span>
                   </div>
-                  <div class="col-12 col-md-6 q-pl-md">
+                  <div class="col-12 col-md-6 q-pl-md q-mt-sm">
                     <span class="text-bold">PEDIDOS GENERADOS (QT)</span><br>
                     <span>
                       {{ ordersMetrics.totalDropiOrders }}
+                    </span>
+                  </div>
+                  <div class="col-12 col-md-6 q-l-md q-mt-sm">
+                    <span class="text-bold">PEDIDOS SUBIDOS A PLATAFORMA (QT)</span><br>
+                    <span>
+                      {{ ordersMetrics.totalDropiOrders - ordersMetrics.cancelledAndRejectedOrders -
+                        ordersMetrics.guiasAnuladas }}
+                    </span>
+                  </div>
+                  <div class="col-12 col-md-6 q-pl-md q-mt-sm">
+                    <span class="text-bold">% EFECTIVIDAD CONFIRMACIONES</span><br>
+                    <span>
+                      {{ ((ordersMetrics.totalDropiOrders - ordersMetrics.cancelledAndRejectedOrders -
+                        ordersMetrics.guiasAnuladas) / ordersMetrics.totalDropiOrders * 100).toFixed(2) }}
                     </span>
                   </div>
                 </div>
@@ -545,6 +589,18 @@ export default defineComponent({
       return total > 0 ? parseFloat(total.toFixed(2)) : 0;
     });
 
+    const taxDevolution = computed(() => {
+      const total = (ordersMetrics.value.totalHistoricalDevolution / (ordersMetrics.value.totalDropiOrders - ordersMetrics.value.cancelledAndRejectedOrders -
+        ordersMetrics.value.guiasAnuladas)) * 100;
+      return total > 0 ? parseFloat(total.toFixed(2)) : 0;
+    });
+
+    const taxCancelled = computed(() => {
+      const total = (ordersMetrics.value.totalHistoricalCancelled / (ordersMetrics.value.totalDropiOrders - ordersMetrics.value.cancelledAndRejectedOrders -
+        ordersMetrics.value.guiasAnuladas)) * 100;
+      return total > 0 ? parseFloat(total.toFixed(2)) : 0;
+    });
+
     return {
       tab,
       roas,
@@ -567,6 +623,8 @@ export default defineComponent({
       destinyPageView,
       porcentDelivered,
       totalCollection,
+      taxDevolution,
+      taxCancelled,
       collectionOverInvertion,
       collectionOverInversion,
     }

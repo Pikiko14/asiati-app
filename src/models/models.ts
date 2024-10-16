@@ -142,6 +142,9 @@ export interface OrderMetricInterface {
   returnedFreightDropi: number;
   totalOrdersDeliveredDropi?: number;
   shopify: any;
+  totalHistoricalDevolution: number;
+  guiasAnuladas: number;
+  totalHistoricalCancelled: number;
 }
 
 export interface ProductsInterface {
