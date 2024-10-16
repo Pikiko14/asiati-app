@@ -37,6 +37,7 @@ export const useCompaniesStore = defineStore("companiesStore", () => {
     totalHealthWellbeing: 0,
     totalMoneyInDropi: 0,
     totalOrdersDropiDelivered: 0,
+    shopify: {},
   });
 
   // methods

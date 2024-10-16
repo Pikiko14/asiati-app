@@ -485,7 +485,7 @@ export default defineComponent({
     });
 
     const roas = computed(() => {
-      const total = (ordersMetrics.value.totalMoneyInDropi / metaMetrics.value.spend);
+      const total = (ordersMetrics.value.shopify.totalShopify / metaMetrics.value.spend);
       return total > 0 ? parseFloat(total.toFixed(2)) : 0;
     });
 

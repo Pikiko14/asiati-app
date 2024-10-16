@@ -141,6 +141,7 @@ export interface OrderMetricInterface {
   totalHealthWellbeing: number;
   returnedFreightDropi: number;
   totalOrdersDeliveredDropi?: number;
+  shopify: any;
 }
 
 export interface ProductsInterface {

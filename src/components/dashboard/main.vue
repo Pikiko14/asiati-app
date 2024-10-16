@@ -13,6 +13,14 @@
     </div>
     <MainDashboardComponent class="q-mt-md" />
     <ActionsViewComponent />
+
+    <div class="col-12 q-mt-xl">
+      <span class="text-primary text-h5 text-weight-semi-bold">
+        Metricas Shopify
+      </span>
+    </div>
+    <ShopifyMetrics class="q-mt-md" />
+
     <div class="col-12 q-mt-xl">
       <span class="text-primary text-h5 text-weight-semi-bold">
         Metricas Dropi
@@ -50,6 +58,7 @@ import Campaigns from './main/campaigns.vue';
 import ModalCard from './partials/modalCard.vue';
 import OrdersResume from './main/ordersResume.vue';
 import HeaderComponent from './partials/headers.vue';
+import ShopifyMetrics from './main/ShopifyMetrics.vue';
 import { useCompaniesStore } from 'src/stores/companies';
 import ActionsViewComponent from './main/actionsView.vue';
 import { CampaignsInterface, ResponseObj } from 'src/models/models';
@@ -63,6 +72,7 @@ export default defineComponent({
     ModalCard,
     OrdersResume,
     KpisComponent,
+    ShopifyMetrics,
     HeaderComponent,
     ActionsViewComponent,
     MainDashboardComponent
