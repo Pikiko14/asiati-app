@@ -10,6 +10,9 @@
           <q-icon flat size="18pt" dense rounded name="img:/images/dashboard.svg"></q-icon>
         </q-item-label>
       </q-item-section>
+      <q-tooltip class="bg-secondary" anchor="center right" self="center left">
+        Dashboard
+      </q-tooltip>
     </q-item>
     <q-item to="/orders?page=1&perPage=12&search=" v-if="$hasPermission('list-orders')" class="q-mt-sm">
       <q-item-section>
@@ -17,6 +20,9 @@
           <q-icon flat size="22pt" dense rounded name="img:/images/orders.svg"></q-icon>
         </q-item-label>
       </q-item-section>
+      <q-tooltip class="bg-secondary" anchor="center right" self="center left">
+        Ordenes
+      </q-tooltip>
     </q-item>
     <q-item to="/companies?page=1&perPage=12&search=" class="q-mt-sm" v-if="$hasPermission('list-business')">
       <q-item-section>
@@ -24,6 +30,9 @@
           <q-icon flat size="18pt" dense rounded name="img:/images/company.svg"></q-icon>
         </q-item-label>
       </q-item-section>
+      <q-tooltip class="bg-secondary" anchor="center right" self="center left">
+        Compañias
+      </q-tooltip>
     </q-item>
     <q-item to="/products?page=1&perPage=12&search=" class="q-mt-sm" v-if="$hasPermission('list-products')">
       <q-item-section>
@@ -31,6 +40,9 @@
           <q-icon flat size="20pt" dense rounded name="inventory" color="white"></q-icon>
         </q-item-label>
       </q-item-section>
+      <q-tooltip class="bg-secondary" anchor="center right" self="center left">
+        Productos
+      </q-tooltip>
     </q-item>
     <q-item to="/wallets?page=1&perPage=12&search=" class="q-mt-sm" v-if="$hasPermission('list-wallet')">
       <q-item-section>
@@ -38,6 +50,9 @@
           <q-icon flat size="22pt" dense rounded name="wallet" color="white"></q-icon>
         </q-item-label>
       </q-item-section>
+      <q-tooltip class="bg-secondary" anchor="center right" self="center left">
+        Wallet
+      </q-tooltip>
     </q-item>
     <q-item to="/users?page=1&perPage=12&search=" class="q-mt-sm" v-if="$hasPermission('list-users')">
       <q-item-section>
@@ -45,6 +60,9 @@
           <q-icon flat size="18pt" dense rounded name="img:/images/users.svg"></q-icon>
         </q-item-label>
       </q-item-section>
+      <q-tooltip class="bg-secondary" anchor="center right" self="center left">
+        usuarios
+      </q-tooltip>
     </q-item>
 
     <!--logout items-->
@@ -55,6 +73,9 @@
             <q-icon flat style="margin-left: 3px" size="20pt" color="white" dense rounded name="settings"></q-icon>
           </q-item-label>
         </q-item-section>
+        <q-tooltip class="bg-secondary" anchor="center right" self="center left">
+          Configuración
+        </q-tooltip>
       </q-item>
       <q-item clickable @click="doLogout">
         <q-item-section>
@@ -62,6 +83,9 @@
             <q-icon flat style="margin-left: -5px" size="20pt" dense rounded name="img:/images/logout.svg"></q-icon>
           </q-item-label>
         </q-item-section>
+        <q-tooltip class="bg-secondary" anchor="center right" self="center left">
+          Cerrar sesión
+        </q-tooltip>
       </q-item>
     </div>
   </q-list>
