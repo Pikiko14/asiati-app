@@ -184,3 +184,10 @@ export interface WalletInterface {
   order_id?: string;
   company?: CompanyInterface;
 }
+
+export interface ConfigurationInterface {
+  _id?: string;
+  general_iva?: number | null;
+  fullfilment?: string | number | null;
+  renttax?: any;
+}

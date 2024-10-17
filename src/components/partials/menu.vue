@@ -48,42 +48,63 @@
     </q-item>
 
     <!--logout items-->
-    <q-item class="absolute-bottom" clickable @click="doLogout">
-      <q-item-section>
-        <q-item-label class="text-center">
-          <q-icon flat style="margin-left: -5px" size="20pt" dense rounded name="img:/images/logout.svg"></q-icon>
-        </q-item-label>
-      </q-item-section>
-    </q-item>
+    <div class="absolute-bottom full-width">
+      <q-item clickable @click="openModal" v-if="$hasPermission('list-configuration')">
+        <q-item-section>
+          <q-item-label class="text-center">
+            <q-icon flat style="margin-left: 3px" size="20pt" color="white" dense rounded name="settings"></q-icon>
+          </q-item-label>
+        </q-item-section>
+      </q-item>
+      <q-item clickable @click="doLogout">
+        <q-item-section>
+          <q-item-label class="text-center">
+            <q-icon flat style="margin-left: -5px" size="20pt" dense rounded name="img:/images/logout.svg"></q-icon>
+          </q-item-label>
+        </q-item-section>
+      </q-item>
+    </div>
   </q-list>
 </template>
 
 <script lang="ts">
+import { useQuasar } from 'quasar'
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from 'src/stores/auth'
 
 export default defineComponent({
   name: 'MenuComponent',
-  setup() {
+  emits: ['open-modal'],
+  setup(props, { emit }) {
     // references
+    const $q = useQuasar()
     const router = useRouter()
     const authStore = useAuthStore()
 
     // methods
     const doLogout = () => {
-      try {
+      $q.dialog({
+        title: '¿Deseas cerrar sesión?',
+        message: '¿Estas seguro que deseas salir de la aplicación?',
+        cancel: true,
+        persistent: true
+      }).onOk(() => {
         authStore.doLogout()
         router.push({
           name: 'login'
         })
-      } catch (error) {
-      }
+      })
+    }
+
+    const openModal = () => {
+      emit('open-modal')
     }
 
     // return
     return {
-      doLogout
+      doLogout,
+      openModal
     }
   }
 })

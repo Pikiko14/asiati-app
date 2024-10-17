@@ -38,6 +38,9 @@ export const useCompaniesStore = defineStore("companiesStore", () => {
     totalMoneyInDropi: 0,
     totalOrdersDropiDelivered: 0,
     shopify: {},
+    totalHistoricalCancelled: 0,
+    guiasAnuladas: 0,
+    totalHistoricalDevolution: 0,
   });
 
   // methods
