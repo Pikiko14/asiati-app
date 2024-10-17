@@ -6,8 +6,7 @@
       <q-tab name="tracking" label="Tracking" />
       <q-tab name="marketing" label="Marketing" />
       <q-tab name="flow_money" label="Flujo de caja esperado" />
-      <q-tab name="utility_delivered_order" label="Utilidad entregados" />
-      <q-tab name="utility_wanted" label="Utilidad esperada" />
+      <q-tab name="pygdelivered" label="P&G ENTREGADO" />
     </q-tabs>
     <q-tab-panels v-model="tab" animated>
       <!--tab flujo-->
@@ -307,74 +306,22 @@
       </q-tab-panel>
       <!--end tab flow-->
 
-      <!--tab utilidad pedidos entregados-->
-      <q-tab-panel name="utility_delivered_order">
+      <!--tab de P&G entregago-->
+      <q-tab-panel name="pygdelivered">
         <q-markup-table class="q-pa-none shadow-0">
           <tbody>
             <tr>
               <td style="width">
                 <div class="row">
                   <div class="col-12 col-md-6">
-                    <span class="text-bold">UTILIDAD BRUTA ENTREGADO ($)</span><br>
+                    <span class="text-bold">Ingreso ($)</span><br>
                     <span>
-                      {{ utils.formatPrice(1) }}
+                      {{ utils.formatPrice(ordersMetrics.totalOrdersDropiDelivered) }}
                     </span>
                   </div>
                   <div class="col-12 col-md-6 q-pl-md">
                     <span class="text-bold">
-                      UTILIDAD AI ENTREGADO ($)</span><br>
-                    <span>
-                      {{ utils.formatPrice(1) }}
-                    </span>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td style="width">
-                <div class="row">
-                  <div class="col-12 col-md-6">
-                    <span class="text-bold">UTILIDAD NETA ENTREGADO ($)</span><br>
-                    <span>
-                      {{ utils.formatPrice(1) }}
-                    </span>
-                  </div>
-                  <div class="col-12 col-md-6 q-pl-md">
-                    <span class="text-bold">MARGEN NETO ENTREGADO (%)</span><br>
-                    <span>
-                      0%
-                    </span>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <span class="text-bold">COSTO DE PRODUCTO ENTREGADO ($)</span><br>
-                {{ utils.formatPrice(1) }}
-              </td>
-            </tr>
-          </tbody>
-        </q-markup-table>
-      </q-tab-panel>
-      <!--end tab flow-->
-
-      <!--tab utilidad pedidos entregados-->
-      <q-tab-panel name="utility_wanted">
-        <q-markup-table class="q-pa-none shadow-0">
-          <tbody>
-            <tr>
-              <td style="width">
-                <div class="row">
-                  <div class="col-12 col-md-6">
-                    <span class="text-bold">UTILIDAD BRUTA ESPERADA ($)</span><br>
-                    <span>
-                      {{ utils.formatPrice(1) }}
-                    </span>
-                  </div>
-                  <div class="col-12 col-md-6 q-pl-md">
-                    <span class="text-bold">
-                      UTILIDAD AI ESPERADA ($)</span><br>
+                      DESC IVA ($)</span><br>
                     <span>
                       {{ utils.formatPrice(1) }}
                     </span>

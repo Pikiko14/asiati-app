@@ -155,7 +155,7 @@ export interface ProductsInterface {
   stock?: number;
   final_price?: number;
   description?: string;
-  is_health_and_wellness?: boolean;
+  iva?: number;
 }
 
 export interface WalletImportInterface {

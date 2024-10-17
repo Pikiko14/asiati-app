@@ -5,8 +5,6 @@
       <q-input dense v-model.string="product.name" placeholder="Cocacola 1Lt" outlined rounded :rules="[
         val => !!val || 'Este campo es requerido',
         val => val.length < 90 || '90 caracteres maximos',
-        val => /^[a-zA-Z0-9\s]+$/.test(val)
-          || 'Ingresa un nombre valido'
       ]">
       </q-input>
     </div>
@@ -14,14 +12,15 @@
       <label for="" class="text-weight-semi-bold">Costo del producto</label>
       <q-input dense v-model.number="product.value" placeholder="15000" outlined rounded :rules="[
         val => !!val || 'Este campo es requerido',
-        val => /^\d+(\.\d+)?$/.test(val) || 'Ingresa un nombre valido'
       ]">
       </q-input>
     </div>
     <div class="col-12" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
-      <label for="" class="text-weight-semi-bold">Salud y bienestar</label><br>
-      <q-checkbox style="margin-left: -8px" v-model="product.is_health_and_wellness"
-        :label="product.is_health_and_wellness ? 'No' : 'Si'"></q-checkbox>
+      <label for="" class="text-weight-semi-bold">Iva</label><br>
+      <q-input outlined rounded dense style="margin-left: -8px" type="number" v-model="product.iva" label="Impuesto"
+        :rules="[
+          val => !!val || 'Este campo es requerido',
+        ]"></q-input>
     </div>
     <div class="col-12 col-md-6 q-mt-xl" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
       <q-btn v-close-popup label="Cancelar" color="info" no-caps rounded outline class="full-width"></q-btn>
@@ -61,7 +60,7 @@ export default defineComponent({
     const product = ref<ProductsInterface>({
       name: '',
       value: 0,
-      is_health_and_wellness: false
+      iva: 0
     })
 
     // methods
