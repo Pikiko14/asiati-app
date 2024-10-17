@@ -143,7 +143,11 @@ export default defineComponent({
       { label: 'Crear wallet', value: 'create-wallet' },
       { label: 'Listar wallet', value: 'list-wallet' },
       { label: 'Editar wallet', value: 'edit-wallet' },
-      { label: 'Eliminar wallet', value: 'delete-wallet' }
+      { label: 'Eliminar wallet', value: 'delete-wallet' },
+      { label: 'Crear configuration', value: 'create-configuration' },
+      { label: 'Listar configuration', value: 'list-configuration' },
+      { label: 'Editar configuration', value: 'edit-configuration' },
+      { label: 'Eliminar configuration', value: 'delete-configuration' }
     ];
 
     // methods
