@@ -13,7 +13,7 @@
     <q-dialog v-model="configurationModal">
       <ModalCard title="Configuración">
         <template v-slot:body>
-          <ConfigurationComponent />
+          <ConfigurationComponent @close-modal="configurationModal = false" />
         </template>
       </ModalCard>
     </q-dialog>
@@ -22,8 +22,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, onBeforeMount } from 'vue'
 import MenuComponent from 'src/components/partials/menu.vue';
+import { useConfigurationStore } from 'src/stores/configuration';
 import ModalCard from 'src/components/dashboard/partials/modalCard.vue';
 import ConfigurationComponent from 'src/components/partials/configuration.vue';
 
@@ -36,9 +37,17 @@ export default defineComponent({
   },
 
   setup() {
+    // references
     const leftDrawerOpen = ref(false)
     const configurationModal = ref(false)
+    const { listConfiguration } = useConfigurationStore()
 
+    // hook
+    onBeforeMount(async () => {
+      await listConfiguration()
+    })
+
+    // return
     return {
       leftDrawerOpen,
       configurationModal,

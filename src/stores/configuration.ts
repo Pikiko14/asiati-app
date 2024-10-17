@@ -26,8 +26,26 @@ export const useConfigurationStore = defineStore("configurationStore", () => {
       )) as ResponseObj;
       if (response.success) {
         configurationData.value = response.data;
+        await listConfiguration();
         return response;
       }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const listConfiguration = async () => {
+    try {
+      const response = (await handlerRequest.doGetRequest(
+        `${path}`,
+        "",
+        true
+      )) as ResponseObj;
+      if (response.success) {
+        configurationData.value = response.data;
+        return response;
+      }
+      // validamos  el usuario
     } catch (error) {
       console.log(error);
     }
@@ -37,5 +55,6 @@ export const useConfigurationStore = defineStore("configurationStore", () => {
   return {
     saveConfiguration,
     configurationData,
+    listConfiguration,
   };
 });

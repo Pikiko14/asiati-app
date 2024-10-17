@@ -35,7 +35,8 @@ import { ConfigurationInterface, ResponseObj } from 'src/models/models';
 
 export default defineComponent({
   name: 'ConfigurationComponent',
-  setup() {
+  emits: ['close-modal'],
+  setup(props, { emit }) {
     // references
     const loading = ref(false);
     const { configurationData, saveConfiguration } = useConfigurationStore();
@@ -57,6 +58,8 @@ export default defineComponent({
         const response = await saveConfiguration(configuration.value) as ResponseObj
         if (response.success) {
           notification('positive', response.message as string, 'primary')
+          configuration.value = JSON.parse(JSON.stringify(configurationDataStore.value))
+          emit('close-modal')
         }
       } catch (error) {
       } finally {
