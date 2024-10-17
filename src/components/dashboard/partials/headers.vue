@@ -8,8 +8,8 @@
     <div class="col-12 col-md-6">
       <section class="full-width row d-flex justify-end" v-if="$route.path !== '/dashboard'">
         <div class="col-12 col-md-8" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
-          <q-input clearable @update:model-value="doSearch" debounce="1500" dense v-model="search"
-            placeholder="Buscar..." outlined rounded
+          <q-input v-if="$route.path !== '/expenses'" clearable @update:model-value="doSearch" debounce="1500" dense
+            v-model="search" placeholder="Buscar..." outlined rounded
             :rules="[val => /^(?:[^,'']+)?$/.test(val) || 'El texto es invalido']">
             <template v-slot:prepend>
               <q-icon size="12pt" name="img:images/search.svg"></q-icon>

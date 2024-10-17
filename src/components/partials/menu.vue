@@ -54,6 +54,16 @@
         Wallet
       </q-tooltip>
     </q-item>
+    <q-item to="/expenses?page=1&perPage=12&search=" class="q-mt-sm" v-if="$hasPermission('list-users')">
+      <q-item-section>
+        <q-item-label class="text-center">
+          <q-icon flat size="22pt" dense rounded name="payments" color="white"></q-icon>
+        </q-item-label>
+      </q-item-section>
+      <q-tooltip class="bg-secondary" anchor="center right" self="center left">
+        Gastos operativos
+      </q-tooltip>
+    </q-item>
     <q-item to="/users?page=1&perPage=12&search=" class="q-mt-sm" v-if="$hasPermission('list-users')">
       <q-item-section>
         <q-item-label class="text-center">
@@ -67,7 +77,7 @@
 
     <!--logout items-->
     <div class="absolute-bottom full-width">
-      <q-item clickable @click="openModal" v-if="$hasPermission('list-configuration')">
+      <q-item clickable @click="openModal" v-if="$hasPermission('create-configuration')">
         <q-item-section>
           <q-item-label class="text-center">
             <q-icon flat style="margin-left: 3px" size="20pt" color="white" dense rounded name="settings"></q-icon>

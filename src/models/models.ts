@@ -191,3 +191,13 @@ export interface ConfigurationInterface {
   fullfilment?: string | number | null;
   renttax?: any;
 }
+
+export interface ExpenseInterface {
+  id?: string | number;
+  _id?: string;
+  company?: CompanyInterface;
+  title: string;
+  amount: number;
+  start: string;
+  end: string;
+}
