@@ -195,7 +195,7 @@ export interface ConfigurationInterface {
 export interface ExpenseInterface {
   id?: string | number;
   _id?: string;
-  company?: CompanyInterface;
+  company?: string | CompanyInterface;
   title: string;
   amount: number;
   start: string;

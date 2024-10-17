@@ -7,14 +7,29 @@
     </div>
     <div class="col-12 col-md-6">
       <section class="full-width row d-flex justify-end" v-if="$route.path !== '/dashboard'">
-        <div class="col-12 col-md-8" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
-          <q-input v-if="$route.path !== '/expenses'" clearable @update:model-value="doSearch" debounce="1500" dense
-            v-model="search" placeholder="Buscar..." outlined rounded
+        <div v-if="$route.path !== '/expenses'" class="col-12 col-md-8" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
+          <q-input clearable @update:model-value="doSearch" debounce="1500" dense v-model="search"
+            placeholder="Buscar..." outlined rounded
             :rules="[val => /^(?:[^,'']+)?$/.test(val) || 'El texto es invalido']">
             <template v-slot:prepend>
               <q-icon size="12pt" name="img:images/search.svg"></q-icon>
             </template>
           </q-input>
+        </div>
+        <div v-if="$route.path === '/expenses'" class="col-12 col-md-4" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
+          <q-btn-dropdown unelevated dropdown-icon="img:/images/dropdown.svg" no-caps
+            class="round-20 full-width q-mr-none" color="secondary" label="Mis tiendas">
+            <q-list dense>
+              <q-item clickable v-close-popup v-for="(company, idx) in companies" :key="idx"
+                @click="filterByCompany(company.value)">
+                <q-item-section>
+                  <q-item-label>
+                    {{ company.label }}
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
         </div>
         <div class="col-12 col-md-4" :class="{ 'q-pl-sm': $q.screen.gt.sm }" v-if="$hasPermission(permission)">
           <q-btn @click="openModal" rounded size="12pt" :label="btnLabel" no-caps unelevated color="primary"

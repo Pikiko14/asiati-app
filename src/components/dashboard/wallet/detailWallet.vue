@@ -14,7 +14,7 @@
             <td class="text-left">
               {{ wallet.date?.substring(0, 10) }}
             </td>
-            <td class="text-center">
+            <td class="text-left">
               {{ wallet.type ?? '-' }}
             </td>
             <td class="text-left">

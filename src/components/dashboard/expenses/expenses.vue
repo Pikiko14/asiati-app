@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { date } from 'quasar'
-import { computed, defineComponent, ref } from 'vue'
+import { defineComponent, onBeforeMount, ref } from 'vue'
 import AddEspenses from './addExpenses.vue'
 import ModalCard from '../partials/modalCard.vue';
 import { ScheduleXCalendar } from '@schedule-x/vue'
@@ -35,6 +35,8 @@ import {
 } from '@schedule-x/calendar'
 import '@schedule-x/theme-default/dist/index.css'
 import { ExpenseInterface } from 'src/models/models';
+import { useExpensesStore } from 'src/stores/expenses';
+import { useCompaniesStore } from 'src/stores/companies';
 
 export default defineComponent({
   name: 'ExpensesMainComponent',
@@ -48,9 +50,11 @@ export default defineComponent({
     // resources
     const timeStamp = Date.now()
     const render = ref<boolean>(true)
+    const expensesStore = useExpensesStore()
     const modalExpenses = ref<boolean>(false)
     const dateValue = date.formatDate(timeStamp, 'YYYY-MM-DD')
     const events = ref<ExpenseInterface[]>([]);
+    const companiesStore = useCompaniesStore();
 
     const calendarApp = createCalendar({
       selectedDate: dateValue,
@@ -61,6 +65,9 @@ export default defineComponent({
       ],
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       events: events.value as any,
+      callbacks: {
+
+      }
     });
 
     // methods
@@ -82,6 +89,24 @@ export default defineComponent({
       calendarApp.events.add(data as any);
       openModal();
     }
+
+    const doListExpenses = async () => {
+      try {
+        await expensesStore.listExpenses()
+      } catch (error) {
+      }
+    }
+    const loadCompanies = async () => {
+      try {
+        await companiesStore.listForSelect()
+      } catch (error) {
+      }
+    }
+
+    // hooks
+    onBeforeMount(async () => {
+      await loadCompanies()
+    })
 
     // return
     return {

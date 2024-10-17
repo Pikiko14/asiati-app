@@ -1,8 +1,7 @@
 <template>
   <section class="full-width">
     <!--Header section-->
-    <HeaderComponent :permission="'create-products'" :title="'Cartera'" :btnLabel="'Importar'"
-      @open-modal="openModal" />
+    <HeaderComponent :permission="'create-wallet'" :title="'Cartera'" :btnLabel="'Importar'" @open-modal="openModal" />
     <!--end header section-->
 
     <!--table section-->
