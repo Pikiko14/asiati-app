@@ -51,7 +51,7 @@ export default defineComponent({
     const product = ref<ProductsInterface>({
       name: '',
       value: 0,
-      is_health_and_wellness: false
+      iva: 0
     })
     const openModalProducts = ref<boolean>(false)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -74,8 +74,8 @@ export default defineComponent({
         name: 'is_health_and_wellness',
         align: 'center',
         sortable: false,
-        field: (row: ProductsInterface) => `${row.is_health_and_wellness ? 'Si' : 'No'}`,
-        label: 'Salud y bienestar',
+        field: (row: ProductsInterface) => `${row.iva}%`,
+        label: 'Impuesto',
       },
       {
         name: 'option',
@@ -99,7 +99,7 @@ export default defineComponent({
       product.value = {
         name: '',
         value: 0,
-        is_health_and_wellness: false
+        iva: 0
       }
     }
 
