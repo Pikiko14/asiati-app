@@ -6,7 +6,6 @@
     <!--end header section-->
 
     <!--Calendar app-->
-    {{ events }}
     <ScheduleXCalendar v-if="render" class="window-height q-mt-xl q-pt-xl" :calendar-app="calendarApp" />
     <!--End calendar app-->
 
