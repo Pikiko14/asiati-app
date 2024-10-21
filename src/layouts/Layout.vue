@@ -22,6 +22,7 @@
 </template>
 
 <script lang="ts">
+import { useRoute } from 'vue-router';
 import { defineComponent, ref, onBeforeMount } from 'vue'
 import MenuComponent from 'src/components/partials/menu.vue';
 import { useConfigurationStore } from 'src/stores/configuration';
@@ -38,13 +39,16 @@ export default defineComponent({
 
   setup() {
     // references
+    const route = useRoute();
     const leftDrawerOpen = ref(false)
     const configurationModal = ref(false)
     const { listConfiguration } = useConfigurationStore()
 
     // hook
     onBeforeMount(async () => {
-      await listConfiguration()
+      if (route.path !== '/') {
+        await listConfiguration()
+      }
     })
 
     // return

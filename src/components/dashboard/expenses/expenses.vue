@@ -1,8 +1,8 @@
 <template>
   <div class="full-width">
     <!--Header section-->
-    <HeaderComponent :permission="'create-expenses'" :title="'Gastos operativos'" :btnLabel="'Agregar gasto'"
-      @open-modal="openModal" />
+    <HeaderComponent @filter-by-company="doFilterByCompany" :permission="'create-expenses'" :title="'Gastos operativos'"
+      :btnLabel="'Agregar gasto'" @open-modal="openModal" />
     <!--end header section-->
 
     <!--Calendar app-->
@@ -10,10 +10,10 @@
     <!--End calendar app-->
 
     <!--Modal add expenses-->
-    <q-dialog v-model="modalExpenses">
-      <ModalCard title="Agregar gasto pérativo">
+    <q-dialog @before-hide="clearData" v-model="modalExpenses">
+      <ModalCard :title="event.id ? 'Editar gasto operativo' : 'Agregar gasto opérativo'">
         <template v-slot:body>
-          <AddEspenses @do-save-expense="doSaveExpense" />
+          <AddEspenses :event="event" @do-save-expense="doSaveExpense" />
         </template>
       </ModalCard>
     </q-dialog>
@@ -34,9 +34,10 @@ import {
   createViewMonthGrid,
 } from '@schedule-x/calendar'
 import '@schedule-x/theme-default/dist/index.css'
-import { ExpenseInterface } from 'src/models/models';
+import { ExpenseInterface, ResponseObj } from 'src/models/models';
 import { useExpensesStore } from 'src/stores/expenses';
 import { useCompaniesStore } from 'src/stores/companies';
+import { bb } from 'app/dist/spa/assets/index.7eb49f3c';
 
 export default defineComponent({
   name: 'ExpensesMainComponent',
@@ -55,6 +56,14 @@ export default defineComponent({
     const dateValue = date.formatDate(timeStamp, 'YYYY-MM-DD')
     const events = ref<ExpenseInterface[]>([]);
     const companiesStore = useCompaniesStore();
+    const event = ref<ExpenseInterface>({
+      id: 0,
+      title: '',
+      start: '',
+      end: '',
+      company: '',
+      amount: 0
+    });
 
     const calendarApp = createCalendar({
       selectedDate: dateValue,
@@ -66,7 +75,11 @@ export default defineComponent({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       events: events.value as any,
       callbacks: {
-
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onEventClick: (data: any) => {
+          event.value = data
+          openModal();
+        }
       }
     });
 
@@ -90,16 +103,59 @@ export default defineComponent({
       openModal();
     }
 
-    const doListExpenses = async () => {
+    const doListExpenses = async (company: string) => {
       try {
-        await expensesStore.listExpenses()
+        const { data = [] } = await expensesStore.listExpenses(company) as ResponseObj;
+        prepareEvents(data);
       } catch (error) {
       }
     }
+
+    const doFilterByCompany = async (company: string) => {
+      try {
+        await doListExpenses(company)
+      } catch (error) {
+      }
+    }
+
     const loadCompanies = async () => {
       try {
         await companiesStore.listForSelect()
       } catch (error) {
+      }
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const prepareEvents = (bbddEvents: any) => {
+      for (const item of bbddEvents) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const data: any = {};
+        data.id = item._id;
+        data._id = item._id;
+        data.title = item.title;
+        data.amount = item.amount;
+        const startDate = new Date(item.start);
+        const endDate = new Date(item.end);
+        data.company = item.company;
+        // Sumar 1 día a endDate
+        startDate.setDate(startDate.getDate() + 1);
+        endDate.setDate(endDate.getDate() + 1);
+        // Formatear las fechas
+        data.start = date.formatDate(startDate, 'YYYY-MM-DD');
+        data.end = date.formatDate(endDate, 'YYYY-MM-DD');
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        calendarApp.events.add(data as any);
+      }
+    }
+
+    const clearData = () => {
+      event.value = {
+        id: 0,
+        title: '',
+        start: '',
+        end: '',
+        company: '',
+        amount: 0
       }
     }
 
@@ -110,12 +166,15 @@ export default defineComponent({
 
     // return
     return {
+      event,
       render,
       events,
+      clearData,
       openModal,
       calendarApp,
       modalExpenses,
       doSaveExpense,
+      doFilterByCompany,
     }
   }
 })

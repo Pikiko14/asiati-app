@@ -267,3 +267,15 @@ label {
     width: 100%;
   }
 }
+
+.sx__view-selection {
+  display: none !important;
+}
+
+.sx__date-picker-wrapper {
+  display: none !important;
+}
+
+.sx__month-grid-event {
+  cursor: pointer;
+}

@@ -50,6 +50,14 @@ import { Company, ExpenseInterface, ResponseObj } from 'src/models/models'
 export default defineComponent({
   name: 'AddExpensesComponent',
   emits: ['do-save-expense'],
+  props: {
+    event: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
+  },
   setup(props, { emit }) {
     // references
     const loading = ref(false);
@@ -79,11 +87,16 @@ export default defineComponent({
     // methods
     const doSaveExpense = async () => {
       loading.value = true
+      if (expense.value._id) {
+        doUpdateExpense()
+        return true
+      }
       try {
         const response = await expensesStore.saveExpenses(expense.value) as ResponseObj;
         if (response.success) {
-          notification(response.message, 'positive', 'primary')
+          notification('positive', response.message, 'primary')
           expense.value.id = response.data._id
+          expense.value._id = response.data._id
           emit('do-save-expense', expense.value)
         }
       } catch (error) {
@@ -100,10 +113,28 @@ export default defineComponent({
       }
     }
 
+    // do update
+    const doUpdateExpense = async () => {
+      try {
+        const response = await expensesStore.updateExpense(expense.value) as ResponseObj
+        if (response.success) {
+          notification('positive', response.message, 'primary')
+          emit('do-save-expense', expense.value)
+        }
+      } catch (error) {
+      } finally {
+        loading.value = false
+      }
+    }
+
     // hook
     onBeforeMount(async () => {
       if (companies.value.length === 0) {
         await listCompanies()
+      }
+      if (props.event.id) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        expense.value = props.event as any
       }
     })
 

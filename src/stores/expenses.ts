@@ -31,10 +31,28 @@ export const useExpensesStore = defineStore("expensesStore", () => {
     }
   };
 
-  const listExpenses = async (): Promise<ResponseObj | void> => {
+  const updateExpense = async (
+    params: ExpenseInterface
+  ): Promise<ResponseObj | void> => {
+    try {
+      const response = (await handlerRequest.doPutRequest(
+        `${path}`,
+        params,
+        true,
+        false
+      )) as ResponseObj;
+      if (response.success) {
+        return response;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const listExpenses = async (company: string): Promise<ResponseObj | void> => {
     try {
       const response = (await handlerRequest.doGetRequest(
-        `${path}`,
+        `${path}?company=${company}`,
         "",
         true
       )) as ResponseObj;
@@ -50,5 +68,6 @@ export const useExpensesStore = defineStore("expensesStore", () => {
   return {
     saveExpenses,
     listExpenses,
+    updateExpense,
   };
 });
