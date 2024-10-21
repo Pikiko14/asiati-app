@@ -64,10 +64,25 @@ export const useExpensesStore = defineStore("expensesStore", () => {
     }
   };
 
+  const deleteExpense = async (id: string): Promise<ResponseObj | void> => {
+    try {
+      const response = (await handlerRequest.doDeleteRequest(
+        `${path}/${id}`,
+        true
+      )) as ResponseObj;
+      if (response.success) {
+        return response;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // return statement
   return {
     saveExpenses,
     listExpenses,
     updateExpense,
+    deleteExpense,
   };
 });

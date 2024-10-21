@@ -30,10 +30,14 @@
         outlined rounded :rules="[val => !!val || 'Este campo es requerido']">
       </q-select>
     </div>
-    <div class="col-12 col-md-6 q-mt-xl" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
+    <div class="col-12 col-md-4 q-mt-xl" :class="{ 'q-pr-sm': $q.screen.gt.sm }">
       <q-btn v-close-popup label="Cancelar" color="info" no-caps rounded outline class="full-width"></q-btn>
     </div>
-    <div class="col-12 col-md-6  q-mt-xl" :class="{ 'q-pl-sm': $q.screen.gt.sm }">
+    <div class="col-12 col-md-4 q-mt-xl" :class="{ 'q-px-sm': $q.screen.gt.sm }">
+      <q-btn v-if="expense._id" label="Eliminar" color="red" no-caps rounded unelevated class="full-width"
+        @click="doDeleteExpense"></q-btn>
+    </div>
+    <div class="col-12 col-md-4  q-mt-xl" :class="{ 'q-pl-sm': $q.screen.gt.sm }">
       <q-btn :loading="loading" type="submit" unelevated label="Guardar" color="primary" no-caps rounded
         class="full-width"></q-btn>
     </div>
@@ -49,7 +53,11 @@ import { Company, ExpenseInterface, ResponseObj } from 'src/models/models'
 
 export default defineComponent({
   name: 'AddExpensesComponent',
-  emits: ['do-save-expense'],
+  emits: [
+    'do-save-expense',
+    'do-update-expense',
+    'do-delete-expense',
+  ],
   props: {
     event: {
       type: Object,
@@ -119,7 +127,21 @@ export default defineComponent({
         const response = await expensesStore.updateExpense(expense.value) as ResponseObj
         if (response.success) {
           notification('positive', response.message, 'primary')
-          emit('do-save-expense', expense.value)
+          emit('do-update-expense', expense.value)
+        }
+      } catch (error) {
+      } finally {
+        loading.value = false
+      }
+    }
+
+    const doDeleteExpense = async () => {
+      try {
+        loading.value = true
+        const response = await expensesStore.deleteExpense(expense.value._id as string) as ResponseObj
+        if (response.success) {
+          notification('positive', response.message, 'primary')
+          emit('do-delete-expense', expense.value)
         }
       } catch (error) {
       } finally {
@@ -143,7 +165,8 @@ export default defineComponent({
       expense,
       loading,
       companies,
-      doSaveExpense
+      doSaveExpense,
+      doDeleteExpense,
     }
   }
 })

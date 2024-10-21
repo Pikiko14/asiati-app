@@ -13,7 +13,8 @@
     <q-dialog @before-hide="clearData" v-model="modalExpenses">
       <ModalCard :title="event.id ? 'Editar gasto operativo' : 'Agregar gasto opérativo'">
         <template v-slot:body>
-          <AddEspenses :event="event" @do-save-expense="doSaveExpense" />
+          <AddEspenses :event="event" @do-delete-expense="doDeleteExpense" @do-update-expense="doUpdateExpense"
+            @do-save-expense="doSaveExpense" />
         </template>
       </ModalCard>
     </q-dialog>
@@ -37,7 +38,7 @@ import '@schedule-x/theme-default/dist/index.css'
 import { ExpenseInterface, ResponseObj } from 'src/models/models';
 import { useExpensesStore } from 'src/stores/expenses';
 import { useCompaniesStore } from 'src/stores/companies';
-import { bb } from 'app/dist/spa/assets/index.7eb49f3c';
+import { createEventsServicePlugin } from '@schedule-x/events-service';
 
 export default defineComponent({
   name: 'ExpensesMainComponent',
@@ -49,8 +50,10 @@ export default defineComponent({
   },
   setup() {
     // resources
+    const eventsServicePlugin = createEventsServicePlugin();
     const timeStamp = Date.now()
     const render = ref<boolean>(true)
+    const eventForFilter = ref<any>({})
     const expensesStore = useExpensesStore()
     const modalExpenses = ref<boolean>(false)
     const dateValue = date.formatDate(timeStamp, 'YYYY-MM-DD')
@@ -78,10 +81,15 @@ export default defineComponent({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onEventClick: (data: any) => {
           event.value = data
+          eventForFilter.value = data
           openModal();
+        },
+        onEventUpdate: (updatedEvent) => {
+          // Handle updated event
+          console.log("Event updated:", updatedEvent);
         }
       }
-    });
+    }, [eventsServicePlugin]);
 
     // methods
     const openModal = () => {
@@ -159,6 +167,26 @@ export default defineComponent({
       }
     }
 
+    const doUpdateExpense = (data: any) => {
+      const startDate = new Date(data.start);
+      const endDate = new Date(data.end);
+      // Sumar 1 día a endDate
+      startDate.setDate(startDate.getDate() + 1);
+      endDate.setDate(endDate.getDate() + 1);
+      // Formatear las fechas
+      eventForFilter.value.start = date.formatDate(startDate, 'YYYY-MM-DD');
+      eventForFilter.value.end = date.formatDate(endDate, 'YYYY-MM-DD');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      eventsServicePlugin.update(eventForFilter.value as any);
+      openModal();
+    }
+
+    const doDeleteExpense = (data: any) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      eventsServicePlugin.remove(eventForFilter.value._id as any);
+      openModal();
+    }
+
     // hooks
     onBeforeMount(async () => {
       await loadCompanies()
@@ -174,6 +202,8 @@ export default defineComponent({
       calendarApp,
       modalExpenses,
       doSaveExpense,
+      doUpdateExpense,
+      doDeleteExpense,
       doFilterByCompany,
     }
   }
