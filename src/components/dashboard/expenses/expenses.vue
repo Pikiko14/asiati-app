@@ -53,6 +53,7 @@ export default defineComponent({
     const eventsServicePlugin = createEventsServicePlugin();
     const timeStamp = Date.now()
     const render = ref<boolean>(true)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const eventForFilter = ref<any>({})
     const expensesStore = useExpensesStore()
     const modalExpenses = ref<boolean>(false)
@@ -140,7 +141,7 @@ export default defineComponent({
         const data: any = {};
         data.id = item._id;
         data._id = item._id;
-        data.title = item.title;
+        data.title = `${item.title} - ${item.amount}`;
         data.amount = item.amount;
         const startDate = new Date(item.start);
         const endDate = new Date(item.end);
