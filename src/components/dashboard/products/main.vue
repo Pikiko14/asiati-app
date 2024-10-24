@@ -68,7 +68,7 @@ export default defineComponent({
         align: 'right',
         sortable: false,
         field: (row: ProductsInterface) => `${utils.formatPrice(row.value)}`,
-        label: 'Valor (COP)',
+        label: 'Costo (COP)',
       },
       {
         name: 'is_health_and_wellness',

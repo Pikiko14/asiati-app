@@ -316,14 +316,14 @@
                   <div class="col-12 col-md-6">
                     <span class="text-bold">Ingreso ($)</span><br>
                     <span>
-                      {{ utils.formatPrice(ordersMetrics.totalOrdersDropiDelivered) }}
+                      {{ utils.formatPrice(ordersMetrics.totalOrdersDropiDelivered) || 0 }}
                     </span>
                   </div>
                   <div class="col-12 col-md-6 q-pl-md">
                     <span class="text-bold">
                       DESC IVA ($)</span><br>
                     <span>
-                      {{ utils.formatPrice(1) }}
+                      {{ utils.formatPrice(ordersMetrics.descIva) || 0 }}
                     </span>
                   </div>
                 </div>
@@ -334,26 +334,139 @@
                 <div class="row">
                   <div class="col-12 col-md-6">
                     <span class="text-bold">
-                      UTILIDAD NETA ESPERADA ($)</span><br>
+                      COSTO PRODUCTO ($)</span><br>
                     <span>
-                      {{ utils.formatPrice(1) }}
+                      {{ utils.formatPrice(ordersMetrics.productCosto) || 0 }}
                     </span>
                   </div>
                   <div class="col-12 col-md-6 q-pl-md">
                     <span class="text-bold">
-                      UTILIDAD NETA ESPERADA SOBRE INVERSIÓN (ROI)</span><br>
+                      IVA A FAVOR</span><br>
                     <span>
-                      0%
+                      {{ utils.formatPrice(ordersMetrics.ivaAFavor) || 0 }}
                     </span>
                   </div>
                 </div>
               </td>
             </tr>
             <tr>
-              <td>
-                <span class="text-bold">
-                  MARGEN NETO ESPERADO (%)</span><br>
-                {{ utils.formatPrice(1) }}
+              <td style="width">
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <span class="text-bold">
+                      UTILIDAD BRUTA</span><br>
+                    <span>
+                      {{ utils.formatPrice(ordersMetrics.utilidadBruta) || 0 }}
+                    </span>
+                  </div>
+                  <div class="col-12 col-md-6 q-pl-md">
+                    <span class="text-bold">
+                      INVERSIÓN EN PAUTA</span><br>
+                    <span>
+                      {{ utils.formatPrice(metaMetrics.spend) }}
+                    </span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="width">
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <span class="text-bold">
+                      UTILIDAD BRUTA (CON PAUTA)</span><br>
+                    <span>
+                      {{ utils.formatPrice(ordersMetrics.utilidadBrutaConPauta) || 0 }}
+                    </span>
+                  </div>
+                  <div class="col-12 col-md-6 q-pl-md">
+                    <span class="text-bold">
+                      FLETE</span><br>
+                    <span>
+                      {{ utils.formatPrice(metaMetrics.flete) || 0 }}
+                    </span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="width">
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <span class="text-bold">
+                      FLETE DEVOLUCIÓN</span><br>
+                    <span>
+                      {{ utils.formatPrice(ordersMetrics.devolucionFlete) || 0 }}
+                    </span>
+                  </div>
+                  <div class="col-12 col-md-6 q-pl-md">
+                    <span class="text-bold">
+                      FULL FILMENT</span><br>
+                    <span>
+                      {{ utils.formatPrice(ordersMetrics.devolucionFlete) || 0 }}
+                    </span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="width">
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <span class="text-bold">
+                      COSTO OPERATIVO</span><br>
+                    <span>
+                      {{ utils.formatPrice(ordersMetrics.costoOperativo) || 0 }}
+                    </span>
+                  </div>
+                  <div class="col-12 col-md-6 q-pl-md">
+                    <span class="text-bold">
+                      4 X 1000</span><br>
+                    <span>
+                      {{ utils.formatPrice(ordersMetrics.cuatroPorMil) || 0 }}
+                    </span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="width">
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <span class="text-bold">
+                      UTILIDAD AI</span><br>
+                    <span>
+                      {{ utils.formatPrice(ordersMetrics.utilidadIa) || 0 }}
+                    </span>
+                  </div>
+                  <div class="col-12 col-md-6 q-pl-md">
+                    <span class="text-bold">
+                      PROVISIÓN ICA</span><br>
+                    <span>
+                      {{ utils.formatPrice(ordersMetrics.provisionIca) || 0 }}
+                    </span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="width">
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <span class="text-bold">
+                      PROVISIÓN RENTA</span><br>
+                    <span>
+                      {{ utils.formatPrice(ordersMetrics.utilidadIa) || 0 }}
+                    </span>
+                  </div>
+                  <div class="col-12 col-md-6 q-pl-md">
+                    <span class="text-bold">
+                      UTILIDAD NETA</span><br>
+                    <span>
+                      {{ utils.formatPrice(ordersMetrics.provisionIca) || 0 }}
+                    </span>
+                  </div>
+                </div>
               </td>
             </tr>
           </tbody>
