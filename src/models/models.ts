@@ -145,7 +145,17 @@ export interface OrderMetricInterface {
   totalHistoricalDevolution: number;
   guiasAnuladas: number;
   totalHistoricalCancelled: number;
-  descIva?: number;
+  descIva: number;
+  productCosto: number;
+  ivaAFavor: number;
+  utilidadBruta: number;
+  utilidadBrutaConPauta: number;
+  flete?: number;
+  devolucionFlete: number;
+  fullFilmentTotal: number;
+  costoOperativo: number;
+  cuatroPorMil: number;
+  renttax: number;
 }
 
 export interface ProductsInterface {

@@ -376,14 +376,15 @@
                     <span class="text-bold">
                       UTILIDAD BRUTA (CON PAUTA)</span><br>
                     <span>
-                      {{ utils.formatPrice(ordersMetrics.utilidadBrutaConPauta) || 0 }}
+                      {{ utils.formatPrice(ordersMetrics?.utilidadBruta ? ordersMetrics?.utilidadBruta -
+                        metaMetrics.spend : metaMetrics.spend) || 0 }}
                     </span>
                   </div>
                   <div class="col-12 col-md-6 q-pl-md">
                     <span class="text-bold">
                       FLETE</span><br>
                     <span>
-                      {{ utils.formatPrice(metaMetrics.flete) || 0 }}
+                      {{ utils.formatPrice(ordersMetrics.flete) || 0 }}
                     </span>
                   </div>
                 </div>
@@ -403,7 +404,7 @@
                     <span class="text-bold">
                       FULL FILMENT</span><br>
                     <span>
-                      {{ utils.formatPrice(ordersMetrics.devolucionFlete) || 0 }}
+                      {{ utils.formatPrice(ordersMetrics.fullFilmentTotal) || 0 }}
                     </span>
                   </div>
                 </div>
@@ -423,7 +424,7 @@
                     <span class="text-bold">
                       4 X 1000</span><br>
                     <span>
-                      {{ utils.formatPrice(ordersMetrics.cuatroPorMil) || 0 }}
+                      {{ utils.formatPrice(cuatroXMil) }}
                     </span>
                   </div>
                 </div>
@@ -436,14 +437,14 @@
                     <span class="text-bold">
                       UTILIDAD AI</span><br>
                     <span>
-                      {{ utils.formatPrice(ordersMetrics.utilidadIa) || 0 }}
+                      {{ utils.formatPrice(utilidadIa) || 0 }}
                     </span>
                   </div>
                   <div class="col-12 col-md-6 q-pl-md">
                     <span class="text-bold">
                       PROVISIÓN ICA</span><br>
                     <span>
-                      {{ utils.formatPrice(ordersMetrics.provisionIca) || 0 }}
+                      {{ utils.formatPrice(provisionIca) || 0 }}
                     </span>
                   </div>
                 </div>
@@ -456,14 +457,14 @@
                     <span class="text-bold">
                       PROVISIÓN RENTA</span><br>
                     <span>
-                      {{ utils.formatPrice(ordersMetrics.utilidadIa) || 0 }}
+                      {{ utils.formatPrice(utilidadRenta) || 0 }}
                     </span>
                   </div>
                   <div class="col-12 col-md-6 q-pl-md">
                     <span class="text-bold">
                       UTILIDAD NETA</span><br>
                     <span>
-                      {{ utils.formatPrice(ordersMetrics.provisionIca) || 0 }}
+                      {{ utils.formatPrice(utilidadNeta) || 0 }}
                     </span>
                   </div>
                 </div>
@@ -661,11 +662,47 @@ export default defineComponent({
       return total > 0 ? parseFloat(total.toFixed(2)) : 0;
     });
 
+    const cuatroXMil = computed(() => {
+      const collectionTotal = ordersMetrics.value.collectionDropi.toFixed(0);
+      const total = (parseInt(collectionTotal) + parseInt(metaMetrics.value.spend as string)) / 250;
+      return total > 0 ? total : 0;
+    });
+
+    const provisionIca = computed(() => {
+      return 0.01104 * ordersMetrics.value.totalOrdersDropiDelivered
+    });
+
+    const utilidadIa = computed(() => {
+      let total = 0;
+      total = ordersMetrics.value.utilidadBruta - ordersMetrics.value.devolucionFlete - ordersMetrics?.value?.fullFilmentTotal -
+        ordersMetrics.value.costoOperativo - cuatroXMil.value
+      return total;
+    })
+
+    const utilidadRenta = computed(() => {
+      let total = 0;
+      if (utilidadIa.value > 0) {
+        total = parseInt(utilidadIa.value.toFixed(0)) * ordersMetrics.value.renttax;
+      }
+      return total;
+    });
+
+    const utilidadNeta = computed(() => {
+      let total = 0;
+      total = utilidadIa.value - provisionIca.value - utilidadRenta.value;
+      return total;
+    });
+
     return {
       tab,
       roas,
       utils,
       cvrTax,
+      utilidadNeta,
+      utilidadRenta,
+      utilidadIa,
+      provisionIca,
+      cuatroXMil,
       costBy1000,
       videoViews,
       costBySell,
