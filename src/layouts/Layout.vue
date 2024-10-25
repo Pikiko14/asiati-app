@@ -46,7 +46,7 @@ export default defineComponent({
 
     // hook
     onBeforeMount(async () => {
-      if (route.path !== '/') {
+      if (route.path !== '/' && route.path !== '/login') {
         await listConfiguration()
       }
     })

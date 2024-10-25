@@ -145,6 +145,7 @@ export interface OrderMetricInterface {
   totalHistoricalDevolution: number;
   guiasAnuladas: number;
   totalHistoricalCancelled: number;
+  descIva?: number;
 }
 
 export interface ProductsInterface {

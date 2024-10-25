@@ -2,7 +2,7 @@
   <q-card class="round-10 modal-card q-px-lg q-py-md">
     <q-card-section>
       <span class="text-h5 text-weight-bold text-primary">{{ title }}</span>
-      <q-btn v-close-popup rounded size="7pt" flat dense class="float-right q-mt-sm" icon="img:/images/close.svg">
+      <q-btn v-close-popup rounded size="7pt" flat dense class="float-right q-mt-sm" icon="close">
         <q-tooltip>
           Cerrar
         </q-tooltip>

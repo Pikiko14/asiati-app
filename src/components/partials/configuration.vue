@@ -69,7 +69,7 @@ export default defineComponent({
 
     // hook
     onBeforeMount(() => {
-      configuration.value = JSON.parse(JSON.stringify(configurationDataStore.value))
+      configuration.value = JSON.parse(JSON.stringify(configurationDataStore.value ? configurationDataStore.value : {}))
     })
 
     // return statemend

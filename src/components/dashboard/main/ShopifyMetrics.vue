@@ -1,7 +1,7 @@
 <template>
   <div class="grid-container">
     <div class="col-12 col-sm-6 col-md-3">
-      <MainCard :icon="'img:/images/operation.svg'" :title="'Operación'"
+      <MainCard :isPrice="false" :icon="'img:/images/operation.svg'" :title="'Operación'"
         :amount="ordersMetrics.shopify.totalOrderShopify ?? 0" :label="'Pedidos Shopify'" />
     </div>
     <div class="col-12 col-sm-6 col-md-3">
